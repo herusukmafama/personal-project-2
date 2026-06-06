@@ -1,0 +1,104 @@
+{
+  "page_title": "Job Data Syncronization",
+  "breadcrumb": [
+    {
+      "label": "Help and Support",
+      "url": "helpAndSupport"
+    },
+    {
+      "label": "Features",
+      "url": "main/030000"
+    },
+    {
+      "label": "Job Data Syncronization",
+      "url": "core/050073"
+    }
+  ],
+  "page_content": {
+    "type": "content",
+    "navigations": [
+      {
+        "label": "Overview",
+        "id": "overview"
+      }
+    ],
+    "section": [
+      {
+        "title": "Job Data Syncronization",
+        "id": "overview",
+        "description": "<p>Fitur <strong>Job Data Synchronization</strong> dirancang untuk memudahkan proses pertukaran data secara otomatis antara berbagai sistem. Dengan fitur ini, pengguna dapat melakukan <strong>sinkronisasi (sync)</strong> maupun <strong>penyediaan (supply) data</strong> ke berbagai <strong>source</strong> maupun <strong>destination</strong> secara fleksibel, termasuk mendukung proses dua arah.</p>",
+        "data": [
+          {
+            "title": "Feature",
+            "id": "",
+            "description": "<p>Platform dan format data yang didukung pada Job Data Syncrhonization antara lain:<ul> <li><strong>RDBMS</strong> (Relational Database Management System)</li> <li><strong>SQLite</strong></li> <li><strong>Couchbase</strong></li> <li><strong>MongoDB</strong></li> <li><strong>File CSV</strong></li> <li><strong>File JSON</strong></li> </ul></p>",
+            "data": []
+          },
+          {
+            "title": "Table Configuration Guide",
+            "id": "",
+            "description": "",
+            "data": [
+              {
+                "title": "",
+                "description": "",
+                "order": 1,
+                "image": [
+                  {
+                    "url": "core/050073-figure-01.png",
+                    "notes": ""
+                  }
+                ],
+                "type": "image"
+              },
+              {
+                "title": "",
+                "description": "<p>Berikut penjelasan konfigurasi yang diperlukan pada <em>table</em> <strong>conf_data_sync.</strong><ul> <li>cds_id: ID dari konfigurasi</li> <li>cds_code: Kode dari setiap konfigurasi</li> <li>cds_name: Nama dari konfigurasi</li> <li>cds_desc: Deskripsi dari konfigurasi</li> <li>cds_src_provider: Provider dari source data yang akan digunakan</li> <li>cds_src_connection: Kode koneksi yang akan diambil sesuai dengan koneksi yang didaftarkan</li> <li>cds_src_initdata: Source data awal yang akan diakses</li> <li>cds_src_data: Source table/function yang akan diakses</li> <li>cds_src_field: Field dari source yang akan dipilih untuk didistribusikan</li> <li>cds_dest_provider: Provider dari destination data yang akan digunakan</li> <li>cds_dest_connection: Kode koneksi yang akan diambil sesuai dengan koneksi yang didaftarkan</li> <li>cds_dest_data: Destination data atau tabel yang akan diakses untuk supply data</li> <li>cds_dest_field: Field destination yang akan diisi</li> <li>cds_type_con: Tipe kondisi yang akan digunakan</li> <li>cds_type_con_field: Field yang digunakan sebagai keyword untuk menjalankan kondisi cds_type_con</li> <li>cds_condition: Field untuk mendetailkan kondisi dari cds_type_con_field</li> <li>cds_is_active: Status aktif dari konfigurasi data</li> <li>cds_job_frequency: Job yang akan menjalankan proses</li> <li>cds_job_priority: Level prioritas data saat job dijalankan</li> <li>cds_created_by: User yang membuat konfigurasi</li> <li>cds_created_date: Tanggal konfigurasi dibuat</li> <li>cds_updated_by: User yang melakukan update konfigurasi</li> <li>cds_updated_date: Tanggal konfigurasi diperbarui</li> <li>cds_processed_by: User yang menjalankan job NiFi</li> <li>cds_processed_date: Tanggal job NiFi selesai dijalankan</li> <li>cds_status: Status hasil running job NiFi</li> <li>cds_message: Pesan atau keterangan dari status</li> <li>cds_doc_key_cb: Field wajib diisi untuk destination Couchbase sebagai dasar generate ID dokumen</li> </ul></p>",
+                "order": 2,
+                "links": [],
+                "type": "document"
+              },
+              {
+                "title": "Tips",
+                "description": "<p>Jika RDBMS dijadikan source maka cds_code harus menggunakan format prefix rdbms_[<em>free text</em>] , Jika RDBMS dijadikan destination maka cds_code harus menggunakan format [<em>free text</em>]_rdbms sebagai string kedua.</p>",
+                "order": 3,
+                "type": "tips"
+              },
+              {
+                "title": "",
+                "description": "<p><ol type=\"1\"> <li>Lakukan konfigurasi untuk Job Data Syncronization pada <em>database</em> <strong>idc.core,</strong> <em>schema</em> <strong>public,</strong> <em>table</em> <strong>conf_data_sync.</strong></li> <li>Jalan kan job data synchronization sesuai dengan yang sudah dikonfigurasi pada field <em>cds_job_frequency</em> di <em>table</em> <strong>conf_data_sync</strong>.</li> <li>Job akan membaca dan memproses konfigurasi, melakukan proses pengambilan data pada source, memformulasikan dan mendistribusikan data yang siap dikirim ke destination sesuai dengan konfigurasi yang tersimpan pada table <strong>conf_data_sync</strong>.</li> <li>Lakukan pengecekan pada destination untuk memastikan data sudah terdistribusi dengan sesuai.</li> </ol></p>",
+                "order": 1,
+                "links": [],
+                "type": "document"
+              },
+              {
+                "title": "Limitation",
+                "description": "<p><ul> <li>Field auto increment tidak dapat dijadikan sebagai where condition</li> <li>Jika source merupakan Couchbase berbentuk array, maka tidak dapat dijadikan source data untuk insert, update-insert maupun delete-insert kecuali destination merupakan spesifik dokumen.</li> <li>Jika destination merupakan Couchbase berbentuk array, maka hanya dapat dijadikan destinasi jika dokumen couchbase source juga merupakan dokumen berbentuk array dan tidak dapat menggunakan selected field ataupun where condition.</li> <li>Jika destination merupakan Couchbase dan melakukan insert dengan ID yang sudah ada pada Couchbase, maka data baru tidak akan bertambah ke dalam Collection Couchbase.</li> <li>Jika destination merupakan file CSV / JSON, maka cds_type_con hanya dapat melakukan insert.</li> </ul></p>",
+                "order": 2,
+                "type": "forbidden"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "",
+        "id": "",
+        "description": "",
+        "data": [
+          {
+            "title": "Full Documentation",
+            "id": "",
+            "description": "Untuk informasi detail, silakan akses dokumen berikut",
+            "data": [
+              {
+                "url": "core/050073-Job-Data-Syncronization.pdf",
+                "label": "Job Data Syncronization"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -4,5 +4,5 @@ dist
 .env.*
 *.local
 *.log
-*.docx
+/Database Deployment Guidelines.docx
 .DS_Store

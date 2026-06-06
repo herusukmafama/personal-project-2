@@ -1,0 +1,259 @@
+{
+  "page_title": "DF Bulk Decisioning & BC Score",
+  "breadcrumb": [
+    {
+      "label": "Help and Support",
+      "url": "helpAndSupport"
+    },
+    {
+      "label": "Features",
+      "url": "main/030000"
+    },
+    {
+      "label": "DF Bulk Decisioning & BC Score",
+      "url": "main/030175"
+    }
+  ],
+  "page_content": {
+    "type": "content",
+    "navigations": [
+      {
+        "label": "Overview",
+        "id": "overview"
+      }
+    ],
+    "section": [
+      {
+        "title": "DF Bulk Decisioning",
+        "id": "overview",
+        "description": "<p>DF Bulk Decisioning merupakan sebuah fitur yang dirancang untuk menjalankan proses DF melalui sebuah job yang terjadwal, di mana seluruh data akan diproses secara <em>bulk</em> (dalam satu kali eksekusi penuh). Eksekusi DF dilakukan berdasarkan konfigurasi yang tersimpan di database. Konfigurasi ini mencakup informasi mengenai jadwal eksekusi job, <em>source table</em>, <em>destination table</em>, dan kode DF yang digunakan. DF akan mengambil data dari table sumber yang telah ditentukan, lalu memproses data tersebut sesuai dengan konfigurasi yang terdapat dalam DF. Hasil pemrosesan akan disimpan ke dalam table tujuan.</p>",
+        "data": [
+          {
+            "title": "Menjalankan Bulk Decision Flow",
+            "id": "",
+            "description": "<p>DF Bulk Decisioning digunakan untuk memproses seluruh data secara massal (<em>bulk</em>) melalui job yang terjadwal.</p><p>Adapun Langkah-langkah nya :</p><ol><li>Siapkan Data Sumber: Pastikan data tabel summary_lms_customer sudah tersedia.</li></ol><ol><li>Konfigurasi DF: Buat Decision Flow menggunakan <em>data applied</em> non real-time dari tabel tersebut, dan pastikan statusnya Active (Synced).</li></ol><ol><li>Jalankan Job: Masuk ke menu Batch Scheduler dan eksekusi job bernama <em>i_df_bulk_decisioning</em>.</li></ol><ol><li>Verifikasi Proses: Cek tabel batch.master_bulk_df pada schema idc.en untuk memastikan baris baru konfigurasi DF telah ditambahkan. Status job akan berubah menjadi <em>Waiting</em> jika dijalankan sebelum <em>job time</em> yang ditentukan.</li></ol><ol><li>Cek Hasil: Data hasil eksekusi akan tersimpan di tabel batch.summary_lms_customer_result.</li></ol><ol><li>Pantau Log: Cek log pemrosesan di tabel batch.bulk_decisioning_log untuk melihat status dan waktu proses.</li></ol><p>Data hasil eksekusi DF tidak hanya disimpan untuk bulan berjalan, tetapi juga secara historis hingga maksimal 24 bulan ke belakang. Setiap hasil bulanan disimpan dalam tabel terpisah dengan format penamaan:</p><p><strong>summary_lms_customer_result_mX</strong></p><p>di mana X adalah angka yang menunjukkan berapa bulan data tersebut tertinggal dari bulan berjalan. Berikut penjelasan detailnya:</p><ul><li>summary_lms_customer_result (tanpa akhiran) → menyimpan data untuk bulan berjalan</li><li>summary_lms_customer_result_m1 → menyimpan data untuk 1 bulan sebelumnya</li><li>summary_lms_customer_result_m2 → menyimpan data untuk 2 bulan sebelumnya</li><li>summary_lms_customer_result_m12 → menyimpan data untuk 12 bulan sebelumnya</li><li>dan seterusnya</li></ul>",
+            "data": [
+              {
+                "title": "",
+                "description": "",
+                "order": 1,
+                "image": [
+                  {
+                    "url": "main/030175-figure-01.png",
+                    "notes": ""
+                  }
+                ],
+                "type": "image"
+              },
+              {
+                "title": "",
+                "description": "",
+                "order": 2,
+                "image": [
+                  {
+                    "url": "main/030175-figure-02.png",
+                    "notes": ""
+                  }
+                ],
+                "type": "image"
+              },
+              {
+                "title": "",
+                "description": "",
+                "order": 3,
+                "image": [
+                  {
+                    "url": "main/030175-figure-03.png",
+                    "notes": ""
+                  }
+                ],
+                "type": "image"
+              },
+              {
+                "title": "",
+                "description": "",
+                "order": 4,
+                "image": [
+                  {
+                    "url": "main/030175-figure-04.png",
+                    "notes": ""
+                  }
+                ],
+                "type": "image"
+              },
+              {
+                "title": "",
+                "description": "",
+                "order": 5,
+                "image": [
+                  {
+                    "url": "main/030175-figure-05.png",
+                    "notes": ""
+                  }
+                ],
+                "type": "image"
+              },
+              {
+                "title": "",
+                "description": "",
+                "order": 6,
+                "image": [
+                  {
+                    "url": "main/030175-figure-06.png",
+                    "notes": ""
+                  }
+                ],
+                "type": "image"
+              },
+              {
+                "title": "",
+                "description": "",
+                "order": 7,
+                "image": [
+                  {
+                    "url": "main/030175-figure-07.png",
+                    "notes": ""
+                  }
+                ],
+                "type": "image"
+              }
+            ]
+          },
+          {
+            "title": "Behavior & Collection (BC) Score",
+            "id": "",
+            "description": "<p>BC Score, atau Behaviour and Collection Score, merupakan gabungan dari behaviour score dan collection score yang digunakan untuk menilai performa model scorecard. Behaviour score dihitung dari data historis pelanggan pada tabel summary_lms_customer, sedangkan collection score diambil dari data aktivitas penagihan di database yang masih dalam tahap penentuan tabel. BC Score memberikan gambaran yang lebih lengkap mengenai risiko kredit dan kualitas pelanggan, karena mencerminkan perilaku historis sekaligus respons terhadap proses collection.</p><p>BC Score juga digunakan dalam analisis <strong>PSI</strong> untuk memantau kestabilan distribusi skor antar periode, <strong>GBKS</strong> untuk mengukur kemampuan skor dalam membedakan pelanggan baik dan buruk, serta <strong>Character Analysis</strong> untuk melihat segmentasi populasi berdasarkan skor dan kaitannya dengan atribut lain seperti usia, wilayah, pekerjaan, atau jenis produk.</p>",
+            "data": []
+          },
+          {
+            "title": "Running GBKS, PSI & Char Report",
+            "id": "",
+            "description": "<ol><li>Generate GBKS Report</li></ol><p>Untuk menjalankan proses generate GBKS report, ikuti langkah-langkah berikut:</p><ol><li>Jalankan job <strong>i_df_bulk_decisioning</strong></li></ol><p>Lakukan eksekusi job <strong>i_df_bulk_decisioning</strong> melalui menu <strong>Batch Scheduler</strong> untuk memproses data dari tabel summary_lms_customer. Hasil dari job ini akan disimpan ke dalam tabel <strong>summary_lms_customer_result</strong>.</p><ol><li>Pastikan data tersedia pada tabel <strong>summary_lms_customer_result_mX.</strong></li></ol><p>Verifikasi bahwa tabel summary_lms_customer_result_mX telah berisi data. Tabel ini akan digunakan sebagai sumber data utama dalam proses perhitungan GBKS Report.</p><p>Catatan :</p><p>Tabel summary_lms_customer_result_mX dipilih berdasarkan konfigurasi <strong>maturity</strong> pada scorecard.</p><p>Contoh:</p><ul><li>Jika maturity = 2, maka digunakan summary_lms_customer_result_m2</li><li>Jika maturity = 3, maka digunakan summary_lms_customer_result_m3, dan seterusnya.</li></ul><ol><li>Jalankan job <strong>i_rpt_gbks_bc_score</strong>,</li></ol><p>Setelah memastikan data tersedia, jalankan job i_rpt_gbks_bc_score melalui menu Batch Scheduler.</p><ol><li>Periksa hasil pada tabel en.report.rpt_gbks dan en.report.rpt_gbks_result.</li></ol><p>Setelah job selesai, buka tabel en.report.rpt_gbks dan en.report.rpt_gbks_result di schema en.report.</p><ol><li>Generate Character Analysis Report</li></ol><p>Untuk menjalankan proses generate Character Analysis report, ikuti langkah-langkah berikut:</p><ol><li>Jalankan job <strong>i_df_bulk_decisioning</strong>.</li></ol><p>Lakukan eksekusi job <strong>i_df_bulk_decisioning</strong> melalui menu <strong>Batch Scheduler</strong> untuk memproses data dari tabel summary_lms_customer. Hasil dari job ini akan disimpan ke dalam tabel <strong>summary_lms_customer_result</strong>.</p><ol><li>Pastikan data tersedia pada tabel summary_lms_customer_result.</li><li>Jalankan job i_rpt_car_bc_score melalui menu Batch Scheduler.</li><li>Periksa hasil pada tabel <strong>en.report.rpt_car</strong> dan <strong>en.report.rpt_car_result</strong> setelah job selesai dijalankan</li></ol><p>Catatan:</p><p>Tabel rpt_car akan menyimpan data harian, sedangkan tabel rpt_car_result akan menyimpan data bulanan. Data yang dimasukkan ke dalam rpt_car_result merupakan data dengan selisih satu bulan ke belakang dari tanggal saat ini.</p><ol><li>Generate PSI Report</li></ol><p>Untuk menjalankan proses generate PSI report, ikuti langkah-langkah berikut:</p><ol><li>Jalankan job <strong>i_df_bulk_decisioning</strong>.</li></ol><p>Lakukan eksekusi job <strong>i_df_bulk_decisioning</strong> melalui menu Batch Scheduler untuk memproses data dari tabel summary_lms_customer. Hasil dari job ini akan disimpan ke dalam tabel <strong>summary_lms_customer_result</strong>.</p><ol><li>Pastikan data tersedia pada tabel summary_lms_customer_result.</li><li>Jalankan job <strong>i_rpt_psi_bc_score</strong> melalui menu Batch Scheduler.</li><li>Periksa hasil pada tabel <strong>en.report.rpt_psi</strong> dan <strong>en.report.rpt_psi_result</strong> setelah job selesai dijalankan</li></ol><p>Catatan:</p><p>Tabel rpt_psi dan rpt_psi_result akan menyimpan data bulanan. Data yang dimasukkan ke dalam rpt_psi merupakan data untuk bulan berjalan, sedangkan data pada rpt_psi_result merupakan data dengan selisih satu bulan ke belakang dari tanggal saat ini.</p>",
+            "data": []
+          },
+          {
+            "title": "Report",
+            "id": "",
+            "description": "<ol><li>Characteristic Analysis Report</li></ol><p><em>Report </em>ini menampilkan seberapa jauh pergeseran atau perubahan pola (<em>variable drift</em>) karakteristik pada data baru (data pengajuan yang masuk) dibandingkan dengan konfigurasi Scorecard (berdasarkan model yang digunakan pada Scorecard, dengan parameter <em>baseline</em>).</p><p>pada masing-masing karakteristik, dengan acuan berikut:&nbsp;</p><ol><li>Jika <em>total score difference</em> memiliki nilai dalam rentang -5 - 5 (minus lima sampai lima), maka data model yang digunakan untuk Scorecard masih relevan; dan&nbsp;</li><li>Jika <em>total score difference</em> memiliki nilai &lt;-5 (kurang dari minus lima) atau &gt;5 (lebih dari lima), maka populasi karakteristik telah bergeser dan perlu melakukan pemodelan data ulang Scorecard.&nbsp;</li></ol><p>Berikut adalah tampilan <em>Form </em>awal dari menu Characteristic Analysis Report: </p><ol><li>Setelah melakukan pengisian untuk report Char, lalu Klik tombol “Search” untuk melihat laporan berdasarkan filter yang digunakan</li></ol><p>Detail Informasi: </p><table><thead><tr><th><p><strong>No</strong></p></th><th><p><strong>Field Name</strong></p></th><th><p><strong>Type Object</strong></p></th><th><p><strong>Deskripsi</strong></p></th></tr></thead><tbody><tr><td colspan=\"2\"><p><strong>Filter Field</strong></p></td><td><p>&nbsp;</p></td><td><p>&nbsp;</p></td></tr><tr><td></td><td><p>Rating Model Code</p></td><td><p>Dropdown List</p></td><td><p>Nama Scorecard yang akan dilihat <em>report-</em>nya&nbsp;</p></td></tr><tr><td></td><td><p>Period From (Month)</p></td><td><p>Date</p></td><td><p>Tanggal awal periode report&nbsp;</p></td></tr><tr><td></td><td><p>Period To (Month)</p></td><td><p>Date</p></td><td><p>Tanggal akhir periode <em>report</em>&nbsp;</p></td></tr><tr><td></td><td><p>Search</p></td><td><p>Button</p></td><td><p>Tombol untuk menampilkan <em>report</em> sesuai filter&nbsp;</p></td></tr></tbody></table><ol><li>Sistem menampilkan hasil filter<em> </em>Characteristic Analysis Report&nbsp;</li></ol><p>Tabel berikut akan ditampilkan saat <em>user </em>menggunakan fungsi filter pada halaman Characteristic Analysis Report dengan informasi di bawah ini:&nbsp;</p><table><thead><tr><th><p><strong>No</strong></p></th><th><p><strong>Field Name</strong></p></th><th><p><strong>Type Object</strong></p></th><th><p><strong>Deskripsi</strong></p></th></tr></thead><tbody><tr><td></td><td><p>Variable&nbsp;</p></td><td><p>Read-only&nbsp;</p></td><td><p>Variabel karakteristik yang tergabung ke dalam karakteristik yang dimiliki oleh Scorecard yang dipilih</p></td></tr><tr><td></td><td><p>Points&nbsp;</p></td><td><p>Read-only&nbsp;</p></td><td><p>Nilai baseline masing-masing variabel yang tergabung ke dalam karakteristik yang dimiliki oleh Scorecard yang dipilih;&nbsp;</p></td></tr><tr><td></td><td><p>Distribution&nbsp;</p></td><td><p>Read-only</p></td><td><p>Nilai distribusi variabel karakteristik tertentu</p></td></tr><tr><td></td><td><p>Frequency&nbsp;</p></td><td><p>Read-only</p></td><td><p>Jumlah pengajuan yang masuk ke dalam masing-masing variabel karakteristik berdasarkan periode (rentang bulan) yang ditentukan</p></td></tr><tr><td></td><td><p>Percentage&nbsp;</p></td><td><p>Read-only</p></td><td><p>Persentase distribusi jumlah pengajuan yang masuk ke dalam masing-masing variabel karakteristik per nama karakteristik</p></td></tr><tr><td></td><td><p>Score Difference&nbsp;</p></td><td><p>Read-only</p></td><td><p>Index pergesaran populasi masing-masing variabel karakteristik</p></td></tr><tr><td></td><td><p>Total Score Difference&nbsp;</p></td><td><p>Read-only</p></td><td><p>index pergeseran populasi masing-masing karakteristik (SUM(car_score_diff))</p></td></tr></tbody></table><ol><li>Population Stability Index Report</li></ol><p>PSI (Population Stability Index) membandingkan distribusi skor antara data baru dan data awal untuk melihat perubahan populasi. Perubahan yang signifikan menunjukkan adanya pergeseran karakteristik yang dapat memengaruhi akurasi atau menyebabkan bias pada model.</p><p>Berikut <em>metrics indicator</em> untuk <em>shifting</em> (perubahan) pada <em>report </em>ini:&nbsp;</p><table><tbody><tr><td><p><strong>PSI Index</strong>&nbsp;</p></td><td><p><strong>Indikasi</strong>&nbsp;</p></td><td><p><strong>Keterangan</strong>&nbsp;</p></td></tr><tr><td><p>&lt; 0.10&nbsp;</p></td><td><p>Stabil&nbsp;</p></td><td><p>Tidak ada perubahan signifikan, model tetap dapat digunakan&nbsp;</p></td></tr><tr><td><p>0.10 - 0.25&nbsp;</p></td><td><p>Moderat&nbsp;</p></td><td><p>Perlu pemantauan lebih lanjut&nbsp;</p></td></tr><tr><td><p>&gt; 0.25&nbsp;</p></td><td><p>Signifikan&nbsp;</p></td><td><p>Distribusi populasi berubah secara signifikan, memerlukan investigasi dan kemungkinan penyesuian model&nbsp;</p></td></tr></tbody></table><p>Pada menu Population Stability ada beberapa fungsi yang dapat dilakukan oleh <em>user</em>, berikut adalah fungsi yang dapat dilakukan oleh <em>user</em>:</p><ol><li>Setelah melakukan pengisian untuk report PSI, lalu Klik tombol “Search” untuk melihat laporan berdasarkan filter yang digunakan</li></ol><ol><li>Sistem menampilkan hasil filter<em> </em>Population Stability Index Report&nbsp;</li></ol><p>Tabel berikut akan ditampilkan saat <em>user </em>menggunakan fungsi filter pada halaman Population Stability Index Report dengan informasi di bawah ini:&nbsp;</p><table><thead><tr><th><p><strong>No</strong></p></th><th><p><strong>Field Name</strong></p></th><th><p><strong>Type Object</strong></p></th><th><p><strong>Deskripsi</strong></p></th></tr></thead><tbody><tr><td></td><td><p>Bin</p></td><td><p>Read-only&nbsp;</p></td><td><p><strong>Scoreband (atau upper limit baseline pada Scorecard)</strong></p></td></tr><tr><td></td><td><p>Dev - Distribution</p></td><td><p>Read-only&nbsp;</p></td><td><p>Distribusi model data untuk masing-masing <em>scoreband</em> yang digunakan sebagai acuan dalam pembuatan Scorecard;&nbsp;</p></td></tr><tr><td></td><td><p>Current - Actual</p></td><td><p>Read-only</p></td><td><p>Jumlah pengajuan yang masuk, yang mendapatkan nilai scoreband pada masing-masing rentangnya;</p></td></tr><tr><td></td><td><p>Current - Distribution</p></td><td><p>Read-only</p></td><td><p>Distribusi jumlah pengajuan yang masuk yang mendapatkan nilai scoreband pada masing-masing rentangnya dalam persentase (Actual/Total Actual);</p></td></tr><tr><td></td><td><p>Current - (Actual-Expected)</p></td><td><p>Read-only</p></td><td></td></tr><tr><td></td><td><p>Current - Actual/Expected</p></td><td><p>Read-only</p></td><td></td></tr><tr><td></td><td><p>Current - LN(Actual/Expected)</p></td><td><p>Read-only</p></td><td></td></tr><tr><td></td><td><p>Index</p></td><td><p>Read-only</p></td><td></td></tr><tr><td></td><td><p>Total Index</p></td><td><p>Read-only</p></td><td></td></tr></tbody></table><ol><li>Good Bad Kolmogorov Smirnov Report</li></ol><p>Report utk perbandingan performa model terhadap data baru, KS digunakan untuk mengukur apakah kemampuan diskriminasi model (membedakan good dan bad) tetap konsisten. Tujuannya utk memastikan model tetap mampu memisahkan risiko tinggi dan rendah pada data baru seperti saat diterapkan pada data training. </p><p>Jika KS score pada data baru menurun secara signifikan dibandingkan dengan KS score awal, ini bisa menjadi tanda bahwa: </p><ol><li>Model sudah tidak mampu memprediksi dengan baik (misalignment antara model dan populasi baru). </li><li>Perlu investigasi lebih lanjut atau pengembangan ulang model.</li></ol><p>Pada menu GBKS report ada beberapa fungsi yang dapat dilakukan oleh <em>user</em>, berikut adalah fungsi yang dapat dilakukan oleh <em>user</em>:</p><p>Saat pertama kali mengakses halaman GBKS Report, <em>user </em>akan ditampilkan <em>field-field </em>filter untuk menampilkan tabel report sesuai dengan filter yang dilakukan <em>user.</em> Proses filter report dapat mengikuti langkah berikut : </p><ol><li>Pada halaman GBKS Report, isi semua <em>field </em>filter, lalu Klik tombol “Search” untuk melihat laporan berdasarkan filter yang digunakan</li></ol><ol><li>Sistem menampilkan hasil filter<em> </em>GBKS Report&nbsp;</li></ol><p>Tabel berikut akan ditampilkan saat <em>user </em>menggunakan fungsi filter pada halaman GBKS Report dengan informasi di bawah ini:&nbsp;</p><table><thead><tr><th><p><strong>No</strong></p></th><th><p><strong>Field Name</strong></p></th><th><p><strong>Deskripsi</strong></p></th></tr></thead><tbody><tr><td></td><td><p><strong>Score Range</strong></p></td><td><p><em>rating</em> yang diterapkan terhadap data pinjaman nasabah, sesuai dengan <em>upper limit </em>yang diterapkan pada konfigurasi Baseline di Scorecard.<em> Rating</em> akan diurutkan berdasarkan <em>upper limit</em>-nya, diurutkan dari <em>upper limit </em>tertinggi (berada di atas) ke <em>upper limit </em>terendah (berada di bawah);&nbsp;</p></td></tr><tr><td></td><td><p><strong>Validation - Good</strong></p></td><td><p>jumlah pengajuan yang menerima predikat “Good” atau memiliki nilai pinjaman yang baik pada rating score tertentu</p></td></tr><tr><td></td><td><p><strong>Validation - Bad</strong></p></td><td><p>jumlah pengajuan yang menerima predikat “Bad” atau memiliki nilai pinjaman yang buruk pada <em>rating score </em>tertentu</p></td></tr><tr><td></td><td><p><strong>Validation - Bad Rate</strong></p></td><td><p><em>rating</em> pengajuan “Bad” pada <em>rating score </em>tertentu dengan menghitung jumlah data Bad dibagi dengan data Good yang telah dijumlahkan dengan data Bad (Bad/(Good+Bad))</p></td></tr><tr><td></td><td><p><strong>Validation - Cumulative Good Percentage</strong></p></td><td><p>nilai kumulatif dari persentase jumlah data “Good” (Good/Total Good*100%)</p></td></tr><tr><td></td><td><p><strong>Validation - Cumulative Bad Percentage</strong></p></td><td><p>nilai kumulatif dari persentase jumlah data “Bad” (Bad/Total Bad*100%)</p></td></tr><tr><td></td><td><p><strong>Good Bad KS</strong></p></td><td><p>selisih antara nilai Cumulative Bad Percentage dengan Cumulative Good Percentage (Cumulative Bad Percentage-Cumulative Good Percentage)</p></td></tr><tr><td></td><td><p><strong>Total Good</strong></p></td><td><p>jumlah data pinjaman yang mendapatkan predikat “Good”</p></td></tr><tr><td></td><td><p><strong>Total Bad</strong></p></td><td><p>jumlah data pinjaman yang mendapatkan predikat “Bad’</p></td></tr><tr><td></td><td><p><strong>Total Bad Rate</strong></p></td><td></td></tr><tr><td></td><td><p><strong>Total Good Bad KS</strong></p></td><td><p>nilai tertinggi yang didapatkan dari kolom Good Bad KS.&nbsp;</p></td></tr></tbody></table>",
+            "data": [
+              {
+                "title": "",
+                "description": "",
+                "order": 8,
+                "image": [
+                  {
+                    "url": "main/030175-figure-08.png",
+                    "notes": ""
+                  }
+                ],
+                "type": "image"
+              },
+              {
+                "title": "",
+                "description": "",
+                "order": 9,
+                "image": [
+                  {
+                    "url": "main/030175-figure-09.png",
+                    "notes": ""
+                  }
+                ],
+                "type": "image"
+              },
+              {
+                "title": "",
+                "description": "",
+                "order": 10,
+                "image": [
+                  {
+                    "url": "main/030175-figure-10.png",
+                    "notes": ""
+                  }
+                ],
+                "type": "image"
+              },
+              {
+                "title": "",
+                "description": "",
+                "order": 11,
+                "image": [
+                  {
+                    "url": "main/030175-figure-11.png",
+                    "notes": ""
+                  }
+                ],
+                "type": "image"
+              },
+              {
+                "title": "",
+                "description": "",
+                "order": 12,
+                "image": [
+                  {
+                    "url": "main/030175-figure-12.png",
+                    "notes": ""
+                  }
+                ],
+                "type": "image"
+              },
+              {
+                "title": "",
+                "description": "",
+                "order": 13,
+                "image": [
+                  {
+                    "url": "main/030175-figure-13.png",
+                    "notes": ""
+                  }
+                ],
+                "type": "image"
+              },
+              {
+                "title": "",
+                "description": "",
+                "order": 14,
+                "image": [
+                  {
+                    "url": "main/030175-figure-14.png",
+                    "notes": ""
+                  }
+                ],
+                "type": "image"
+              },
+              {
+                "title": "",
+                "description": "",
+                "order": 15,
+                "image": [
+                  {
+                    "url": "main/030175-figure-15.png",
+                    "notes": ""
+                  }
+                ],
+                "type": "image"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "",
+        "id": "",
+        "description": "",
+        "data": [
+          {
+            "title": "Full Documentation",
+            "id": "",
+            "description": "Untuk informasi detail, silakan akses dokumen berikut",
+            "data": [
+              {
+                "url": "main/030175-DF-Bulk-Decisioning-BC-Score.pdf",
+                "label": "DF Bulk Decisioning & BC Score"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

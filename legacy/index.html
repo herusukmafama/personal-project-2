@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Browser-only DOCX to JSON Converter for Help & Support Word templates.">
+  <title>DOCX to JSON Converter</title>
+
+  <!-- Local Bootstrap bundle keeps the application usable without internet access. -->
+  <link rel="stylesheet" href="lib/bootstrap.min.css">
+
+  <!-- Application-specific styles live in assets/css/style.css. -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <!--
+    Browser-only entry point for the DOCX to JSON Converter.
+    This file owns page structure and leaves parsing/mapping behavior to JavaScript modules.
+  -->
+
+  <a class="skip-link" href="#converter">Skip to converter</a>
+
+  <main class="app-shell">
+    <section id="converter" class="workspace" tabindex="-1">
+      <header class="workspace-header">
+        <div>
+          <p class="eyebrow mb-1">Local Converter</p>
+          <h1 class="h3 mb-2">DOCX to JSON Converter</h1>
+          <p class="text-secondary mb-0">Convert Help & Support Word templates into downloadable JSON without upload, API, or storage.</p>
+        </div>
+        <div class="privacy-note" aria-label="Local processing notice">
+          <span class="privacy-dot" aria-hidden="true"></span>
+          Browser only
+        </div>
+      </header>
+
+      <div class="converter-layout">
+        <section class="control-panel" aria-labelledby="upload-title">
+          <h2 id="upload-title" class="h6 section-title">Input</h2>
+
+          <label class="upload-box" for="docx-file">
+            <span class="upload-icon" aria-hidden="true">DOCX</span>
+            <span class="upload-title">Choose a Word document</span>
+            <span class="upload-hint">Accepted format: .docx, max 10 MB</span>
+          </label>
+          <input id="docx-file" class="visually-hidden" type="file" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+
+          <dl class="file-summary mb-0">
+            <div>
+              <dt>File</dt>
+              <dd id="file-name">No file selected</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd id="conversion-status">Waiting for upload</dd>
+            </div>
+          </dl>
+
+          <div class="button-row">
+            <button id="convert-button" class="btn btn-primary" type="button" disabled>Convert</button>
+            <button id="reset-button" class="btn btn-outline-secondary" type="button">Reset</button>
+          </div>
+
+          <div id="message-box" class="message-box" role="status" aria-live="polite"></div>
+        </section>
+
+        <section class="preview-panel" aria-labelledby="preview-title">
+          <div class="preview-header">
+            <div>
+              <h2 id="preview-title" class="h6 section-title mb-1">JSON Preview</h2>
+              <p id="preview-meta" class="text-secondary small mb-0">Preview will appear after conversion.</p>
+            </div>
+            <button id="download-button" class="btn btn-success" type="button" disabled>Download JSON</button>
+          </div>
+
+          <pre class="json-preview mb-0"><code id="json-output">{}</code></pre>
+        </section>
+      </div>
+
+      <footer class="app-footer">
+        <div>
+          <strong>DOCX to JSON Converter</strong>
+          <span>v1 5-6-2026</span>
+        </div>
+        <div>
+          Created by Heru using Codex.
+        </div>
+        <div>
+          <a href="https://github.com/herusukmafama/personal-project-1" target="_blank" rel="noopener noreferrer">GitHub Repository</a>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <!-- Third-party parser and application modules run fully in the browser. -->
+  <script src="lib/mammoth.browser.min.js"></script>
+  <script src="assets/js/parser.js"></script>
+  <script src="assets/js/json-mapper.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

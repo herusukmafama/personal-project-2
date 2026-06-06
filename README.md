@@ -6,8 +6,8 @@ A browser-only personal tools dashboard built with React, TypeScript, Vite, and 
 
 - Responsive SaaS-style dashboard layout
 - React Router navigation
-- Placeholder DOCX to JSON converter
-- Mammoth.js dependency ready for a future conversion implementation
+- Browser-only DOCX to JSON converter migrated from the legacy application
+- Preserved Help & Support JSON mapping behavior using Mammoth.js
 - GitHub Pages deployment workflow
 
 ## Development
@@ -23,4 +23,7 @@ npm run dev
 npm run build
 ```
 
-The converter is intentionally a placeholder. No DOCX parsing is implemented yet.
+## Migration Reference
+
+The previous browser application is preserved under `legacy/`. Migration details
+and behavior-parity notes are documented in `docs/MIGRATION.md`.
