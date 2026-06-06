@@ -1,7 +1,10 @@
 import { type ChangeEvent, useMemo, useRef, useState } from 'react'
 import { ShieldIcon, UploadIcon } from '../../components/Icons'
 import { generateArtifacts, validateDeployment } from './artifacts'
+import { DiffReview } from './DiffReview'
 import { downloadDeploymentZip, downloadText } from './downloadArtifacts'
+import { proposeGuidelineFixes } from './guidelineTransformer'
+import { applyReviewDecision, updateReviewedOutputName } from './reviewState'
 import { analyzeSql, buildOutputName, validateSql } from './sqlAnalyzer'
 import { formatPostgresqlSql } from './sqlFormatter'
 import type {
@@ -41,14 +44,21 @@ export function SqlDeploymentTool() {
       const originalSql = await file.text()
       try {
         const analysis = analyzeSql(originalSql)
+        const formattedOriginalSql = formatPostgresqlSql(originalSql)
+        const proposal = proposeGuidelineFixes(formattedOriginalSql)
+        const outputName = buildOutputName(analysis, metadata)
         next.push({
           id: crypto.randomUUID(),
           originalName: file.name,
-          outputName: buildOutputName(analysis, metadata),
+          outputName,
           originalSql,
-          formattedSql: formatPostgresqlSql(originalSql),
+          formattedOriginalSql,
+          proposedSql: proposal.proposedSql,
+          acceptedSql: formattedOriginalSql,
+          proposedFixes: proposal.fixes,
+          reviewState: proposal.fixes.length ? 'needs-review' : 'no-changes',
           analysis,
-          findings: validateSql(originalSql, file.name, analysis),
+          findings: validateSql(originalSql, outputName, analysis),
         })
       } catch (error) {
         next.push(invalidFile(file, error instanceof Error ? error.message : 'SQL analysis failed.'))
@@ -66,17 +76,30 @@ export function SqlDeploymentTool() {
     setMetadata(nextMetadata)
     if (field === 'database') {
       setFiles((current) =>
-        current.map((file) => ({
-          ...file,
-          outputName: buildOutputName(file.analysis, nextMetadata),
-        })),
+        current.map((file) =>
+          updateReviewedOutputName(
+            file,
+            buildOutputName(file.analysis, nextMetadata),
+          ),
+        ),
       )
     }
   }
 
   function updateOutputName(id: string, outputName: string) {
     setFiles((current) =>
-      current.map((file) => (file.id === id ? { ...file, outputName } : file)),
+      current.map((file) =>
+        file.id === id ? updateReviewedOutputName(file, outputName) : file,
+      ),
+    )
+  }
+
+  function decideReview(id: string, decision: 'accepted' | 'rejected' | 'needs-review') {
+    setFiles((current) =>
+      current.map((file) => {
+        if (file.id !== id) return file
+        return applyReviewDecision(file, decision)
+      }),
     )
   }
 
@@ -97,7 +120,7 @@ export function SqlDeploymentTool() {
   async function handlePrimaryDownload() {
     if (hasErrors) return
     if (files.length === 1) {
-      downloadText(files[0].formattedSql, files[0].outputName, 'application/sql;charset=utf-8')
+      downloadText(files[0].acceptedSql, files[0].outputName, 'application/sql;charset=utf-8')
       setMessage(`Downloaded ${files[0].outputName}.`)
       return
     }
@@ -212,6 +235,9 @@ export function SqlDeploymentTool() {
                   <button type="button" onClick={() => setSelectedId(file.id)} className="min-w-0 flex-1 text-left">
                     <p className="truncate text-xs text-slate-400">{file.originalName}</p>
                     <p className="mt-1 text-sm font-medium text-slate-800">{file.analysis.operationCode || 'Unresolved SQL'}</p>
+                    <p className={`mt-1 text-xs font-medium uppercase tracking-wide ${file.reviewState === 'needs-review' ? 'text-amber-700' : file.reviewState === 'accepted' ? 'text-emerald-700' : 'text-slate-400'}`}>
+                      {file.reviewState.replace('-', ' ')}
+                    </p>
                   </button>
                   <div className="flex shrink-0 gap-2">
                     <SmallButton label="Move up" onClick={() => moveFile(index, -1)} disabled={index === 0}>↑</SmallButton>
@@ -233,7 +259,7 @@ export function SqlDeploymentTool() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-2">
-        <Preview title="Formatted SQL" subtitle={selectedFile?.outputName || 'Select a SQL file'} content={selectedFile?.formattedSql || '-- SQL preview will appear here'} />
+        <Preview title="Accepted SQL" subtitle={selectedFile?.outputName || 'Select a SQL file'} content={selectedFile?.acceptedSql || '-- SQL preview will appear here'} />
         <div className="space-y-6">
           <Preview
             title="deployment.txt"
@@ -249,6 +275,18 @@ export function SqlDeploymentTool() {
           />
         </div>
       </section>
+
+      {selectedFile?.proposedFixes.length ? (
+        <DiffReview
+          original={selectedFile.formattedOriginalSql}
+          proposed={selectedFile.proposedSql}
+          fixes={selectedFile.proposedFixes}
+          reviewState={selectedFile.reviewState}
+          onAccept={() => decideReview(selectedFile.id, 'accepted')}
+          onReject={() => decideReview(selectedFile.id, 'rejected')}
+          onReset={() => decideReview(selectedFile.id, 'needs-review')}
+        />
+      ) : null}
     </div>
   )
 }
@@ -286,7 +324,11 @@ function invalidFile(file: File, message: string): SqlFileResult {
     originalName: file.name,
     outputName: file.name,
     originalSql: '',
-    formattedSql: '',
+    formattedOriginalSql: '',
+    proposedSql: '',
+    acceptedSql: '',
+    proposedFixes: [],
+    reviewState: 'no-changes',
     analysis: { sequence: '', schema: '', objectName: '', operationCode: '', statementCount: 0 },
     findings: [{ code: 'processing-failed', severity: 'error', message }],
   }

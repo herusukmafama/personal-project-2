@@ -23,12 +23,26 @@ export type SqlAnalysis = {
   statementCount: number
 }
 
+export type ReviewState = 'no-changes' | 'needs-review' | 'accepted' | 'rejected'
+export type FixConfidence = 'safe' | 'confirmation-required'
+
+export type ProposedFix = {
+  code: string
+  title: string
+  description: string
+  confidence: FixConfidence
+}
+
 export type SqlFileResult = {
   id: string
   originalName: string
   outputName: string
   originalSql: string
-  formattedSql: string
+  formattedOriginalSql: string
+  proposedSql: string
+  acceptedSql: string
+  proposedFixes: ProposedFix[]
+  reviewState: ReviewState
   analysis: SqlAnalysis
   findings: ValidationFinding[]
 }

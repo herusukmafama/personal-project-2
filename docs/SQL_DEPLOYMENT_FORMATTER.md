@@ -11,8 +11,11 @@ using the local `Database Deployment Guidelines.docx` as its reference.
 - Infers guideline filename components and lets users edit the result.
 - Preserves upload order by default and supports manual reordering.
 - Reports structural guideline issues as warnings.
+- Proposes supported guideline fixes without replacing the original SQL.
+- Requires users to accept or reject every proposed revision before download.
+- Provides unified and side-by-side diff review.
 - Blocks downloads for missing metadata, invalid output filenames, unsupported
-  files, processing failures, or duplicate output filenames.
+  files, processing failures, duplicate output filenames, or pending reviews.
 
 ## Outputs
 

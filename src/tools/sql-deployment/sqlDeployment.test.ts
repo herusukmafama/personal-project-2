@@ -132,6 +132,9 @@ describe('deployment artifacts', () => {
       ].sort(),
     )
     expect(await zip.file('deployment.txt')?.async('string')).toBe(artifacts.deploymentText)
+    expect(
+      await zip.file('2_db_public_users_CRTBL.sql')?.async('string'),
+    ).toBe(files[0].acceptedSql)
   })
 })
 
@@ -141,7 +144,11 @@ function file(outputName: string): SqlFileResult {
     originalName: outputName,
     outputName,
     originalSql: 'SELECT 1;',
-    formattedSql: 'SELECT 1;\n',
+    formattedOriginalSql: 'SELECT 1;\n',
+    proposedSql: 'SELECT 1;\n',
+    acceptedSql: 'SELECT 1;\n',
+    proposedFixes: [],
+    reviewState: 'no-changes',
     analysis: {
       sequence: '2',
       schema: 'public',

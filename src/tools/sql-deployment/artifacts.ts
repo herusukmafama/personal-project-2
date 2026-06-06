@@ -35,6 +35,13 @@ export function validateDeployment(
   if (!metadata.database.trim()) findings.push({ code: 'missing-database', severity: 'error', message: 'Database/project is required.' })
   if (!files.length) findings.push({ code: 'missing-files', severity: 'error', message: 'Upload at least one SQL file.' })
   files.forEach((file) => {
+    if (file.reviewState === 'needs-review') {
+      findings.push({
+        code: `pending-review-${file.id}`,
+        severity: 'error',
+        message: `${file.originalName} has proposed SQL changes that must be reviewed.`,
+      })
+    }
     if (!isValidOutputName(file.outputName)) {
       findings.push({
         code: `invalid-output-name-${file.id}`,

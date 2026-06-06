@@ -27,7 +27,7 @@ export async function createDeploymentZip(
   artifacts: DeploymentArtifacts,
 ) {
   const zip = new JSZip()
-  files.forEach((file) => zip.file(file.outputName, file.formattedSql))
+  files.forEach((file) => zip.file(file.outputName, file.acceptedSql))
   zip.file('deployment.txt', artifacts.deploymentText)
   return zip.generateAsync({ type: 'uint8array' })
 }

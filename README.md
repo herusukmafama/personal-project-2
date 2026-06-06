@@ -9,7 +9,7 @@ A browser-only personal tools dashboard built with React, TypeScript, Vite, and 
 - Browser-only DOCX to JSON converter migrated from the legacy application
 - Preserved Help & Support JSON mapping behavior using Mammoth.js
 - Browser-only PostgreSQL deployment formatter for SLRC-ready SQL files,
-  deployment.txt, ZIP bundles, and ticket notes
+  deployment.txt, ZIP bundles, ticket notes, guideline auto-fixes, and diff review
 - GitHub Pages deployment workflow
 
 ## Development
