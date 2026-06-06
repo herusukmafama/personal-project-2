@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
-import { CloseIcon, FileCodeIcon, GridIcon, MenuIcon } from './Icons'
+import { CloseIcon, DatabaseIcon, FileCodeIcon, GridIcon, MenuIcon } from './Icons'
 
 const navItems = [
   { label: 'Dashboard', to: '/', icon: GridIcon },
   { label: 'DOCX to JSON', to: '/tools/docx-to-json', icon: FileCodeIcon },
+  { label: 'SQL Deployment', to: '/tools/sql-deployment-formatter', icon: DatabaseIcon },
 ]
 
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {

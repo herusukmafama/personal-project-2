@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowIcon, FileCodeIcon, ShieldIcon } from '../components/Icons'
+import { ArrowIcon, DatabaseIcon, FileCodeIcon, ShieldIcon } from '../components/Icons'
 import { PageHeader } from '../components/PageHeader'
 
 export function DashboardPage() {
@@ -18,7 +18,7 @@ export function DashboardPage() {
             <p className="mt-1 text-sm text-slate-500">Start with a tool below.</p>
           </div>
           <span className="rounded-full bg-white px-3 py-1 text-xs font-medium text-slate-500 ring-1 ring-slate-200">
-            1 tool
+            2 tools
           </span>
         </div>
 
@@ -43,15 +43,25 @@ export function DashboardPage() {
             </div>
           </Link>
 
-          <div className="flex min-h-60 items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-slate-50/50 p-6 text-center">
-            <div>
-              <div className="mx-auto grid size-10 place-items-center rounded-full bg-slate-200/70 text-xl text-slate-500">
-                +
+          <Link
+            to="/tools/sql-deployment-formatter"
+            className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-100 hover:shadow-md"
+          >
+            <div className="flex items-start justify-between">
+              <div className="grid size-12 place-items-center rounded-xl bg-violet-50 text-violet-600">
+                <DatabaseIcon className="size-6" />
               </div>
-              <p className="mt-3 text-sm font-medium text-slate-600">More tools coming soon</p>
-              <p className="mt-1 text-xs text-slate-400">This dashboard is ready to grow.</p>
+              <ArrowIcon className="size-5 text-slate-300 transition group-hover:translate-x-1 group-hover:text-brand-600" />
             </div>
-          </div>
+            <h3 className="mt-5 text-lg font-semibold text-slate-900">SQL Deployment Formatter</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-500">
+              Prepare SQL filenames, deployment.txt, ZIP bundles, and ticket notes for SLRC deployment.
+            </p>
+            <div className="mt-5 flex items-center gap-2 text-xs font-medium text-emerald-700">
+              <ShieldIcon className="size-4" />
+              Browser-only processing
+            </div>
+          </Link>
         </div>
       </section>
     </div>
