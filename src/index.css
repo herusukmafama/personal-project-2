@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Segoe UI", sans-serif;
+  --color-brand-50: #eef8ff;
+  --color-brand-100: #d9efff;
+  --color-brand-500: #1687e0;
+  --color-brand-600: #0870c5;
+  --color-brand-700: #07599f;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #f7f9fc;
+  color: #172033;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
