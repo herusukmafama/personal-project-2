@@ -38,6 +38,8 @@ legacy/
   naming, PDF naming, and output shape are unchanged.
 - Downloaded JSON still uses two-space indentation and replaces `.docx` with
   `.json`.
+- Selecting or dropping a valid DOCX now starts conversion immediately; the
+  mapping and output behavior remain unchanged.
 - All processing remains browser-only with no API, backend, database, upload,
   or browser storage.
 

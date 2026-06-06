@@ -33,7 +33,6 @@ export function DocxToJsonTool() {
   )
   const [isBusy, setIsBusy] = useState(false)
 
-  const validation = validateDocxFile(selectedFile)
   const jsonPreview = generatedJson
     ? JSON.stringify(generatedJson, null, 2)
     : initialPreview
@@ -43,7 +42,7 @@ export function DocxToJsonTool() {
     setMessageType(type)
   }
 
-  function selectFile(file: File | null) {
+  async function selectFile(file: File | null) {
     setSelectedFile(file)
     setGeneratedJson(null)
     setDownloadFileName(file ? buildDownloadFileName(file.name) : 'converted.json')
@@ -62,31 +61,25 @@ export function DocxToJsonTool() {
       return
     }
 
-    setStatus('Ready to convert')
-    showMessage('File is valid. Click Convert to generate JSON.', 'success')
+    await convertFile(file)
   }
 
-  function handleFileSelection(event: ChangeEvent<HTMLInputElement>) {
-    selectFile(event.target.files?.[0] || null)
+  async function handleFileSelection(event: ChangeEvent<HTMLInputElement>) {
+    await selectFile(event.target.files?.[0] || null)
   }
 
-  function handleDrop(event: DragEvent<HTMLLabelElement>) {
+  async function handleDrop(event: DragEvent<HTMLLabelElement>) {
     event.preventDefault()
-    selectFile(event.dataTransfer.files?.[0] || null)
+    await selectFile(event.dataTransfer.files?.[0] || null)
   }
 
-  async function handleConvert() {
-    if (!selectedFile) {
-      showMessage('Please choose a .docx file first.', 'error')
-      return
-    }
-
+  async function convertFile(file: File) {
     setIsBusy(true)
     setStatus('Converting')
     showMessage('Reading DOCX and applying mapping rules...', 'neutral')
 
     try {
-      const parsedDocument = await parseDocxFile(selectedFile)
+      const parsedDocument = await parseDocxFile(file)
       const mappedJson = mapParsedDocumentToJson(parsedDocument)
       setGeneratedJson(mappedJson)
       setPreviewMeta(
@@ -191,20 +184,12 @@ export function DocxToJsonTool() {
             </div>
           </dl>
 
-          <div className="mt-5 grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              disabled={isBusy || !selectedFile || !validation.valid}
-              onClick={handleConvert}
-              className="rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {isBusy ? 'Converting...' : 'Convert'}
-            </button>
+          <div className="mt-5">
             <button
               type="button"
               disabled={isBusy}
               onClick={resetState}
-              className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
             >
               Reset
             </button>

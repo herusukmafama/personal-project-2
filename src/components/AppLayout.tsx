@@ -85,7 +85,7 @@ export function AppLayout() {
         </div>
       )}
 
-      <div className="lg:pl-64">
+      <div className="flex min-h-screen flex-col lg:pl-64">
         <header className="sticky top-0 z-20 flex h-16 items-center border-b border-slate-200 bg-white/90 px-4 backdrop-blur md:px-8 lg:hidden">
           <button
             type="button"
@@ -97,9 +97,12 @@ export function AppLayout() {
           </button>
           <span className="ml-3 font-semibold text-slate-900">Personal Tools</span>
         </header>
-        <main className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 md:py-10 lg:px-10">
+        <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 md:py-10 lg:px-10">
           <Outlet />
         </main>
+        <footer className="border-t border-slate-200 bg-white/70 px-4 py-5 text-center text-xs text-slate-500 sm:px-6 lg:px-10">
+          Built by Heru using the Codex App.
+        </footer>
       </div>
     </div>
   )
