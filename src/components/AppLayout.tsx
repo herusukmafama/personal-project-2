@@ -10,6 +10,7 @@ import {
   DatabaseIcon,
   FileCodeIcon,
   GridIcon,
+  LayersIcon,
   MenuIcon,
   MoonIcon,
   SunIcon,
@@ -24,6 +25,7 @@ const navItems: Array<{
   { labelKey: 'docxToJson', to: '/tools/docx-to-json', icon: FileCodeIcon },
   { labelKey: 'sqlDeployment', to: '/tools/sql-deployment-formatter', icon: DatabaseIcon },
   { labelKey: 'installmentSimulator', to: '/tools/installment-simulator', icon: CalculatorIcon },
+  { labelKey: 'builtWith', to: '/built-with', icon: LayersIcon },
   { labelKey: 'changelog', to: '/changelog', icon: BookIcon },
 ]
 

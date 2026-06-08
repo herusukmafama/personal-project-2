@@ -3,6 +3,19 @@
 All notable changes and planned improvements for the Personal Tools Portal are
 documented here.
 
+## Released - Built With Portfolio Page - 2026-06-08
+
+Added a portfolio-friendly **Built With** page for issue #3.
+
+### Updates
+
+- Added a new **Built With** navigation item and route.
+- Added responsive technology cards with local inline icons, categories, and
+  descriptions.
+- Included the current project stack across frontend foundation, document
+  processing, developer productivity, quality/testing, and deployment.
+- Kept the page responsive and compatible with light/dark mode.
+
 ## Released - ARJUNA Installment Simulator - 2026-06-08
 
 Migrated `docs/SimulasiAngsuranARJUNAv2.html` into the Personal Tools Portal

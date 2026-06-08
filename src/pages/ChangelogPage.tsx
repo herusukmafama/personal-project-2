@@ -13,6 +13,29 @@ const changelogEntries: ChangelogEntry[] = [
   {
     date: '2026-06-08',
     title: {
+      id: 'Halaman Built With',
+      en: 'Built With Page',
+    },
+    description: {
+      id: 'Menambahkan halaman portfolio untuk menampilkan teknologi yang digunakan dalam Personal Tools Portal.',
+      en: 'Added a portfolio-friendly page that presents the technologies used in the Personal Tools Portal.',
+    },
+    items: {
+      id: [
+        'Menambahkan menu dan route Built With.',
+        'Menampilkan teknologi dalam card responsif dengan icon, kategori, dan deskripsi.',
+        'Tetap mendukung dark/light mode dan desain dashboard yang sudah ada.',
+      ],
+      en: [
+        'Added the Built With menu and route.',
+        'Displays technologies in responsive cards with icons, categories, and descriptions.',
+        'Keeps dark/light mode support and the existing dashboard design language.',
+      ],
+    },
+  },
+  {
+    date: '2026-06-08',
+    title: {
       id: 'Simulasi Angsuran ARJUNA',
       en: 'ARJUNA Installment Simulator',
     },

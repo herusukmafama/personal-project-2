@@ -15,6 +15,7 @@ export const translations = {
     docxToJson: 'DOCX to JSON',
     sqlDeployment: 'SQL Deployment',
     installmentSimulator: 'Simulasi Angsuran',
+    builtWith: 'Built With',
     changelog: 'Changelog',
     privateByDesign: 'Privasi sejak awal',
     privateDescription: 'File tetap diproses di browser Anda dan tidak pernah diunggah.',
@@ -77,6 +78,10 @@ export const translations = {
     installmentTitle: 'Simulasi Angsuran ARJUNA',
     installmentPageDescription:
       'Bantu hitung estimasi angsuran, bunga, pokok, dan sisa pokok dengan cara yang lebih mudah dibaca.',
+    builtWithEyebrow: 'Teknologi proyek',
+    builtWithTitle: 'Built With',
+    builtWithDescription:
+      'Personal Tools dibuat dengan teknologi web modern yang fokus pada performa, kemudahan perawatan, dan kesederhanaan.',
     deploymentMetadata: 'Metadata deployment',
     environment: 'Environment',
     feature: 'Feature',
@@ -137,6 +142,7 @@ export const translations = {
     docxToJson: 'DOCX to JSON',
     sqlDeployment: 'SQL Deployment',
     installmentSimulator: 'Installment Simulator',
+    builtWith: 'Built With',
     changelog: 'Changelog',
     privateByDesign: 'Private by design',
     privateDescription: 'Files stay in your browser and are never uploaded.',
@@ -199,6 +205,10 @@ export const translations = {
     installmentTitle: 'ARJUNA Installment Simulator',
     installmentPageDescription:
       'Estimate installments, interest, principal, and remaining principal in a friendlier way.',
+    builtWithEyebrow: 'Project technology',
+    builtWithTitle: 'Built With',
+    builtWithDescription:
+      'Personal Tools is built using modern web technologies focused on performance, maintainability, and simplicity.',
     deploymentMetadata: 'Deployment metadata',
     environment: 'Environment',
     feature: 'Feature',

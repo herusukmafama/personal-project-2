@@ -123,3 +123,12 @@ export function CalculatorIcon(props: IconProps) {
     </IconBase>
   )
 }
+
+export function LayersIcon(props: IconProps) {
+  return (
+    <IconBase {...props}>
+      <path d="m12 3 9 5-9 5-9-5 9-5Z" />
+      <path d="m3 12 9 5 9-5M3 16l9 5 9-5" />
+    </IconBase>
+  )
+}

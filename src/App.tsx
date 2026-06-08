@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AppLayout } from './components/AppLayout'
+import { BuiltWithPage } from './pages/BuiltWithPage'
 import { ChangelogPage } from './pages/ChangelogPage'
 import { ConverterPage } from './pages/ConverterPage'
 import { DashboardPage } from './pages/DashboardPage'
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="tools/docx-to-json" element={<ConverterPage />} />
         <Route path="tools/sql-deployment-formatter" element={<SqlDeploymentPage />} />
         <Route path="tools/installment-simulator" element={<InstallmentSimulatorPage />} />
+        <Route path="built-with" element={<BuiltWithPage />} />
         <Route path="changelog" element={<ChangelogPage />} />
         <Route path="dashboard" element={<Navigate to="/" replace />} />
         <Route path="*" element={<NotFoundPage />} />

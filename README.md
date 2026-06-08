@@ -12,6 +12,7 @@ A browser-only personal tools dashboard built with React, TypeScript, Vite, and 
   deployment.txt, ZIP bundles, ticket notes, guideline auto-fixes, and diff review
 - Browser-only ARJUNA installment simulator for effective-rate and flat-rate
   installment schedules
+- Portfolio-style Built With page describing the project technology stack
 - GitHub Pages deployment workflow
 
 ## Development
