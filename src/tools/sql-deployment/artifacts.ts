@@ -13,16 +13,40 @@ export function generateArtifacts(
   return {
     deploymentText: `env=${metadata.environment}\nfeature=${metadata.feature}\n\n${names.join('\n')}\n`,
     ticketNote: [
-      'Database Deployment Request',
+      'Dear Bang @idc_hardy,',
+      `Mohon bantuan deployment untuk fixing SPLC ${formatFeatureTitle(metadata.feature)}.`,
       '',
       `Environment: ${metadata.environment}`,
-      `Feature: ${metadata.feature}`,
-      `Total SQL Files: ${files.length}`,
+      `Database: ${metadata.database}`,
+      `Feature/Branch: ${metadata.feature}`,
       '',
-      'Please deploy the following SQL files in order:',
+      'List file SQL sesuai urutan deployment:',
       ...names.map((name, index) => `${index + 1}. ${name}`),
+      '',
+      'Catatan:',
+      '- Branch/folder sudah dilakukan cleansing untuk kebutuhan fixing.',
+      '- deployment.txt sudah disesuaikan dengan file SQL yang akan dideploy.',
     ].join('\n'),
   }
+}
+
+function formatFeatureTitle(feature: string) {
+  const tokens = feature.trim().split('_').filter(Boolean)
+  if (!tokens.length) return ''
+
+  return tokens.map(formatFeatureToken).join(' ')
+}
+
+function formatFeatureToken(token: string) {
+  const acronymMap: Record<string, string> = {
+    spv: 'SPV',
+    headops: 'HeadOps',
+    slrc: 'SLRC',
+    splc: 'SPLC',
+    idc: 'IDC',
+  }
+  const normalized = token.toLowerCase()
+  return acronymMap[normalized] || normalized.charAt(0).toUpperCase() + normalized.slice(1)
 }
 
 export function validateDeployment(

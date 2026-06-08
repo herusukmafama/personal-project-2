@@ -96,13 +96,18 @@ describe('deployment artifacts', () => {
     file('6_db_public_get_user_P1_CRFUN.sql'),
   ]
 
-  it('generates ordered deployment.txt and English ticket note', () => {
+  it('generates ordered deployment.txt and SLRC ticket note', () => {
     const artifacts = generateArtifacts(metadata, files)
     expect(artifacts.deploymentText).toBe(
       'env=SIT\nfeature=7438_tasklist_spv_headops\n\n2_db_public_users_CRTBL.sql\n6_db_public_get_user_P1_CRFUN.sql\n',
     )
-    expect(artifacts.ticketNote).toContain('Total SQL Files: 2')
+    expect(artifacts.ticketNote).toContain('Dear Bang @idc_hardy,')
+    expect(artifacts.ticketNote).toContain('Mohon bantuan deployment untuk fixing SPLC 7438 Tasklist SPV HeadOps.')
+    expect(artifacts.ticketNote).toContain('Database: idc-collection-v2')
+    expect(artifacts.ticketNote).toContain('Feature/Branch: 7438_tasklist_spv_headops')
+    expect(artifacts.ticketNote).toContain('List file SQL sesuai urutan deployment:')
     expect(artifacts.ticketNote).toContain('1. 2_db_public_users_CRTBL.sql')
+    expect(artifacts.ticketNote).toContain('deployment.txt sudah disesuaikan')
   })
 
   it('blocks duplicate names and missing metadata', () => {

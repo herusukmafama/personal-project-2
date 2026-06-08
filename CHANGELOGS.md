@@ -3,6 +3,18 @@
 All notable changes and planned improvements for the Personal Tools Portal are
 documented here.
 
+## Released - SLRC Ticket Note Format - 2026-06-08
+
+Updated **SQL Deployment Formatter** output helpers for deployment requests.
+
+### Updates
+
+- Changed the ticket note format to match the requested SLRC deployment
+  message template.
+- Added database and feature/branch metadata to the ticket note.
+- Changed the `deployment.txt` preview action from download to copy, while ZIP
+  downloads still include `deployment.txt` at the root for multi-file outputs.
+
 ## Released - Portal Theme, Language, and Changelog - 2026-06-08
 
 Added a cleaner global portal experience while preserving the existing DOCX

@@ -135,6 +135,11 @@ export function SqlDeploymentTool() {
     setMessage(t('ticketNoteCopied'))
   }
 
+  async function copyDeploymentText() {
+    await navigator.clipboard.writeText(artifacts.deploymentText)
+    setMessage(t('deploymentTextCopied'))
+  }
+
   function reset() {
     setMetadata(initialMetadata)
     setFiles([])
@@ -284,7 +289,7 @@ export function SqlDeploymentTool() {
             title="deployment.txt"
             subtitle={t('deploymentTxtSubtitle')}
             content={artifacts.deploymentText}
-            action={<button type="button" disabled={hasErrors} onClick={() => downloadText(artifacts.deploymentText, 'deployment.txt')} className="button-secondary">{t('download')}</button>}
+            action={<button type="button" disabled={hasErrors} onClick={copyDeploymentText} className="button-secondary">{t('copy')}</button>}
           />
           <Preview
             title={t('ticketNote')}
