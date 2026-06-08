@@ -1,5 +1,6 @@
 import { type ChangeEvent, useMemo, useRef, useState } from 'react'
 import { ShieldIcon, UploadIcon } from '../../components/Icons'
+import { usePreferences } from '../../i18n/preferencesContext'
 import { generateArtifacts, validateDeployment } from './artifacts'
 import { DiffReview } from './DiffReview'
 import { downloadDeploymentZip, downloadText } from './downloadArtifacts'
@@ -20,6 +21,7 @@ const initialMetadata: DeploymentMetadata = {
 }
 
 export function SqlDeploymentTool() {
+  const { t } = usePreferences()
   const inputRef = useRef<HTMLInputElement>(null)
   const [metadata, setMetadata] = useState(initialMetadata)
   const [files, setFiles] = useState<SqlFileResult[]>([])
@@ -38,7 +40,7 @@ export function SqlDeploymentTool() {
 
     for (const file of uploaded) {
       if (!file.name.toLowerCase().endsWith('.sql')) {
-        next.push(invalidFile(file, 'Only .sql files are supported.'))
+        next.push(invalidFile(file, t('onlySqlSupported')))
         continue
       }
       const originalSql = await file.text()
@@ -61,13 +63,13 @@ export function SqlDeploymentTool() {
           findings: validateSql(originalSql, outputName, analysis),
         })
       } catch (error) {
-        next.push(invalidFile(file, error instanceof Error ? error.message : 'SQL analysis failed.'))
+        next.push(invalidFile(file, error instanceof Error ? error.message : t('sqlAnalysisFailed')))
       }
     }
 
     setFiles((current) => [...current, ...next])
     if (!selectedId && next[0]) setSelectedId(next[0].id)
-    setMessage(`${next.length} file(s) added.`)
+    setMessage(`${next.length} ${t('filesAdded')}`)
     if (inputRef.current) inputRef.current.value = ''
   }
 
@@ -121,16 +123,16 @@ export function SqlDeploymentTool() {
     if (hasErrors) return
     if (files.length === 1) {
       downloadText(files[0].acceptedSql, files[0].outputName, 'application/sql;charset=utf-8')
-      setMessage(`Downloaded ${files[0].outputName}.`)
+      setMessage(`${t('downloaded')} ${files[0].outputName}.`)
       return
     }
     await downloadDeploymentZip(metadata.feature, files, artifacts)
-    setMessage('Deployment ZIP downloaded.')
+    setMessage(t('deploymentZipDownloaded'))
   }
 
   async function copyTicketNote() {
     await navigator.clipboard.writeText(artifacts.ticketNote)
-    setMessage('Ticket note copied.')
+    setMessage(t('ticketNoteCopied'))
   }
 
   function reset() {
@@ -144,10 +146,10 @@ export function SqlDeploymentTool() {
     <div className="mt-10 space-y-6">
       <section className="grid gap-6 xl:grid-cols-[360px_minmax(0,1fr)]">
         <div className="space-y-5">
-          <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="font-semibold text-slate-900">Deployment metadata</h2>
+          <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
+            <h2 className="font-semibold text-slate-900 dark:text-white">{t('deploymentMetadata')}</h2>
             <div className="mt-4 space-y-4">
-              <Field label="Environment">
+              <Field label={t('environment')}>
                 <select
                   value={metadata.environment}
                   onChange={(event) => updateMetadata('environment', event.target.value)}
@@ -157,7 +159,7 @@ export function SqlDeploymentTool() {
                   <option value="PRODUCTION">PRODUCTION</option>
                 </select>
               </Field>
-              <Field label="Feature">
+              <Field label={t('feature')}>
                 <input
                   value={metadata.feature}
                   onChange={(event) => updateMetadata('feature', event.target.value)}
@@ -165,7 +167,7 @@ export function SqlDeploymentTool() {
                   className="input-style"
                 />
               </Field>
-              <Field label="Database / project">
+              <Field label={t('databaseProject')}>
                 <input
                   value={metadata.database}
                   onChange={(event) => updateMetadata('database', event.target.value)}
@@ -176,16 +178,16 @@ export function SqlDeploymentTool() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
             <label
               htmlFor="sql-files"
-              className="block cursor-pointer rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 px-5 py-8 text-center transition hover:border-brand-500 hover:bg-brand-50/40"
+              className="block cursor-pointer rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 px-5 py-8 text-center transition hover:border-brand-500 hover:bg-brand-50/40 dark:border-slate-700 dark:bg-slate-950/70 dark:hover:border-brand-500 dark:hover:bg-brand-500/10"
             >
               <div className="mx-auto grid size-12 place-items-center rounded-xl bg-brand-50 text-brand-600">
                 <UploadIcon className="size-6" />
               </div>
-              <span className="mt-3 block font-semibold text-slate-900">Upload SQL files</span>
-              <span className="mt-1 block text-xs text-slate-500">Select one or multiple .sql files</span>
+              <span className="mt-3 block font-semibold text-slate-900 dark:text-white">{t('uploadSqlFiles')}</span>
+              <span className="mt-1 block text-xs text-slate-500 dark:text-slate-400">{t('uploadSqlHint')}</span>
             </label>
             <input
               ref={inputRef}
@@ -198,51 +200,64 @@ export function SqlDeploymentTool() {
             />
             <div className="mt-4 flex gap-3">
               <button type="button" onClick={handlePrimaryDownload} disabled={hasErrors} className="button-primary flex-1">
-                {files.length > 1 ? 'Download ZIP' : 'Download SQL'}
+                {files.length > 1 ? t('downloadZip') : t('downloadSql')}
               </button>
-              <button type="button" onClick={reset} className="button-secondary">Reset</button>
+              <button type="button" onClick={reset} className="button-secondary">{t('reset')}</button>
             </div>
-            {message && <p role="status" className="mt-3 text-sm text-emerald-700">{message}</p>}
+            {message && <p role="status" className="mt-3 text-sm text-emerald-700 dark:text-emerald-300">{message}</p>}
           </section>
 
-          <aside className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <aside className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
             <div className="flex gap-3">
               <ShieldIcon className="size-5 shrink-0 text-emerald-600" />
-              <p className="text-sm leading-6 text-slate-500">SQL files stay in your browser and are never uploaded.</p>
+              <p className="text-sm leading-6 text-slate-500 dark:text-slate-400">{t('privateDescription')}</p>
             </div>
           </aside>
         </div>
 
-        <section className="min-w-0 rounded-2xl border border-slate-200 bg-white shadow-sm">
-          <div className="border-b border-slate-200 p-5">
+        <section className="min-w-0 rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
+          <div className="border-b border-slate-200 p-5 dark:border-slate-800">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <h2 className="font-semibold text-slate-900">Deployment order</h2>
-                <p className="mt-1 text-sm text-slate-500">Review filenames and arrange execution order.</p>
+                <h2 className="font-semibold text-slate-900 dark:text-white">{t('deploymentOrder')}</h2>
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{t('deploymentOrderDescription')}</p>
               </div>
               <FindingBadge findings={allFindings} />
             </div>
           </div>
           <div className="space-y-3 p-5">
             <FindingList findings={deploymentFindings} />
-            {!files.length && <EmptyState text="Upload SQL files to begin." />}
+            {!files.length && <EmptyState text={t('uploadSqlToBegin')} />}
             {files.map((file, index) => (
               <article
                 key={file.id}
-                className={`rounded-xl border p-4 ${selectedFile?.id === file.id ? 'border-brand-500 bg-brand-50/30' : 'border-slate-200'}`}
+                className={`rounded-xl border p-4 ${
+                  selectedFile?.id === file.id
+                    ? 'border-brand-500 bg-brand-50/30 dark:bg-brand-500/10'
+                    : 'border-slate-200 dark:border-slate-800'
+                }`}
               >
                 <div className="flex flex-col gap-3 lg:flex-row lg:items-start">
                   <button type="button" onClick={() => setSelectedId(file.id)} className="min-w-0 flex-1 text-left">
                     <p className="truncate text-xs text-slate-400">{file.originalName}</p>
-                    <p className="mt-1 text-sm font-medium text-slate-800">{file.analysis.operationCode || 'Unresolved SQL'}</p>
-                    <p className={`mt-1 text-xs font-medium uppercase tracking-wide ${file.reviewState === 'needs-review' ? 'text-amber-700' : file.reviewState === 'accepted' ? 'text-emerald-700' : 'text-slate-400'}`}>
+                    <p className="mt-1 text-sm font-medium text-slate-800 dark:text-slate-200">
+                      {file.analysis.operationCode || t('unresolvedSql')}
+                    </p>
+                    <p className={`mt-1 text-xs font-medium uppercase tracking-wide ${
+                      file.reviewState === 'needs-review'
+                        ? 'text-amber-700 dark:text-amber-300'
+                        : file.reviewState === 'accepted'
+                          ? 'text-emerald-700 dark:text-emerald-300'
+                          : 'text-slate-400'
+                    }`}
+                    >
                       {file.reviewState.replace('-', ' ')}
                     </p>
                   </button>
                   <div className="flex shrink-0 gap-2">
-                    <SmallButton label="Move up" onClick={() => moveFile(index, -1)} disabled={index === 0}>↑</SmallButton>
-                    <SmallButton label="Move down" onClick={() => moveFile(index, 1)} disabled={index === files.length - 1}>↓</SmallButton>
-                    <SmallButton label="Remove file" onClick={() => removeFile(file.id)}>×</SmallButton>
+                    <SmallButton label={t('moveUp')} onClick={() => moveFile(index, -1)} disabled={index === 0}>&uarr;</SmallButton>
+                    <SmallButton label={t('moveDown')} onClick={() => moveFile(index, 1)} disabled={index === files.length - 1}>&darr;</SmallButton>
+                    <SmallButton label={t('removeFile')} onClick={() => removeFile(file.id)}>x</SmallButton>
                   </div>
                 </div>
                 <input
@@ -259,19 +274,23 @@ export function SqlDeploymentTool() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-2">
-        <Preview title="Accepted SQL" subtitle={selectedFile?.outputName || 'Select a SQL file'} content={selectedFile?.acceptedSql || '-- SQL preview will appear here'} />
+        <Preview
+          title={t('acceptedSql')}
+          subtitle={selectedFile?.outputName || t('selectSqlFile')}
+          content={selectedFile?.acceptedSql || t('sqlPreviewPlaceholder')}
+        />
         <div className="space-y-6">
           <Preview
             title="deployment.txt"
-            subtitle="Generated from the ordered SQL list"
+            subtitle={t('deploymentTxtSubtitle')}
             content={artifacts.deploymentText}
-            action={<button type="button" disabled={hasErrors} onClick={() => downloadText(artifacts.deploymentText, 'deployment.txt')} className="button-secondary">Download</button>}
+            action={<button type="button" disabled={hasErrors} onClick={() => downloadText(artifacts.deploymentText, 'deployment.txt')} className="button-secondary">{t('download')}</button>}
           />
           <Preview
-            title="Ticket note"
-            subtitle="Copy this English note into the deployment ticket"
+            title={t('ticketNote')}
+            subtitle={t('ticketNoteSubtitle')}
             content={artifacts.ticketNote}
-            action={<button type="button" disabled={hasErrors} onClick={copyTicketNote} className="button-secondary">Copy</button>}
+            action={<button type="button" disabled={hasErrors} onClick={copyTicketNote} className="button-secondary">{t('copy')}</button>}
           />
         </div>
       </section>
@@ -292,30 +311,82 @@ export function SqlDeploymentTool() {
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return <label className="block text-sm font-medium text-slate-700">{label}{children}</label>
+  return <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">{label}{children}</label>
 }
 
 function FindingBadge({ findings }: { findings: ValidationFinding[] }) {
+  const { t } = usePreferences()
   const errors = findings.filter((item) => item.severity === 'error').length
   const warnings = findings.filter((item) => item.severity === 'warning').length
-  return <span className={`rounded-full px-3 py-1 text-xs font-medium ${errors ? 'bg-red-50 text-red-700' : warnings ? 'bg-amber-50 text-amber-700' : 'bg-emerald-50 text-emerald-700'}`}>{errors ? `${errors} error(s)` : warnings ? `${warnings} warning(s)` : 'Ready'}</span>
+  return (
+    <span className={`rounded-full px-3 py-1 text-xs font-medium ${
+      errors
+        ? 'bg-red-50 text-red-700 dark:bg-red-950/40 dark:text-red-200'
+        : warnings
+          ? 'bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-200'
+          : 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-200'
+    }`}
+    >
+      {errors ? `${errors} ${t('errors')}` : warnings ? `${warnings} ${t('warnings')}` : t('ready')}
+    </span>
+  )
 }
 
 function FindingList({ findings }: { findings: ValidationFinding[] }) {
+  const { t } = usePreferences()
   if (!findings.length) return null
-  return <ul className="mt-3 space-y-1">{findings.map((item) => <li key={item.code} className={`text-xs ${item.severity === 'error' ? 'text-red-600' : 'text-amber-700'}`}>{item.severity === 'error' ? 'Error' : 'Warning'}: {item.message}</li>)}</ul>
+  return (
+    <ul className="mt-3 space-y-1">
+      {findings.map((item) => (
+        <li
+          key={item.code}
+          className={`text-xs ${
+            item.severity === 'error'
+              ? 'text-red-600 dark:text-red-300'
+              : 'text-amber-700 dark:text-amber-300'
+          }`}
+        >
+          {item.severity === 'error' ? t('error') : t('warning')}: {item.message}
+        </li>
+      ))}
+    </ul>
+  )
 }
 
 function SmallButton({ label, children, onClick, disabled }: { label: string; children: React.ReactNode; onClick: () => void; disabled?: boolean }) {
-  return <button type="button" aria-label={label} title={label} onClick={onClick} disabled={disabled} className="grid size-8 place-items-center rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-30">{children}</button>
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      title={label}
+      onClick={onClick}
+      disabled={disabled}
+      className="grid size-8 place-items-center rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-50 disabled:opacity-30 dark:border-slate-700 dark:text-slate-300 dark:hover:bg-slate-800"
+    >
+      {children}
+    </button>
+  )
 }
 
 function EmptyState({ text }: { text: string }) {
-  return <div className="rounded-xl border border-dashed border-slate-300 px-5 py-12 text-center text-sm text-slate-400">{text}</div>
+  return <div className="rounded-xl border border-dashed border-slate-300 px-5 py-12 text-center text-sm text-slate-400 dark:border-slate-700 dark:text-slate-500">{text}</div>
 }
 
 function Preview({ title, subtitle, content, action }: { title: string; subtitle: string; content: string; action?: React.ReactNode }) {
-  return <section className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"><div className="flex items-center justify-between gap-3 border-b border-slate-200 p-5"><div className="min-w-0"><h2 className="font-semibold text-slate-900">{title}</h2><p className="truncate text-xs text-slate-500">{subtitle}</p></div>{action}</div><pre className="max-h-[520px] min-h-48 overflow-auto bg-slate-950 p-5 text-xs leading-6 text-slate-200"><code>{content}</code></pre></section>
+  return (
+    <section className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
+      <div className="flex items-center justify-between gap-3 border-b border-slate-200 p-5 dark:border-slate-800">
+        <div className="min-w-0">
+          <h2 className="font-semibold text-slate-900 dark:text-white">{title}</h2>
+          <p className="truncate text-xs text-slate-500 dark:text-slate-400">{subtitle}</p>
+        </div>
+        {action}
+      </div>
+      <pre className="max-h-[520px] min-h-48 overflow-auto bg-slate-950 p-5 text-xs leading-6 text-slate-200">
+        <code>{content}</code>
+      </pre>
+    </section>
+  )
 }
 
 function invalidFile(file: File, message: string): SqlFileResult {

@@ -1,5 +1,6 @@
 import { diffLines } from 'diff'
 import { useMemo, useState } from 'react'
+import { usePreferences } from '../../i18n/preferencesContext'
 import type { ProposedFix, ReviewState } from './types'
 
 type Props = {
@@ -13,6 +14,7 @@ type Props = {
 }
 
 export function DiffReview({ original, proposed, fixes, reviewState, onAccept, onReject, onReset }: Props) {
+  const { t } = usePreferences()
   const [view, setView] = useState<'unified' | 'side-by-side'>('unified')
   const changes = useMemo(() => diffLines(original, proposed), [original, proposed])
   const hasDestructiveFix = fixes.some(
@@ -20,21 +22,21 @@ export function DiffReview({ original, proposed, fixes, reviewState, onAccept, o
   )
 
   return (
-    <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
-      <div className="border-b border-slate-200 p-5">
+    <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
+      <div className="border-b border-slate-200 p-5 dark:border-slate-800">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="font-semibold text-slate-900">Review changes</h2>
-            <p className="mt-1 text-xs text-slate-500">Approve the proposed SQL before it is used for download.</p>
+            <h2 className="font-semibold text-slate-900 dark:text-white">{t('reviewChanges')}</h2>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">{t('reviewChangesDescription')}</p>
           </div>
           <div className="flex gap-2">
-            <button type="button" onClick={() => setView('unified')} className={view === 'unified' ? 'button-primary' : 'button-secondary'}>Unified</button>
-            <button type="button" onClick={() => setView('side-by-side')} className={view === 'side-by-side' ? 'button-primary' : 'button-secondary'}>Side by side</button>
+            <button type="button" onClick={() => setView('unified')} className={view === 'unified' ? 'button-primary' : 'button-secondary'}>{t('unified')}</button>
+            <button type="button" onClick={() => setView('side-by-side')} className={view === 'side-by-side' ? 'button-primary' : 'button-secondary'}>{t('sideBySide')}</button>
           </div>
         </div>
         <div className="mt-4 space-y-2">
           {fixes.map((fix) => (
-            <div key={fix.code} className={`rounded-xl border px-4 py-3 text-sm ${fix.confidence === 'confirmation-required' ? 'border-red-200 bg-red-50 text-red-700' : 'border-brand-100 bg-brand-50 text-brand-700'}`}>
+            <div key={fix.code} className={`rounded-xl border px-4 py-3 text-sm ${fix.confidence === 'confirmation-required' ? 'border-red-200 bg-red-50 text-red-700 dark:border-red-900/60 dark:bg-red-950/40 dark:text-red-200' : 'border-brand-100 bg-brand-50 text-brand-700 dark:border-brand-500/30 dark:bg-brand-500/10 dark:text-brand-100'}`}>
               <strong>{fix.title}</strong>
               <span className="ml-2">{fix.description}</span>
             </div>
@@ -42,11 +44,11 @@ export function DiffReview({ original, proposed, fixes, reviewState, onAccept, o
         </div>
         <div className="mt-4 flex flex-wrap gap-2">
           <button type="button" onClick={onAccept} className={hasDestructiveFix ? 'rounded-xl bg-red-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-red-700' : 'button-primary'}>
-            {hasDestructiveFix ? 'Accept destructive changes' : 'Accept proposed SQL'}
+            {hasDestructiveFix ? t('acceptDestructiveChanges') : t('acceptProposedSql')}
           </button>
-          <button type="button" onClick={onReject} className="button-secondary">Keep original SQL</button>
-          <button type="button" onClick={onReset} className="button-secondary">Reset decision</button>
-          <span className="self-center text-xs font-medium uppercase tracking-wide text-slate-500">Status: {reviewState.replace('-', ' ')}</span>
+          <button type="button" onClick={onReject} className="button-secondary">{t('keepOriginalSql')}</button>
+          <button type="button" onClick={onReset} className="button-secondary">{t('resetDecision')}</button>
+          <span className="self-center text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">{t('status')}: {reviewState.replace('-', ' ')}</span>
         </div>
       </div>
       {view === 'unified' ? <UnifiedDiff changes={changes} /> : <SideBySide changes={changes} />}
@@ -59,11 +61,13 @@ function UnifiedDiff({ changes }: { changes: ReturnType<typeof diffLines> }) {
 }
 
 function SideBySide({ changes }: { changes: ReturnType<typeof diffLines> }) {
+  const { t } = usePreferences()
+
   return (
     <div className="max-h-[620px] overflow-auto bg-slate-950">
       <div className="sticky top-0 z-10 grid grid-cols-2 bg-slate-900 text-xs font-semibold text-slate-400">
-        <p className="border-r border-slate-700 px-5 py-2">Original</p>
-        <p className="px-5 py-2">Proposed</p>
+        <p className="border-r border-slate-700 px-5 py-2">{t('original')}</p>
+        <p className="px-5 py-2">{t('proposed')}</p>
       </div>
       {changes.map((part, index) => (
         <div key={index} className="grid grid-cols-2 text-xs leading-6">

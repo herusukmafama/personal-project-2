@@ -1,31 +1,34 @@
 import { Link } from 'react-router-dom'
 import { ArrowIcon, DatabaseIcon, FileCodeIcon, ShieldIcon } from '../components/Icons'
 import { PageHeader } from '../components/PageHeader'
+import { usePreferences } from '../i18n/preferencesContext'
 
 export function DashboardPage() {
+  const { t } = usePreferences()
+
   return (
     <div>
       <PageHeader
-        eyebrow="Your workspace"
-        title="Useful tools, without the fuss."
-        description="Quick, private utilities designed to make everyday file tasks simpler. Everything runs right in your browser."
+        eyebrow={t('dashboardEyebrow')}
+        title={t('dashboardTitle')}
+        description={t('dashboardDescription')}
       />
 
       <section className="mt-10">
         <div className="mb-4 flex items-end justify-between">
           <div>
-            <h2 className="text-lg font-semibold text-slate-900">Available tools</h2>
-            <p className="mt-1 text-sm text-slate-500">Start with a tool below.</p>
+            <h2 className="text-lg font-semibold text-slate-900 dark:text-white">{t('availableTools')}</h2>
+            <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{t('startBelow')}</p>
           </div>
-          <span className="rounded-full bg-white px-3 py-1 text-xs font-medium text-slate-500 ring-1 ring-slate-200">
-            2 tools
+          <span className="rounded-full bg-white px-3 py-1 text-xs font-medium text-slate-500 ring-1 ring-slate-200 dark:bg-slate-900 dark:text-slate-400 dark:ring-slate-800">
+            {t('toolCount')}
           </span>
         </div>
 
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
           <Link
             to="/tools/docx-to-json"
-            className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-100 hover:shadow-md"
+            className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-100 hover:shadow-md dark:border-slate-800 dark:bg-slate-900/80 dark:hover:border-brand-500/40"
           >
             <div className="flex items-start justify-between">
               <div className="grid size-12 place-items-center rounded-xl bg-brand-50 text-brand-600">
@@ -33,19 +36,19 @@ export function DashboardPage() {
               </div>
               <ArrowIcon className="size-5 text-slate-300 transition group-hover:translate-x-1 group-hover:text-brand-600" />
             </div>
-            <h3 className="mt-5 text-lg font-semibold text-slate-900">DOCX to JSON</h3>
-            <p className="mt-2 text-sm leading-6 text-slate-500">
-              Turn a Word document into structured JSON, ready to inspect and use.
+            <h3 className="mt-5 text-lg font-semibold text-slate-900 dark:text-white">{t('docxToJson')}</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-300">
+              {t('docxDescription')}
             </p>
             <div className="mt-5 flex items-center gap-2 text-xs font-medium text-emerald-700">
               <ShieldIcon className="size-4" />
-              Browser-only processing
+              {t('browserOnly')}
             </div>
           </Link>
 
           <Link
             to="/tools/sql-deployment-formatter"
-            className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-100 hover:shadow-md"
+            className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-100 hover:shadow-md dark:border-slate-800 dark:bg-slate-900/80 dark:hover:border-brand-500/40"
           >
             <div className="flex items-start justify-between">
               <div className="grid size-12 place-items-center rounded-xl bg-violet-50 text-violet-600">
@@ -53,13 +56,13 @@ export function DashboardPage() {
               </div>
               <ArrowIcon className="size-5 text-slate-300 transition group-hover:translate-x-1 group-hover:text-brand-600" />
             </div>
-            <h3 className="mt-5 text-lg font-semibold text-slate-900">SQL Deployment Formatter</h3>
-            <p className="mt-2 text-sm leading-6 text-slate-500">
-              Prepare SQL filenames, deployment.txt, ZIP bundles, and ticket notes for SLRC deployment.
+            <h3 className="mt-5 text-lg font-semibold text-slate-900 dark:text-white">SQL Deployment Formatter</h3>
+            <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-300">
+              {t('sqlDescription')}
             </p>
             <div className="mt-5 flex items-center gap-2 text-xs font-medium text-emerald-700">
               <ShieldIcon className="size-4" />
-              Browser-only processing
+              {t('browserOnly')}
             </div>
           </Link>
         </div>

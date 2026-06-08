@@ -3,6 +3,22 @@
 All notable changes and planned improvements for the Personal Tools Portal are
 documented here.
 
+## Released - Portal Theme, Language, and Changelog - 2026-06-08
+
+Added a cleaner global portal experience while preserving the existing DOCX
+and SQL tool behavior.
+
+### Updates
+
+- Added a minimal global footer with **Created by Heru** on every page.
+- Added a **Changelog** menu and page with static feature update history.
+- Applied the Apple-style system font stack globally.
+- Added light and dark theme support with the selected theme stored in
+  `personal_tools_theme`.
+- Added Indonesian and English language support with the selected language
+  stored in `personal_tools_language`.
+- Updated dashboard and tool descriptions with friendlier bilingual wording.
+
 ## Released - SQL Guideline Auto-Fix and Diff Review - 2026-06-06
 
 Implemented browser-only SQL guideline proposals, mandatory per-file review,

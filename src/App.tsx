@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AppLayout } from './components/AppLayout'
+import { ChangelogPage } from './pages/ChangelogPage'
 import { ConverterPage } from './pages/ConverterPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { NotFoundPage } from './pages/NotFoundPage'
@@ -12,6 +13,7 @@ export default function App() {
         <Route index element={<DashboardPage />} />
         <Route path="tools/docx-to-json" element={<ConverterPage />} />
         <Route path="tools/sql-deployment-formatter" element={<SqlDeploymentPage />} />
+        <Route path="changelog" element={<ChangelogPage />} />
         <Route path="dashboard" element={<Navigate to="/" replace />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

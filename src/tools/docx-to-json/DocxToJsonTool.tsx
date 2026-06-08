@@ -1,10 +1,12 @@
 import {
   type ChangeEvent,
   type DragEvent,
+  useEffect,
   useRef,
   useState,
 } from 'react'
 import { FileCodeIcon, ShieldIcon, UploadIcon } from '../../components/Icons'
+import { usePreferences } from '../../i18n/preferencesContext'
 import {
   formatBytes,
   parseDocxFile,
@@ -19,23 +21,31 @@ type MessageType = 'neutral' | 'error' | 'success'
 const initialPreview = '{}'
 
 export function DocxToJsonTool() {
+  const { t } = usePreferences()
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [generatedJson, setGeneratedJson] = useState<HelpSupportJson | null>(
     null,
   )
   const [downloadFileName, setDownloadFileName] = useState('converted.json')
-  const [status, setStatus] = useState('Waiting for upload')
+  const [status, setStatus] = useState(t('waitingForUpload'))
   const [message, setMessage] = useState('')
   const [messageType, setMessageType] = useState<MessageType>('neutral')
   const [previewMeta, setPreviewMeta] = useState(
-    'Preview will appear after conversion.',
+    t('previewAfterConversion'),
   )
   const [isBusy, setIsBusy] = useState(false)
 
   const jsonPreview = generatedJson
     ? JSON.stringify(generatedJson, null, 2)
     : initialPreview
+
+  useEffect(() => {
+    if (!selectedFile && !generatedJson && !message) {
+      setStatus(t('waitingForUpload'))
+      setPreviewMeta(t('previewAfterConversion'))
+    }
+  }, [generatedJson, message, selectedFile, t])
 
   function showMessage(value: string, type: MessageType) {
     setMessage(value)
@@ -46,7 +56,7 @@ export function DocxToJsonTool() {
     setSelectedFile(file)
     setGeneratedJson(null)
     setDownloadFileName(file ? buildDownloadFileName(file.name) : 'converted.json')
-    setPreviewMeta('Preview will appear after conversion.')
+    setPreviewMeta(t('previewAfterConversion'))
 
     if (!file) {
       resetState()
@@ -56,7 +66,7 @@ export function DocxToJsonTool() {
     const nextValidation = validateDocxFile(file)
 
     if (!nextValidation.valid) {
-      setStatus('Validation failed')
+      setStatus(t('validationFailed'))
       showMessage(nextValidation.errors.join(' '), 'error')
       return
     }
@@ -75,27 +85,27 @@ export function DocxToJsonTool() {
 
   async function convertFile(file: File) {
     setIsBusy(true)
-    setStatus('Converting')
-    showMessage('Reading DOCX and applying mapping rules...', 'neutral')
+    setStatus(t('converting'))
+    showMessage(t('readingDocx'), 'neutral')
 
     try {
       const parsedDocument = await parseDocxFile(file)
       const mappedJson = mapParsedDocumentToJson(parsedDocument)
       setGeneratedJson(mappedJson)
       setPreviewMeta(
-        `${mappedJson.page_title || 'Converted document'} - ${parsedDocument.messages.length} parser message(s)`,
+        `${mappedJson.page_title || t('convertedDocument')} - ${parsedDocument.messages.length} ${t('parserMessages')}`,
       )
-      setStatus('Converted')
+      setStatus(t('converted'))
       showMessage(
-        'JSON generated successfully. You can download the result.',
+        t('jsonGenerated'),
         'success',
       )
     } catch (error) {
       setGeneratedJson(null)
-      setPreviewMeta('Preview will appear after conversion.')
-      setStatus('Failed')
+      setPreviewMeta(t('previewAfterConversion'))
+      setStatus(t('failed'))
       showMessage(
-        error instanceof Error ? error.message : 'Conversion failed.',
+        error instanceof Error ? error.message : t('conversionFailed'),
         'error',
       )
     } finally {
@@ -105,20 +115,20 @@ export function DocxToJsonTool() {
 
   function handleDownload() {
     if (!generatedJson) {
-      showMessage('No generated JSON is available to download.', 'error')
+      showMessage(t('noJsonDownload'), 'error')
       return
     }
 
     downloadJson(generatedJson, downloadFileName)
-    showMessage(`Downloaded ${downloadFileName}.`, 'success')
+    showMessage(`${t('downloaded')} ${downloadFileName}.`, 'success')
   }
 
   function resetState() {
     setSelectedFile(null)
     setGeneratedJson(null)
     setDownloadFileName('converted.json')
-    setStatus('Waiting for upload')
-    setPreviewMeta('Preview will appear after conversion.')
+    setStatus(t('waitingForUpload'))
+    setPreviewMeta(t('previewAfterConversion'))
     showMessage('', 'neutral')
 
     if (fileInputRef.current) {
@@ -127,17 +137,17 @@ export function DocxToJsonTool() {
   }
 
   const messageClasses = {
-    neutral: 'border-slate-200 bg-slate-50 text-slate-600',
-    error: 'border-red-200 bg-red-50 text-red-700',
-    success: 'border-emerald-200 bg-emerald-50 text-emerald-700',
+    neutral: 'border-slate-200 bg-slate-50 text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300',
+    error: 'border-red-200 bg-red-50 text-red-700 dark:border-red-900/60 dark:bg-red-950/40 dark:text-red-200',
+    success: 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-950/40 dark:text-emerald-200',
   }
 
   return (
     <section className="mt-10 grid gap-6 xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
       <div className="space-y-5">
-        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/80 sm:p-6">
           <div className="mb-5 flex items-center justify-between gap-3">
-            <h2 className="font-semibold text-slate-900">Input document</h2>
+            <h2 className="font-semibold text-slate-900 dark:text-white">{t('inputDocument')}</h2>
             <span className="rounded-full bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
               {status}
             </span>
@@ -147,16 +157,16 @@ export function DocxToJsonTool() {
             htmlFor="docx-file"
             onDragOver={(event) => event.preventDefault()}
             onDrop={handleDrop}
-            className="block cursor-pointer rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 px-5 py-10 text-center transition hover:border-brand-500 hover:bg-brand-50/40"
+            className="block cursor-pointer rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 px-5 py-10 text-center transition hover:border-brand-500 hover:bg-brand-50/40 dark:border-slate-700 dark:bg-slate-950/70 dark:hover:border-brand-500 dark:hover:bg-brand-500/10"
           >
             <div className="mx-auto grid size-14 place-items-center rounded-2xl bg-brand-50 text-brand-600">
               <UploadIcon className="size-7" />
             </div>
-            <span className="mt-4 block font-semibold text-slate-900">
-              Choose a Word document
+            <span className="mt-4 block font-semibold text-slate-900 dark:text-white">
+              {t('chooseWordDocument')}
             </span>
-            <span className="mt-1 block text-sm text-slate-500">
-              Drag and drop or browse, .docx up to 10 MB
+            <span className="mt-1 block text-sm text-slate-500 dark:text-slate-400">
+              {t('dragDropDocx')}
             </span>
           </label>
           <input
@@ -169,18 +179,18 @@ export function DocxToJsonTool() {
             className="sr-only"
           />
 
-          <dl className="mt-5 divide-y divide-slate-100 rounded-xl border border-slate-200 px-4 text-sm">
+          <dl className="mt-5 divide-y divide-slate-100 rounded-xl border border-slate-200 px-4 text-sm dark:divide-slate-800 dark:border-slate-800">
             <div className="grid grid-cols-[70px_1fr] gap-3 py-3">
-              <dt className="font-medium text-slate-500">File</dt>
-              <dd className="min-w-0 break-words text-slate-800">
+              <dt className="font-medium text-slate-500 dark:text-slate-400">{t('file')}</dt>
+              <dd className="min-w-0 break-words text-slate-800 dark:text-slate-200">
                 {selectedFile
                   ? `${selectedFile.name} (${formatBytes(selectedFile.size)})`
-                  : 'No file selected'}
+                  : t('noFileSelected')}
               </dd>
             </div>
             <div className="grid grid-cols-[70px_1fr] gap-3 py-3">
-              <dt className="font-medium text-slate-500">Privacy</dt>
-              <dd className="text-slate-800">Processed locally in this browser</dd>
+              <dt className="font-medium text-slate-500 dark:text-slate-400">{t('privacy')}</dt>
+              <dd className="text-slate-800 dark:text-slate-200">{t('processedLocally')}</dd>
             </div>
           </dl>
 
@@ -189,9 +199,9 @@ export function DocxToJsonTool() {
               type="button"
               disabled={isBusy}
               onClick={resetState}
-              className="w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="button-secondary w-full"
             >
-              Reset
+              {t('reset')}
             </button>
           </div>
 
@@ -206,31 +216,30 @@ export function DocxToJsonTool() {
           )}
         </section>
 
-        <aside className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <aside className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/80 sm:p-6">
           <div className="flex gap-3">
             <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-emerald-50 text-emerald-600">
               <ShieldIcon className="size-5" />
             </div>
             <div>
-              <h2 className="font-semibold text-slate-900">Private by design</h2>
-              <p className="mt-1 text-sm leading-6 text-slate-500">
-                No upload, API, database, or file storage is used during
-                conversion.
+              <h2 className="font-semibold text-slate-900 dark:text-white">{t('privateByDesign')}</h2>
+              <p className="mt-1 text-sm leading-6 text-slate-500 dark:text-slate-400">
+                {t('localOnlyConversion')}
               </p>
             </div>
           </div>
         </aside>
       </div>
 
-      <section className="min-w-0 rounded-2xl border border-slate-200 bg-white shadow-sm">
-        <div className="flex flex-col gap-4 border-b border-slate-200 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
+      <section className="min-w-0 rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
+        <div className="flex flex-col gap-4 border-b border-slate-200 p-5 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between sm:p-6">
           <div className="flex min-w-0 items-center gap-3">
             <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-violet-50 text-violet-600">
               <FileCodeIcon className="size-5" />
             </div>
             <div className="min-w-0">
-              <h2 className="font-semibold text-slate-900">JSON Preview</h2>
-              <p className="truncate text-sm text-slate-500">{previewMeta}</p>
+              <h2 className="font-semibold text-slate-900 dark:text-white">{t('jsonPreview')}</h2>
+              <p className="truncate text-sm text-slate-500 dark:text-slate-400">{previewMeta}</p>
             </div>
           </div>
           <button
@@ -239,7 +248,7 @@ export function DocxToJsonTool() {
             onClick={handleDownload}
             className="shrink-0 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Download JSON
+            {t('downloadJson')}
           </button>
         </div>
         <pre className="max-h-[720px] min-h-[500px] overflow-auto bg-slate-950 p-5 text-xs leading-6 text-slate-200 sm:p-6">
