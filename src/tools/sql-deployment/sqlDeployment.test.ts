@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { generateArtifacts, isValidOutputName, validateDeployment } from './artifacts'
 import { createDeploymentZip } from './downloadArtifacts'
 import JSZip from 'jszip'
+import { sortFilesByDeploymentOrder } from './deploymentOrder'
 import { analyzeSql, buildOutputName, splitTopLevelStatements, validateSql } from './sqlAnalyzer'
 import { formatPostgresqlSql } from './sqlFormatter'
 import type { DeploymentMetadata, SqlFileResult } from './types'
@@ -140,6 +141,20 @@ describe('deployment artifacts', () => {
     expect(
       await zip.file('2_db_public_users_CRTBL.sql')?.async('string'),
     ).toBe(files[0].acceptedSql)
+  })
+
+  it('sorts deployment files ascending by numeric filename sequence', () => {
+    expect(
+      sortFilesByDeploymentOrder([
+        file('10_db_public_late_CRTBL.sql'),
+        file('2_db_public_users_CRTBL.sql'),
+        file('6_db_public_get_user_P1_CRFUN.sql'),
+      ]).map((item) => item.outputName),
+    ).toEqual([
+      '2_db_public_users_CRTBL.sql',
+      '6_db_public_get_user_P1_CRFUN.sql',
+      '10_db_public_late_CRTBL.sql',
+    ])
   })
 })
 

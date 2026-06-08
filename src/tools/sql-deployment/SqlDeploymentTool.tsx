@@ -2,6 +2,7 @@ import { type ChangeEvent, useMemo, useRef, useState } from 'react'
 import { ShieldIcon, UploadIcon } from '../../components/Icons'
 import { usePreferences } from '../../i18n/preferencesContext'
 import { generateArtifacts, validateDeployment } from './artifacts'
+import { sortFilesByDeploymentOrder } from './deploymentOrder'
 import { DiffReview } from './DiffReview'
 import { downloadDeploymentZip, downloadText } from './downloadArtifacts'
 import { proposeGuidelineFixes } from './guidelineTransformer'
@@ -67,7 +68,7 @@ export function SqlDeploymentTool() {
       }
     }
 
-    setFiles((current) => [...current, ...next])
+    setFiles((current) => sortFilesByDeploymentOrder([...current, ...next]))
     if (!selectedId && next[0]) setSelectedId(next[0].id)
     setMessage(`${next.length} ${t('filesAdded')}`)
     if (inputRef.current) inputRef.current.value = ''
@@ -78,10 +79,12 @@ export function SqlDeploymentTool() {
     setMetadata(nextMetadata)
     if (field === 'database') {
       setFiles((current) =>
-        current.map((file) =>
-          updateReviewedOutputName(
-            file,
-            buildOutputName(file.analysis, nextMetadata),
+        sortFilesByDeploymentOrder(
+          current.map((file) =>
+            updateReviewedOutputName(
+              file,
+              buildOutputName(file.analysis, nextMetadata),
+            ),
           ),
         ),
       )
@@ -90,8 +93,10 @@ export function SqlDeploymentTool() {
 
   function updateOutputName(id: string, outputName: string) {
     setFiles((current) =>
-      current.map((file) =>
-        file.id === id ? updateReviewedOutputName(file, outputName) : file,
+      sortFilesByDeploymentOrder(
+        current.map((file) =>
+          file.id === id ? updateReviewedOutputName(file, outputName) : file,
+        ),
       ),
     )
   }
@@ -103,14 +108,6 @@ export function SqlDeploymentTool() {
         return applyReviewDecision(file, decision)
       }),
     )
-  }
-
-  function moveFile(index: number, offset: number) {
-    const target = index + offset
-    if (target < 0 || target >= files.length) return
-    const next = [...files]
-    ;[next[index], next[target]] = [next[target], next[index]]
-    setFiles(next)
   }
 
   function removeFile(id: string) {
@@ -233,7 +230,7 @@ export function SqlDeploymentTool() {
           <div className="space-y-3 p-5">
             <FindingList findings={deploymentFindings} />
             {!files.length && <EmptyState text={t('uploadSqlToBegin')} />}
-            {files.map((file, index) => (
+            {files.map((file) => (
               <article
                 key={file.id}
                 className={`rounded-xl border p-4 ${
@@ -260,8 +257,6 @@ export function SqlDeploymentTool() {
                     </p>
                   </button>
                   <div className="flex shrink-0 gap-2">
-                    <SmallButton label={t('moveUp')} onClick={() => moveFile(index, -1)} disabled={index === 0}>&uarr;</SmallButton>
-                    <SmallButton label={t('moveDown')} onClick={() => moveFile(index, 1)} disabled={index === files.length - 1}>&darr;</SmallButton>
                     <SmallButton label={t('removeFile')} onClick={() => removeFile(file.id)}>x</SmallButton>
                   </div>
                 </div>

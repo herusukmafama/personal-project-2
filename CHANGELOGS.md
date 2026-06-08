@@ -3,6 +3,18 @@
 All notable changes and planned improvements for the Personal Tools Portal are
 documented here.
 
+## Released - Automatic SQL Deployment Order - 2026-06-08
+
+Updated **SQL Deployment Formatter** so deployment order is handled
+automatically.
+
+### Updates
+
+- SQL files are now sorted ascending by the numeric prefix in the generated
+  output filename.
+- Manual move up/down controls were removed to keep the flow simpler.
+- The remove file action remains available.
+
 ## Released - SLRC Ticket Note Format - 2026-06-08
 
 Updated **SQL Deployment Formatter** output helpers for deployment requests.
