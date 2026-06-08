@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Simulasi Angsuran ARJUNA</title>
+   <style>
+       html {
+           font-family: Poppins, sans-serif;
+       }
+       table {
+           font-family: Poppins, sans-serif;
+           border-collapse: collapse;
+           width: 50%;
+       }
+       td, th {
+           border: 1px solid #dddddd;
+           text-align: left;
+           padding: 8px;
+       }
+       tr:nth-child(even) {
+           background-color: #dddddd;
+       }
+       .form-control{
+           width: 100%;
+           /*margin: 8px 0;*/
+           display: inline-block;
+           border: 1px solid #ccc;
+           box-shadow: inset 0 1px 3px #ddd;
+           border-radius: 4px;
+           -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+           box-sizing: border-box;
+           padding-left: 20px;
+           padding-right: 20px;
+           padding-top: 12px;
+           padding-bottom: 12px;
+       }
+       .button {
+           background-color: #4CAF50; /* Green */
+           border: none;
+           color: white;
+           padding: 15px 32px;
+           text-align: center;
+           text-decoration: none;
+           display: inline-block;
+           font-size: 16px;
+           margin: 4px 2px;
+           cursor: pointer;
+       }
+       .margin-top-sm {
+           margin-top: 20px;
+       }
+       .margin-all-div {
+           margin: 20px 10px 20px 10px;
+       }
+       .margin-all-div-form {
+           margin: 40px 10px 20px 10px;
+       }
+       .text-center{
+           text-align: center;
+       }
+       .d-none{
+           display: none;
+       }
+       .font-size-select{
+           font-size: 25px;
+       }
+   </style>
+</head>
+<body>
+<div class="margin-all-div select-options">
+   <div>
+      <label class='font-size-select' for="select_form">Choose a form:</label>
+      <select name="select_form" id="select_form" class='font-size-select'>
+         <option value="form_equal_eff">Anuitas - Effective Rate</option>
+         <option value="form_flat">Anuitas - Flat Rate</option>
+      </select>
+   </div>
+   <hr>
+</div>
+<div class="margin-all-div-form" id='div_equal_eff'>
+   <h2>Anuitas - Effective Rate</h2>
+   <form id='form_equal_eff'>
+   <table>
+      <tbody>
+      <tr>
+         <td>Plafond <b class='d-none'>B3</b></td>
+         <td>
+            <input type="text" id="equal_eff_plafond" class="form-control equal_eff_calc-b8"/>
+            <input type="hidden" id="equal_eff_hd_plafond"/>
+         </td>
+      </tr>
+      <tr>
+         <td>Period (Month) <b class='d-none'>B4</b></td>
+         <td>
+            <input type="text" id="equal_eff_period" class="form-control equal_eff_calc-b8"/>
+         </td>
+      </tr>
+      <tr>
+         <td>Eff.Int.Rate (Year) <b class='d-none'>B5</b></td>
+         <td>
+            <input type="text" id="equal_eff_rate_year" class="form-control equal_eff_calc-b8"/>
+         </td>
+      </tr>
+      <tr>
+         <td>Eff.Int.Rate (Month) <b class='d-none'>B6</b></td>
+         <td>
+            <input type="text" id="equal_eff_int_rate_month" readOnly={true} class="form-control"/>
+            <input type="hidden" id="equal_eff_hd_int_rate_month"/>
+         </td>
+      </tr>
+      <tr>
+         <td>Installment (Per Month) <b class='d-none'>B8</b></td>
+         <td>
+            <input type="text" id="equal_eff_installment_per_month" readOnly={true} class="form-control"/>
+            <input type="hidden" id="equal_eff_hd_installment_per_month"/>
+         </td>
+      </tr>
+      </tbody>
+   </table>
+   <input type="button" class="button margin-top-sm" value="Generate Installment Equal" onclick="equal_eff_gen_inst()" />
+   <hr />
+
+   <table id="equal_eff_tbl" class="table table-striped table-bordered">
+      <thead>
+      <tr>
+         <th class='text-center'>Ang. Ke <b class='d-none'>A13</b></th>
+         <th class='text-center'>Installment <b class='d-none'>B13</b></th>
+         <th class='text-center'>Interest <b class='d-none'>C13</b></th>
+         <th class='text-center'>Principle <b class='d-none'>D13</b></th>
+         <th class='text-center'>Residual Principle <b class='d-none'>E13</b></th>
+      </tr>
+      <tr>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td style='text-align: right' id="equal_eff_cell_E12"></td>
+      </tr>
+      <input type='hidden' id='equal_eff_hd_cell_E12'>
+      </thead>
+      <tbody id="equal_eff_tbody_installment"></tbody>
+   </table>
+   </form>
+</div>
+<div class="margin-all-div-form" id='div_equal_flat'>
+   <h2>Anuitas - Flat Rate</h2>
+   <form id='form_equal_flat'>
+   <table>
+      <tbody>
+      <tr>
+         <td>Plafond <b class='d-none'>B3</b></td>
+         <td>
+            <input type="text" id="equal_flat_plafond" class="form-control calc-b7 calc-b8"/>
+            <input type="hidden" id="hd_equal_flat_plafond"/>
+         </td>
+      </tr>
+      <tr>
+         <td>Tenor (Month) <b class='d-none'>B4</b></td>
+         <td>
+            <input type="text" id="equal_flat_tenor" class="form-control calc-b7 calc-b8"/>
+         </td>
+      </tr>
+      <tr>
+         <td>Flat Interest (Month) <b class='d-none'>B5</b></td>
+         <td>
+            <input type="text" id="equal_flat_flat_interest_month" class="form-control calc-b7 calc-b8"/>
+         </td>
+      </tr>
+      <tr>
+         <td>Flat Interest (Year) <b class='d-none'>B6</b></td>
+         <td>
+            <input type="text" id="equal_flat_flat_interest_year" readOnly={true} class="form-control"/>
+            <input type="hidden" id="hd_equal_flat_flat_interest_year"/>
+         </td>
+      </tr>
+      <tr>
+         <td>Installment (Per Month) <b class='d-none'>B7</b></td>
+         <td>
+            <input type="text" id="equal_flat_installment_per_month" readOnly={true} class="form-control"/>
+            <input type="hidden" id="hd_equal_flat_installment_per_month"/>
+         </td>
+      </tr>
+      <tr>
+         <td>Eff.Int.Rate (Year) <b class='d-none'>B8</b></td>
+         <td>
+            <input type="text" id="equal_flat_int_rate_year" readOnly={true} class="form-control"/>
+         </td>
+      </tr>
+      <tr>
+         <td>Eff.Int.Rate (Month) <b class='d-none'>B9</b></td>
+         <td>
+            <input type="text" id="equal_flat_int_rate_month" readOnly={true} class="form-control"/>
+         </td>
+      </tr>
+      </tbody>
+   </table>
+   <button type="button" class="button margin-top-sm" id="btnCalc">Calc Rate</button>
+   <input type="button" class="button" value="Generate Installment" onclick="generateInstallment()" />
+   <hr />
+
+   <table id="tblInstallment" class="table table-striped table-bordered">
+      <thead>
+      <tr>
+         <th class='text-center'>Ang. Ke <b class='d-none'>A13</b></th>
+         <th class='text-center'>Installment <b class='d-none'>B13</b></th>
+         <th class='text-center'>Interest <b class='d-none'>C13</b></th>
+         <th class='text-center'>Principle <b class='d-none'>D13</b></th>
+         <th class='text-center'>Residual Principle <b class='d-none'>E13</b></th>
+      </tr>
+      <tr>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td></td>
+         <td style='text-align: right' id="cell_E12"></td>
+      </tr>
+      <input type='hidden' id='hd_cell_E12'>
+      </thead>
+      <tbody id="tbodyInstallment"></tbody>
+   </table>
+   </form>
+</div>
+
+<script type = "text/JavaScript">
+
+  /*
+      1. rate tidak dibulatkan
+      2. B3 =
+  */
+
+  document.addEventListener( 'DOMContentLoaded', function(e) {
+    //alert("I'm event handler!!");
+
+    // by default form B tidak tampil
+    document.getElementById("div_equal_flat").style.display = 'none';
+
+    document.getElementById("select_form").addEventListener("change", function(){
+      const select_form = this.value;
+      const div_equal_eff = document.getElementById("div_equal_eff");
+      const div_equal_flat = document.getElementById("div_equal_flat");
+      if (select_form === "form_equal_eff") {
+        document.getElementById("form_equal_eff").reset();
+        document.getElementById("equal_eff_tbody_installment").innerHTML = "";
+        document.getElementById("equal_eff_cell_E12").innerHTML = "";
+        div_equal_eff.style.display = "block";
+        div_equal_flat.style.display = "none";
+      } else if(select_form === "form_flat") {
+        document.getElementById("form_equal_flat").reset();
+        document.getElementById("tbodyInstallment").innerHTML = "";
+        document.getElementById("cell_E12").innerHTML = "";
+        div_equal_eff.style.display = "none";
+        div_equal_flat.style.display = "block";
+      }
+    });
+
+    // -------------------------------------------------------- Anuitas - Effective Rate -------------------------------------------------------- //
+
+    // 1. FORMULA Eff.Int.Rate (Month) B6 : B5/12
+    document.getElementById("equal_eff_rate_year").addEventListener("keyup", function(){
+      let B5 = document.getElementById("equal_eff_rate_year").value;
+      document.getElementById("equal_eff_int_rate_month").value = (B5/12);
+      document.getElementById("equal_eff_hd_int_rate_month").value = B5/12;
+    });
+
+    // 2. FORMULA Installment (Per Month) B8 : =CEILING.MATH(PMT(B6,B4,-B3))
+    const calc_b8 = document.getElementsByClassName("equal_eff_calc-b8");
+    calc_b8[0].addEventListener("blur", function(){
+      let B4 = document.getElementById("equal_eff_period").value;
+      B4 = Number(B4);
+      B4 = B4*-1;
+      let B6 = document.getElementById("equal_eff_hd_int_rate_month").value;
+      B6 = Number(B6);
+      B6 = B6/100;
+
+      let hd_equal_flat_plafond = document.getElementById("equal_eff_hd_plafond").value;
+      let B3 = Number(hd_equal_flat_plafond);
+
+      // (B3*B6)/(1 - (1+B6) ** (B4));
+      let result;
+      let A = B3*B6;
+      let B = (1+B6);
+      let C = B4;
+      let D = 1- (B ** C);
+      result = A / D;
+      result = Math.ceil(result);
+
+      document.getElementById("equal_eff_installment_per_month").value = toRp(result);
+      document.getElementById("equal_eff_hd_installment_per_month").value = result;
+    });
+
+    for (const calc of calc_b8){
+      calc.addEventListener("blur", function(){
+        let B4 = document.getElementById("equal_eff_period").value;
+        B4 = Number(B4);
+        B4 = B4*-1;
+        let B6 = document.getElementById("equal_eff_hd_int_rate_month").value;
+        B6 = Number(B6);
+        B6 = B6/100;
+
+        let hd_equal_flat_plafond = document.getElementById("equal_eff_hd_plafond").value;
+        let B3 = Number(hd_equal_flat_plafond);
+
+        // (B3*B6)/(1 - (1+B6) ** (B4));
+        let result;
+        let A = B3*B6;
+        let B = (1+B6);
+        let C = B4;
+        let D = 1- (B ** C);
+        result = A / D;
+        result = Math.ceil(result);
+
+        document.getElementById("equal_eff_installment_per_month").value = toRp(result);
+        document.getElementById("equal_eff_hd_installment_per_month").value = result;
+      });
+    }
+
+    // convert currency
+    document.getElementById("equal_eff_plafond").addEventListener("keyup", function(){
+      this.value = formatCurrency(this.value);
+      let hd_equal_flat_plafond = this.value;
+      hd_equal_flat_plafond = Number(hd_equal_flat_plafond.replace(/[^0-9\.]+/g,""));
+      document.getElementById("equal_eff_hd_plafond").value = hd_equal_flat_plafond;
+    });
+
+    // -------------------------------------------------------- Anuitas - Effective Rate -------------------------------------------------------- //
+
+    // -------------------------------------------------------- Anuitas - Flat Rate -------------------------------------------------------- //
+
+    // Flat Interest (Year) B6 : B5*12
+    document.getElementById("equal_flat_flat_interest_month").addEventListener("keyup", getFlatInterestYear);
+
+    document.getElementById("btnCalc").addEventListener("click", getCalc);
+
+    // Installment (Per Month) B7 : =CEILING.MATH((B3+(B3*B6*(B4/12)))/B4)
+    const calc_b7 = document.getElementsByClassName("calc-b7");
+    calc_b7[0].addEventListener("blur", function(){
+      let B4 = document.getElementById("equal_flat_tenor").value;
+      let B5 = document.getElementById("equal_flat_flat_interest_month").value;
+
+      let hd_equal_flat_plafond = document.getElementById("hd_equal_flat_plafond").value;
+      hd_equal_flat_plafond = Number(hd_equal_flat_plafond.replace(/[^0-9\.]+/g,""));
+      B5 = B5 / 100;
+
+      const result = Math.ceil((hd_equal_flat_plafond / B4) + (B5 * hd_equal_flat_plafond));
+
+      //document.getElementById("equal_flat_installment_per_month").value = Math.ceil((B3 / B4) + (B5 * B3));
+      document.getElementById("equal_flat_installment_per_month").value = toRp(result);
+      document.getElementById("hd_equal_flat_installment_per_month").value = result;
+    });
+
+    for (const calc of calc_b7){
+      calc.addEventListener("keyup", function(){
+        let B4 = document.getElementById("equal_flat_tenor").value;
+        let B5 = document.getElementById("equal_flat_flat_interest_month").value;
+
+        let hd_equal_flat_plafond = document.getElementById("hd_equal_flat_plafond").value;
+        hd_equal_flat_plafond = Number(hd_equal_flat_plafond.replace(/[^0-9\.]+/g,""));
+        B5 = B5 / 100;
+
+        const result = Math.ceil((hd_equal_flat_plafond / B4) + (B5 * hd_equal_flat_plafond));
+
+        //document.getElementById("equal_flat_installment_per_month").value = Math.ceil((B3 / B4) + (B5 * B3));
+        document.getElementById("equal_flat_installment_per_month").value = toRp(result);
+        document.getElementById("hd_equal_flat_installment_per_month").value = result;
+      });
+    }
+
+    // convert currency
+    document.getElementById("equal_flat_plafond").addEventListener("keyup", function(){
+      //console.log("convert currency");
+      this.value = formatCurrency(this.value);
+      document.getElementById("hd_equal_flat_plafond").value = this.value;
+    });
+
+    // -------------------------------------------------------- Anuitas - Flat Rate -------------------------------------------------------- //
+
+  });
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  function equal_eff_gen_inst() {
+    //Build an array containing Customer records.
+    let B3 = document.getElementById("equal_eff_hd_plafond").value;
+    B3 = Number(B3.replace(/[^0-9\.]+/g,""));
+    let B4 = document.getElementById("equal_eff_period").value;
+    B4 = Number(B4);
+    let B7 = document.getElementById("equal_eff_hd_installment_per_month").value;
+    let B9 = document.getElementById("equal_eff_int_rate_month").value;
+    B9 = parseFloat(B9);
+
+    document.getElementById("equal_eff_tbody_installment").innerHTML = "";
+
+    let A13;
+    let index = 1;
+    A13 = index;
+    for (let i = 1; i <= B4; i++) {
+      let html = equal_eff_gen_inst(index);
+      let generate = document.getElementById("equal_eff_tbody_installment").innerHTML + html;
+      document.getElementById("equal_eff_tbody_installment").innerHTML = generate;
+
+      // mapping Installment pertama
+      document.getElementById("equal_eff_spn_B13_" + index).innerHTML = toRp(B7);
+      document.getElementById("equal_eff_hd_spn_B13_" + index).innerHTML = B7;
+      // mapping Installment pertama
+
+      // mapping Residual Principle pertama
+      document.getElementById("equal_eff_cell_E12").innerHTML = toRp(B3);
+      document.getElementById("equal_eff_hd_cell_E12").value = B3;
+      let E12 = document.getElementById("equal_eff_hd_cell_E12").value = B3;
+      // mapping Residual Principle pertama
+
+      // mapping Interest C13 pertama
+      let setInterest;
+      if(A13 != B9){
+        setInterest = (B9/100) * Number(E12);
+      }else{
+        setInterest = 0;
+      }
+      setInterest = Math.ceil(setInterest)
+      document.getElementById("equal_eff_spn_C13_1").innerHTML = toRp(setInterest);
+      document.getElementById("equal_eff_hd_spn_C13_1").value = Math.ceil(setInterest);
+      // mapping Interest C13 pertama
+
+      // mapping Principle D13 pertama
+      let B13 = B7;
+      let C13_1 = document.getElementById("equal_eff_hd_spn_C13_1").value;
+      let setPrinciple;
+      if(A13 != B4){
+        setPrinciple = B13 - C13_1;
+      }else {
+        //  B7-C13+(E12-(B7-C13)) blm diset
+        let B7 = document.getElementById("equal_eff_installment_per_month").value;
+        B7 = Number(B7.replace(/[^0-9\.]+/g,""));
+        //let indexE13 = index - 1;
+        let E12 = document.getElementById("equal_eff_cell_E12").innerText;
+        E12 = Number(E12.replace(/[^0-9\.]+/g,""));
+        let C13 = document.getElementById("equal_eff_hd_spn_C13_1").value;
+        C13 = Number(C13);
+        setPrinciple = B7-C13+(E12-(B7-C13));
+      }
+      document.getElementById("equal_eff_spn_D13_1").innerHTML = toRp(setPrinciple);
+      document.getElementById("equal_eff_hd_spn_D13_1").value = setPrinciple;
+      // mapping Principle D13 pertama
+
+      // mapping Residual Principle E13 pertama
+      let setResidualPrinciple;
+      let E12_1 = document.getElementById("equal_eff_hd_cell_E12").value;
+      let D13 = document.getElementById("equal_eff_hd_spn_D13_1").value;
+      setResidualPrinciple = E12_1 - D13;
+      document.getElementById("equal_eff_spn_E13_1").innerHTML = toRp(setResidualPrinciple);
+      document.getElementById("equal_eff_hd_spn_E13_1").value = setResidualPrinciple;
+      // mapping Residual Principle E13 pertama
+
+      // dinamic arti nya yang index nya lebih dari 1. contoh: 2, 3, dst
+
+      if(index > 1){
+        // mapping Interest C13 dinamic
+        let indexE13 = index - 1;
+        let E12Dinamic = document.getElementById("equal_eff_hd_spn_E13_" + indexE13).value;
+        let setInterestDinamic;
+        if(A13 != B9){
+          setInterestDinamic = (B9/100) * Number(E12Dinamic);
+        }else{
+          setInterestDinamic = 0;
+        }
+        setInterestDinamic = Math.ceil(setInterestDinamic);
+        document.getElementById("equal_eff_spn_C13_" + index).innerHTML = toRp(setInterestDinamic);
+        document.getElementById("equal_eff_hd_spn_C13_" + index).value = Math.ceil(setInterestDinamic);
+        // mapping Interest C13 dinamic
+      }
+
+      if(index > 1) {
+        // mapping Principle D13 dinamic
+        let B13 = B7;
+        let C13Dinamic = document.getElementById("equal_eff_hd_spn_C13_" + index).value;
+        let setPrincipleDinamic;
+        if (index != B4) {
+          setPrincipleDinamic = B13 - C13Dinamic;
+        } else {
+          //  B7-C13+(E12-(B7-C13)) blm diset
+          let B7 = document.getElementById("equal_eff_installment_per_month").value;
+          B7 = Number(B7.replace(/[^0-9\.]+/g,""));
+          let indexE13 = index - 1;
+          let E13 = document.getElementById("equal_eff_hd_spn_E13_" + indexE13).value;
+          C13Dinamic = Number(C13Dinamic);
+          setPrincipleDinamic = B7-C13Dinamic+(E13-(B7-C13Dinamic))
+        }
+        document.getElementById("equal_eff_spn_D13_" + index).innerHTML = toRp(setPrincipleDinamic);
+        document.getElementById("equal_eff_hd_spn_D13_" + index).value = setPrincipleDinamic;
+        // mapping Principle D13 dinamic
+      }
+
+      if(index > 1){
+        // mapping Residual Principle E13 dinamic
+        let setResidualPrincipleDinamic;
+        let indexE13 = index - 1;
+        let E13 = document.getElementById("equal_eff_hd_spn_E13_" + indexE13).value;
+        let D14 = document.getElementById("equal_eff_hd_spn_D13_" + index).value;
+        setResidualPrincipleDinamic = E13 - D14;
+        document.getElementById("equal_eff_spn_E13_" + index).innerHTML = toRp(setResidualPrincipleDinamic);
+        document.getElementById("equal_eff_hd_spn_E13_" + index).value = setResidualPrincipleDinamic;
+        // mapping Residual Principle E13 dinamic
+      }
+
+      if(index > 1){
+        // mapping Installment dinamic
+        let setInstallment;
+        let A14 = index;
+        let B4 = document.getElementById("equal_eff_period").value;
+        let B7 = document.getElementById("equal_eff_hd_installment_per_month").value;
+        let C14 = document.getElementById("equal_eff_hd_spn_C13_" + index).value;
+        let D14 = document.getElementById("equal_eff_hd_spn_D13_" + index).value;
+        if(A14 <= B4){
+          if(A14 != B4){
+            setInstallment = B7;
+          }else{
+            setInstallment = Number(C14) + Number(D14);
+          }
+        }else{
+          setInstallment = 0;
+        }
+        document.getElementById("equal_eff_spn_B13_" + index).innerHTML = toRp(setInstallment);
+        document.getElementById("equal_eff_hd_spn_B13_" + index).innerHTML = setInstallment;
+
+        // mapping Installment dinamic
+      }
+      index++;
+    }
+
+    function equal_eff_gen_inst(index,B7) {
+      let html = "";
+
+      html += `<tr>`;
+
+      html += `<td style='text-align: center'>`;
+      html += `<span id='equal_eff_spn_A13_${index}'>${index}</span>`;
+      html += `<input type='hidden' id='equal_eff_hd_spn_A13_${index}' value='${index}'/>`;
+      html += `</td>`;
+
+      html += `<td style='text-align: right'>`;
+      html += `<span id='equal_eff_spn_B13_${index}'></span>`;
+      html += `<input type='hidden' id='equal_eff_hd_spn_B13_${index}'/>`;
+      html += `</td>`;
+
+      html += `<td style='text-align: right'>`;
+      html += `<span id='equal_eff_spn_C13_${index}'></span>`;
+      html += `<input type='hidden' id='equal_eff_hd_spn_C13_${index}'>`;
+      html += `</td>`;
+
+      html += `<td style='text-align: right'>`;
+      html += `<span id='equal_eff_spn_D13_${index}'></span>`;
+      html += `<input type='hidden' id='equal_eff_hd_spn_D13_${index}'>`;
+      html += `</td>`;
+
+      html += `<td style='text-align: right'>`;
+      html += `<span id='equal_eff_spn_E13_${index}'></span>`;
+      html += `<input type='hidden' id='equal_eff_hd_spn_E13_${index}'>`;
+      html += `</td>`;
+
+      html += `</tr>`;
+      return html;
+    }
+  }
+
+  // -------------------------------------------------------- Anuitas - Flat Rate -------------------------------------------------------- //
+
+  // Flat Interest (Year) B6 : B5*12
+  function getFlatInterestYear(){
+    let equal_flat_flat_interest_month = document.getElementById("equal_flat_flat_interest_month").value;
+    document.getElementById("equal_flat_flat_interest_year").value = equal_flat_flat_interest_month*12;
+    document.getElementById("hd_equal_flat_flat_interest_year").value = equal_flat_flat_interest_month*12;
+  }
+
+  function getCalc(){
+    let B4 = document.getElementById("equal_flat_tenor").value;
+         B4 = Number(B4);
+
+    let hd_equal_flat_plafond = document.getElementById("hd_equal_flat_plafond").value;
+    hd_equal_flat_plafond = Number(hd_equal_flat_plafond.replace(/[^0-9\.]+/g,""));
+    hd_equal_flat_plafond = hd_equal_flat_plafond*-1;
+
+    let hd_equal_flat_installment_per_month = document.getElementById("hd_equal_flat_installment_per_month").value;
+    hd_equal_flat_installment_per_month = Number(hd_equal_flat_installment_per_month);
+
+    let rate = getRATE(B4,hd_equal_flat_installment_per_month,hd_equal_flat_plafond);
+    let rate_year = rate * 12;
+    let rate_month = rate;
+    document.getElementById("equal_flat_int_rate_year").value = (rate_year * 100);
+    document.getElementById("equal_flat_int_rate_month").value = (rate_month * 100);
+  }
+
+  function getRATE(paymentsPerYear, paymentAmount, presentValue, futureValue, dueEndOrBeginning, interest)
+  {
+    //If interest, futureValue, dueEndorBeginning was not set, set now
+    if (interest == null)
+      interest = 0.01;
+
+    if (futureValue == null)
+      futureValue = 0;
+
+    if (dueEndOrBeginning == null)
+      dueEndOrBeginning = 0;
+
+    var FINANCIAL_MAX_ITERATIONS = 128;//Bet accuracy with 128
+    var FINANCIAL_PRECISION = 0.0000001;//1.0e-8
+
+    var y, y0, y1, x0, x1 = 0, f = 0, i = 0;
+    var rate = interest;
+    if (Math.abs(rate) < FINANCIAL_PRECISION)
+    {
+      y = presentValue * (1 + paymentsPerYear * rate) + paymentAmount * (1 + rate * dueEndOrBeginning) * paymentsPerYear + futureValue;
+    }
+    else
+    {
+      f = Math.exp(paymentsPerYear * Math.log(1 + rate));
+      y = presentValue * f + paymentAmount * (1 / rate + dueEndOrBeginning) * (f - 1) + futureValue;
+    }
+    y0 = presentValue + paymentAmount * paymentsPerYear + futureValue;
+    y1 = presentValue * f + paymentAmount * (1 / rate + dueEndOrBeginning) * (f - 1) + futureValue;
+
+    // find root by Newton secant method
+    i = x0 = 0.0;
+    x1 = rate;
+    while ((Math.abs(y0 - y1) > FINANCIAL_PRECISION)
+    && (i < FINANCIAL_MAX_ITERATIONS))
+    {
+      rate = (y1 * x0 - y0 * x1) / (y1 - y0);
+      x0 = x1;
+      x1 = rate;
+
+      if (Math.abs(rate) < FINANCIAL_PRECISION)
+      {
+        y = presentValue * (1 + paymentsPerYear * rate) + paymentAmount * (1 + rate * dueEndOrBeginning) * paymentsPerYear + futureValue;
+      }
+      else
+      {
+        f = Math.exp(paymentsPerYear * Math.log(1 + rate));
+        y = presentValue * f + paymentAmount * (1 / rate + dueEndOrBeginning) * (f - 1) + futureValue;
+      }
+
+      y0 = y1;
+      y1 = y;
+      ++i;
+    }
+    return rate;
+  }
+
+  // Generate Table
+
+  function generateInstallment() {
+    //Build an array containing Customer records.
+
+    let B3 = document.getElementById("hd_equal_flat_plafond").value;
+    B3 = Number(B3.replace(/[^0-9\.]+/g,""));
+    let B4 = document.getElementById("equal_flat_tenor").value;
+    B4 = Number(B4);
+    let B7 = document.getElementById("hd_equal_flat_installment_per_month").value;
+    let B9 = document.getElementById("equal_flat_int_rate_month").value;
+    B9 = parseFloat(B9);
+
+    document.getElementById("tbodyInstallment").innerHTML = "";
+
+    let A13;
+    let index = 1;
+    A13 = index;
+    for (let i = 1; i <= B4; i++) {
+      let html = generateInstallment(index);
+      let generate = document.getElementById("tbodyInstallment").innerHTML + html;
+      document.getElementById("tbodyInstallment").innerHTML = generate;
+
+      // mapping Installment pertama
+      document.getElementById("spn_B13_" + index).innerHTML = toRp(B7);
+      document.getElementById("hd_spn_B13_" + index).innerHTML = B7;
+      // mapping Installment pertama
+
+      // mapping Residual Principle pertama
+      document.getElementById("cell_E12").innerHTML = toRp(B3);
+      document.getElementById("hd_cell_E12").value = B3;
+      let E12 = document.getElementById("hd_cell_E12").value = B3;
+      // mapping Residual Principle pertama
+
+      // mapping Interest C13 pertama
+      console.log("debug")
+      let setInterest;
+      if(A13 != B9){
+        setInterest = (B9/100) * Number(E12);
+      }else{
+        setInterest = 0;
+      }
+      setInterest = Math.ceil(setInterest)
+      document.getElementById("spn_C13_1").innerHTML = toRp(setInterest);
+      document.getElementById("hd_spn_C13_1").value = Math.ceil(setInterest);
+      // mapping Interest C13 pertama
+
+      // mapping Principle D13 pertama
+      let B13 = B7;
+      let C13_1 = document.getElementById("hd_spn_C13_1").value;
+      let setPrinciple;
+      if(A13 != B4){
+        setPrinciple = B13 - C13_1;
+      }else {
+        //  B7-C13+(E12-(B7-C13)) blm diset
+        let B7 = document.getElementById("equal_flat_installment_per_month").value;
+        B7 = Number(B7.replace(/[^0-9\.]+/g,""));
+        //let indexE13 = index - 1;
+        let E12 = document.getElementById("cell_E12").innerText;
+        E12 = Number(E12.replace(/[^0-9\.]+/g,""));
+        let C13 = document.getElementById("hd_spn_C13_1").value;
+        C13 = Number(C13);
+        setPrinciple = B7-C13+(E12-(B7-C13));
+      }
+      document.getElementById("spn_D13_1").innerHTML = toRp(setPrinciple);
+      document.getElementById("hd_spn_D13_1").value = setPrinciple;
+      // mapping Principle D13 pertama
+
+      // mapping Residual Principle E13 pertama
+      let setResidualPrinciple;
+      let E12_1 = document.getElementById("hd_cell_E12").value;
+      let D13 = document.getElementById("hd_spn_D13_1").value;
+      setResidualPrinciple = E12_1 - D13;
+      document.getElementById("spn_E13_1").innerHTML = toRp(setResidualPrinciple);
+      document.getElementById("hd_spn_E13_1").value = setResidualPrinciple;
+      // mapping Residual Principle E13 pertama
+
+      // dinamic arti nya yang index nya lebih dari 1. contoh: 2, 3, dst
+
+      if(index > 1){
+        // mapping Interest C13 dinamic
+        let indexE13 = index - 1;
+        let E12Dinamic = document.getElementById("hd_spn_E13_" + indexE13).value;
+        let setInterestDinamic;
+        if(A13 != B9){
+          setInterestDinamic = (B9/100) * Number(E12Dinamic);
+        }else{
+          setInterestDinamic = 0;
+        }
+        setInterestDinamic = Math.ceil(setInterestDinamic);
+        document.getElementById("spn_C13_" + index).innerHTML = toRp(setInterestDinamic);
+        document.getElementById("hd_spn_C13_" + index).value = Math.ceil(setInterestDinamic);
+        // mapping Interest C13 dinamic
+      }
+
+      if(index > 1) {
+        // mapping Principle D13 dinamic
+        let B13 = B7;
+        let C13Dinamic = document.getElementById("hd_spn_C13_" + index).value;
+        let setPrincipleDinamic;
+        if (index != B4) {
+          setPrincipleDinamic = B13 - C13Dinamic;
+        } else {
+          //  B7-C13+(E12-(B7-C13)) blm diset
+          let B7 = document.getElementById("equal_flat_installment_per_month").value;
+          B7 = Number(B7.replace(/[^0-9\.]+/g,""));
+          let indexE13 = index - 1;
+          let E13 = document.getElementById("hd_spn_E13_" + indexE13).value;
+          C13Dinamic = Number(C13Dinamic);
+          setPrincipleDinamic = B7-C13Dinamic+(E13-(B7-C13Dinamic))
+        }
+        document.getElementById("spn_D13_" + index).innerHTML = toRp(setPrincipleDinamic);
+        document.getElementById("hd_spn_D13_" + index).value = setPrincipleDinamic;
+        // mapping Principle D13 dinamic
+      }
+
+      if(index > 1){
+        // mapping Residual Principle E13 dinamic
+        let setResidualPrincipleDinamic;
+        let indexE13 = index - 1;
+        let E13 = document.getElementById("hd_spn_E13_" + indexE13).value;
+        let D14 = document.getElementById("hd_spn_D13_" + index).value;
+        setResidualPrincipleDinamic = E13 - D14;
+        document.getElementById("spn_E13_" + index).innerHTML = toRp(setResidualPrincipleDinamic);
+        document.getElementById("hd_spn_E13_" + index).value = setResidualPrincipleDinamic;
+
+        // mapping Residual Principle E13 dinamic
+      }
+
+      if(index > 1){
+        // mapping Installment dinamic
+        let setInstallment;
+        let A14 = index;
+        let B4 = document.getElementById("equal_flat_tenor").value;
+        let B7 = document.getElementById("hd_equal_flat_installment_per_month").value;
+        let C14 = document.getElementById("hd_spn_C13_" + index).value;
+        let D14 = document.getElementById("hd_spn_D13_" + index).value;
+        if(A14 <= B4){
+          if(A14 != B4){
+            setInstallment = B7;
+          }else{
+            setInstallment = Number(C14) + Number(D14);
+          }
+        }else{
+          setInstallment = 0;
+        }
+        document.getElementById("spn_B13_" + index).innerHTML = toRp(setInstallment);
+        document.getElementById("hd_spn_B13_" + index).innerHTML = setInstallment;
+
+        // mapping Installment dinamic
+      }
+      index++;
+    }
+
+    function generateInstallment(index,B7) {
+      let html = "";
+
+      html += `<tr>`;
+
+      html += `<td style='text-align: center'>`;
+      html += `<span id='spn_A13_${index}'>${index}</span>`;
+      html += `<input type='hidden' id='hd_spn_A13_${index}' value='${index}'/>`;
+      html += `</td>`;
+
+      html += `<td style='text-align: right'>`;
+      html += `<span id='spn_B13_${index}'></span>`;
+      html += `<input type='hidden' id='hd_spn_B13_${index}'/>`;
+      html += `</td>`;
+
+      html += `<td style='text-align: right'>`;
+      html += `<span id='spn_C13_${index}'></span>`;
+      html += `<input type='hidden' id='hd_spn_C13_${index}'>`;
+      html += `</td>`;
+
+      html += `<td style='text-align: right'>`;
+      html += `<span id='spn_D13_${index}'></span>`;
+      html += `<input type='hidden' id='hd_spn_D13_${index}'>`;
+      html += `</td>`;
+
+      html += `<td style='text-align: right'>`;
+      html += `<span id='spn_E13_${index}'></span>`;
+      html += `<input type='hidden' id='hd_spn_E13_${index}'>`;
+      html += `</td>`;
+
+      html += `</tr>`;
+      return html;
+    }
+  }
+
+  // -------------------------------------------------------- Anuitas - Flat Rate -------------------------------------------------------- //
+
+  function toRp(angka) {
+    if (angka == null || angka == '' || angka == undefined || angka == NaN) {
+      return '0';
+    }
+
+    let rev = parseInt(angka, 10).toString().split('').reverse().join('');
+    let rev2 = '';
+    for (let i = 0; i < rev.length; i++) {
+      rev2 += rev[i];
+      if ((i + 1) % 3 === 0 && i !== rev.length - 1) {
+        rev2 += ',';
+      }
+    }
+    return '' + rev2.split('').reverse().join('') + '';
+  }
+
+  function formatCurrency(num) {
+    num = num.toString().replace(/\$|\,/g, '');
+    if (isNaN(num))
+      num = "0";
+    sign = (num == (num = Math.abs(num)));
+    num = Math.floor(num * 100 + 0.50000000001);
+    num = Math.floor(num / 100).toString();
+    for (var i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++)
+      num = num.substring(0, num.length - (4 * i + 3)) + ',' + num.substring(num.length - (4 * i + 3));
+
+    if(num == 0) {
+      num = "0";
+    }
+
+    return (((sign) ? '' : '-') + num);
+  }
+
+
+</script>
+</body>
+</html>

@@ -3,6 +3,21 @@
 All notable changes and planned improvements for the Personal Tools Portal are
 documented here.
 
+## Released - ARJUNA Installment Simulator - 2026-06-08
+
+Migrated `docs/SimulasiAngsuranARJUNAv2.html` into the Personal Tools Portal
+as feature 3.
+
+### Updates
+
+- Added a browser-only ARJUNA installment simulator route.
+- Added Effective Rate and Flat Rate simulation modes.
+- Added automatic result updates for loan amount, tenor, and rate inputs.
+- Added an easy-to-read summary and monthly schedule for installment,
+  interest, principal, and remaining principal.
+- Added copyable simulation summary for quick sharing.
+- Kept the legacy HTML document in `docs/` as the migration reference.
+
 ## Released - Automatic SQL Deployment Order - 2026-06-08
 
 Updated **SQL Deployment Formatter** so deployment order is handled

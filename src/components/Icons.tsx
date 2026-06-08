@@ -114,3 +114,12 @@ export function MoonIcon(props: IconProps) {
     </IconBase>
   )
 }
+
+export function CalculatorIcon(props: IconProps) {
+  return (
+    <IconBase {...props}>
+      <rect x="5" y="2" width="14" height="20" rx="2" />
+      <path d="M8 6h8M8 10h2M12 10h2M16 10h0M8 14h2M12 14h2M16 14h0M8 18h2M12 18h2M16 18h0" />
+    </IconBase>
+  )
+}

@@ -14,6 +14,7 @@ export const translations = {
     dashboard: 'Dashboard',
     docxToJson: 'DOCX to JSON',
     sqlDeployment: 'SQL Deployment',
+    installmentSimulator: 'Simulasi Angsuran',
     changelog: 'Changelog',
     privateByDesign: 'Privasi sejak awal',
     privateDescription: 'File tetap diproses di browser Anda dan tidak pernah diunggah.',
@@ -31,12 +32,14 @@ export const translations = {
       'Kumpulan utilitas pribadi yang cepat, rapi, dan tetap privat. Semua proses berjalan langsung di browser Anda.',
     availableTools: 'Tools tersedia',
     startBelow: 'Pilih tools yang ingin digunakan.',
-    toolCount: '2 tools',
+    toolCount: '3 tools',
     browserOnly: 'Diproses di browser',
     docxDescription:
       'DOCX to JSON adalah tools sederhana untuk membantu tim Analyst mengubah dokumen Word menjadi format JSON. Tools ini dirancang untuk mempermudah proses pembuatan Help & Support, informasi fitur produk, serta dokumentasi flow process agar lebih cepat, konsisten, dan mudah digunakan kembali oleh sistem atau tim teknis.',
     sqlDescription:
       'SQL Deployment Formatter adalah tools untuk membantu tim Developer menyusun listing object database dengan lebih rapi dan konsisten. Tools ini dibuat agar proses persiapan deployment database lebih mudah mengikuti standar tim DevOps pada proses Deploy Product Release (SLRC).',
+    installmentDescription:
+      'Simulasi Angsuran ARJUNA membantu user memperkirakan angsuran bulanan, effective rate, dan jadwal pembayaran dengan tampilan sederhana yang mudah dipahami oleh user non-IT dan non-finance.',
     backToDashboard: 'Kembali ke dashboard',
     converterEyebrow: 'Konversi dokumen',
     converterTitle: 'DOCX to JSON Converter',
@@ -70,6 +73,10 @@ export const translations = {
     sqlTitle: 'Format Your SQL for SLRC Deployment',
     sqlPageDescription:
       'Siapkan file PostgreSQL, deployment.txt, dan catatan ticket berurutan sesuai guideline deployment database.',
+    installmentEyebrow: 'Simulasi angsuran',
+    installmentTitle: 'Simulasi Angsuran ARJUNA',
+    installmentPageDescription:
+      'Bantu hitung estimasi angsuran, bunga, pokok, dan sisa pokok dengan cara yang lebih mudah dibaca.',
     deploymentMetadata: 'Metadata deployment',
     environment: 'Environment',
     feature: 'Feature',
@@ -129,6 +136,7 @@ export const translations = {
     dashboard: 'Dashboard',
     docxToJson: 'DOCX to JSON',
     sqlDeployment: 'SQL Deployment',
+    installmentSimulator: 'Installment Simulator',
     changelog: 'Changelog',
     privateByDesign: 'Private by design',
     privateDescription: 'Files stay in your browser and are never uploaded.',
@@ -146,12 +154,14 @@ export const translations = {
       'A clean set of quick, private utilities for recurring file tasks. Everything runs right in your browser.',
     availableTools: 'Available tools',
     startBelow: 'Choose a tool to get started.',
-    toolCount: '2 tools',
+    toolCount: '3 tools',
     browserOnly: 'Browser-only processing',
     docxDescription:
       'DOCX to JSON is a simple tool designed to help Analyst teams convert Word documents into structured JSON format. This tool supports the creation of Help & Support content, product feature information, and flow process documentation in a faster, more consistent, and reusable way.',
     sqlDescription:
       'SQL Deployment Formatter is a tool that helps Developer teams prepare database object listings in a cleaner and more consistent format. It is designed to support database deployment preparation based on the DevOps standard for Product Release deployment process (SLRC).',
+    installmentDescription:
+      'ARJUNA Installment Simulator helps users estimate monthly installments, effective rates, and payment schedules through a simple experience designed for non-IT and non-finance users.',
     backToDashboard: 'Back to dashboard',
     converterEyebrow: 'File converter',
     converterTitle: 'DOCX to JSON Converter',
@@ -185,6 +195,10 @@ export const translations = {
     sqlTitle: 'Format Your SQL for SLRC Deployment',
     sqlPageDescription:
       'Prepare PostgreSQL files, deployment.txt, and an ordered ticket note using the database deployment guideline.',
+    installmentEyebrow: 'Installment simulation',
+    installmentTitle: 'ARJUNA Installment Simulator',
+    installmentPageDescription:
+      'Estimate installments, interest, principal, and remaining principal in a friendlier way.',
     deploymentMetadata: 'Deployment metadata',
     environment: 'Environment',
     feature: 'Feature',

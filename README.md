@@ -10,6 +10,8 @@ A browser-only personal tools dashboard built with React, TypeScript, Vite, and 
 - Preserved Help & Support JSON mapping behavior using Mammoth.js
 - Browser-only PostgreSQL deployment formatter for SLRC-ready SQL files,
   deployment.txt, ZIP bundles, ticket notes, guideline auto-fixes, and diff review
+- Browser-only ARJUNA installment simulator for effective-rate and flat-rate
+  installment schedules
 - GitHub Pages deployment workflow
 
 ## Development

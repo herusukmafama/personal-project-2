@@ -13,6 +13,29 @@ const changelogEntries: ChangelogEntry[] = [
   {
     date: '2026-06-08',
     title: {
+      id: 'Simulasi Angsuran ARJUNA',
+      en: 'ARJUNA Installment Simulator',
+    },
+    description: {
+      id: 'Menambahkan fitur simulasi angsuran dengan tampilan yang lebih mudah dipahami untuk user non-IT dan non-finance.',
+      en: 'Added an installment simulation tool with a friendlier experience for non-IT and non-finance users.',
+    },
+    items: {
+      id: [
+        'Mendukung mode Anuitas - Effective Rate dan Anuitas - Flat Rate.',
+        'Hasil simulasi muncul otomatis saat input diisi.',
+        'Menampilkan ringkasan angsuran dan jadwal bunga, pokok, serta sisa pokok per bulan.',
+      ],
+      en: [
+        'Supports Annuity - Effective Rate and Annuity - Flat Rate modes.',
+        'Simulation results update automatically as users enter values.',
+        'Shows installment summary plus monthly interest, principal, and remaining principal schedule.',
+      ],
+    },
+  },
+  {
+    date: '2026-06-08',
+    title: {
       id: 'Preferensi tampilan dan bahasa',
       en: 'Theme and language preferences',
     },

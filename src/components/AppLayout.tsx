@@ -5,6 +5,7 @@ import type { Language, TranslationKey } from '../i18n/translations'
 import { languageLabels } from '../i18n/translations'
 import {
   BookIcon,
+  CalculatorIcon,
   CloseIcon,
   DatabaseIcon,
   FileCodeIcon,
@@ -22,6 +23,7 @@ const navItems: Array<{
   { labelKey: 'dashboard', to: '/', icon: GridIcon },
   { labelKey: 'docxToJson', to: '/tools/docx-to-json', icon: FileCodeIcon },
   { labelKey: 'sqlDeployment', to: '/tools/sql-deployment-formatter', icon: DatabaseIcon },
+  { labelKey: 'installmentSimulator', to: '/tools/installment-simulator', icon: CalculatorIcon },
   { labelKey: 'changelog', to: '/changelog', icon: BookIcon },
 ]
 

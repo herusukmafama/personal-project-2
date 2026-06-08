@@ -3,6 +3,7 @@ import { AppLayout } from './components/AppLayout'
 import { ChangelogPage } from './pages/ChangelogPage'
 import { ConverterPage } from './pages/ConverterPage'
 import { DashboardPage } from './pages/DashboardPage'
+import { InstallmentSimulatorPage } from './pages/InstallmentSimulatorPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { SqlDeploymentPage } from './pages/SqlDeploymentPage'
 
@@ -13,6 +14,7 @@ export default function App() {
         <Route index element={<DashboardPage />} />
         <Route path="tools/docx-to-json" element={<ConverterPage />} />
         <Route path="tools/sql-deployment-formatter" element={<SqlDeploymentPage />} />
+        <Route path="tools/installment-simulator" element={<InstallmentSimulatorPage />} />
         <Route path="changelog" element={<ChangelogPage />} />
         <Route path="dashboard" element={<Navigate to="/" replace />} />
         <Route path="*" element={<NotFoundPage />} />
