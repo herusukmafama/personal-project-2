@@ -15,12 +15,15 @@ A browser-only personal tools dashboard built with React, TypeScript, Vite, and 
 - Portfolio-style Built With page describing the project technology stack
 - GitHub Pages deployment workflow
 
-## Development
+## Run Locally
 
 ```bash
 npm install
 npm run dev
 ```
+
+See the complete setup, command, route, and troubleshooting guide in
+[`docs/LOCAL_DEVELOPMENT.md`](docs/LOCAL_DEVELOPMENT.md).
 
 ## Build
 
