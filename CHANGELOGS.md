@@ -3,6 +3,19 @@
 All notable changes and planned improvements for the Personal Tools Portal are
 documented here.
 
+## Released - Apple-Inspired Typography - 2026-06-09
+
+Refined the portal typography to follow the clean, readable character of
+Apple's website while keeping the existing dashboard layout.
+
+### Updates
+
+- Expanded the system font stack to prefer SF Pro where it is available.
+- Added smoother font rendering, kerning, and consistent form-control fonts.
+- Updated primary page headings with a lighter weight, tighter tracking, and a
+  clearer responsive type scale.
+- Kept the implementation local without loading proprietary Apple web fonts.
+
 ## Released - Built With Portfolio Page - 2026-06-08
 
 Added a portfolio-friendly **Built With** page for issue #3.
