@@ -11,6 +11,56 @@ type ChangelogEntry = {
 
 const changelogEntries: ChangelogEntry[] = [
   {
+    date: '2026-06-11',
+    title: {
+      id: 'Upload dan bulk review SQL lebih praktis',
+      en: 'Improved SQL upload and bulk review',
+    },
+    description: {
+      id: 'SQL Deployment Formatter kini lebih cepat digunakan untuk menyiapkan banyak file deployment.',
+      en: 'SQL Deployment Formatter is now faster to use when preparing multiple deployment files.',
+    },
+    items: {
+      id: [
+        'Menambahkan autocomplete native browser untuk metadata Feature dan Database/Project.',
+        'Menambahkan drag-and-drop untuk satu atau banyak file SQL.',
+        'Menambahkan Accept all safe changes tanpa melewati review manual untuk perubahan destructive.',
+        'Memperjelas bahwa upload banyak file akan menghasilkan ZIP berisi SQL dan deployment.txt.',
+        'Mengubah sapaan catatan ticket menjadi Dear Mas @idc_hardy.',
+      ],
+      en: [
+        'Added browser-native autocomplete for Feature and Database/Project metadata.',
+        'Added drag-and-drop for one or multiple SQL files.',
+        'Added Accept all safe changes while keeping destructive changes under manual review.',
+        'Clarified that multiple files produce a ZIP containing SQL files and deployment.txt.',
+        'Updated the ticket-note greeting to Dear Mas @idc_hardy.',
+      ],
+    },
+  },
+  {
+    date: '2026-06-09',
+    title: {
+      id: 'Typography bergaya Apple',
+      en: 'Apple-inspired typography',
+    },
+    description: {
+      id: 'Menyempurnakan typography portal agar terasa lebih bersih, ringan, dan nyaman dibaca.',
+      en: 'Refined the portal typography for a cleaner, lighter, and more readable experience.',
+    },
+    items: {
+      id: [
+        'Memprioritaskan SF Pro jika tersedia dengan system font fallback.',
+        'Memperhalus rendering font, kerning, dan typography form.',
+        'Memperbarui skala, weight, dan tracking heading utama.',
+      ],
+      en: [
+        'Prioritized SF Pro where available with system font fallbacks.',
+        'Improved font rendering, kerning, and form typography.',
+        'Updated the scale, weight, and tracking of primary headings.',
+      ],
+    },
+  },
+  {
     date: '2026-06-08',
     title: {
       id: 'Halaman Built With',
