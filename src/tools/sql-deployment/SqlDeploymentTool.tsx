@@ -1,14 +1,14 @@
-import { type ChangeEvent, useMemo, useRef, useState } from 'react'
+import { type ChangeEvent, type DragEvent, useMemo, useRef, useState } from 'react'
 import { ShieldIcon, UploadIcon } from '../../components/Icons'
 import { usePreferences } from '../../i18n/preferencesContext'
 import { generateArtifacts, validateDeployment } from './artifacts'
+import { acceptAllSafeChanges } from './bulkReview'
 import { sortFilesByDeploymentOrder } from './deploymentOrder'
 import { DiffReview } from './DiffReview'
 import { downloadDeploymentZip, downloadText } from './downloadArtifacts'
-import { proposeGuidelineFixes } from './guidelineTransformer'
+import { processSqlFiles } from './processSqlFiles'
 import { applyReviewDecision, updateReviewedOutputName } from './reviewState'
-import { analyzeSql, buildOutputName, validateSql } from './sqlAnalyzer'
-import { formatPostgresqlSql } from './sqlFormatter'
+import { buildOutputName } from './sqlAnalyzer'
 import type {
   DeploymentMetadata,
   SqlFileResult,
@@ -28,50 +28,40 @@ export function SqlDeploymentTool() {
   const [files, setFiles] = useState<SqlFileResult[]>([])
   const [selectedId, setSelectedId] = useState('')
   const [message, setMessage] = useState('')
+  const [isDragging, setIsDragging] = useState(false)
 
   const artifacts = useMemo(() => generateArtifacts(metadata, files), [metadata, files])
   const deploymentFindings = useMemo(() => validateDeployment(metadata, files), [metadata, files])
   const allFindings = [...deploymentFindings, ...files.flatMap((file) => file.findings)]
   const hasErrors = allFindings.some((finding) => finding.severity === 'error')
   const selectedFile = files.find((file) => file.id === selectedId) || files[0]
+  const safeReviewCount = files.filter(
+    (file) =>
+      file.reviewState === 'needs-review'
+      && file.proposedFixes.length > 0
+      && file.proposedFixes.every((fix) => fix.confidence === 'safe'),
+  ).length
 
   async function handleUpload(event: ChangeEvent<HTMLInputElement>) {
-    const uploaded = Array.from(event.target.files || [])
-    const next: SqlFileResult[] = []
+    await processFiles(Array.from(event.target.files || []))
+    if (inputRef.current) inputRef.current.value = ''
+  }
 
-    for (const file of uploaded) {
-      if (!file.name.toLowerCase().endsWith('.sql')) {
-        next.push(invalidFile(file, t('onlySqlSupported')))
-        continue
-      }
-      const originalSql = await file.text()
-      try {
-        const analysis = analyzeSql(originalSql)
-        const formattedOriginalSql = formatPostgresqlSql(originalSql)
-        const proposal = proposeGuidelineFixes(formattedOriginalSql)
-        const outputName = buildOutputName(analysis, metadata)
-        next.push({
-          id: crypto.randomUUID(),
-          originalName: file.name,
-          outputName,
-          originalSql,
-          formattedOriginalSql,
-          proposedSql: proposal.proposedSql,
-          acceptedSql: formattedOriginalSql,
-          proposedFixes: proposal.fixes,
-          reviewState: proposal.fixes.length ? 'needs-review' : 'no-changes',
-          analysis,
-          findings: validateSql(originalSql, outputName, analysis),
-        })
-      } catch (error) {
-        next.push(invalidFile(file, error instanceof Error ? error.message : t('sqlAnalysisFailed')))
-      }
-    }
+  async function handleDrop(event: DragEvent<HTMLLabelElement>) {
+    event.preventDefault()
+    setIsDragging(false)
+    await processFiles(Array.from(event.dataTransfer.files || []))
+  }
+
+  async function processFiles(uploaded: File[]) {
+    const next = await processSqlFiles(uploaded, metadata, {
+      onlySqlSupported: t('onlySqlSupported'),
+      sqlAnalysisFailed: t('sqlAnalysisFailed'),
+    })
 
     setFiles((current) => sortFilesByDeploymentOrder([...current, ...next]))
     if (!selectedId && next[0]) setSelectedId(next[0].id)
     setMessage(`${next.length} ${t('filesAdded')}`)
-    if (inputRef.current) inputRef.current.value = ''
   }
 
   function updateMetadata(field: keyof DeploymentMetadata, value: string) {
@@ -132,6 +122,14 @@ export function SqlDeploymentTool() {
     setMessage(t('ticketNoteCopied'))
   }
 
+  function acceptSafeChanges() {
+    const result = acceptAllSafeChanges(files)
+    setFiles(result.files)
+    setMessage(
+      `${result.acceptedCount} ${t('safeFilesAccepted')} ${result.skippedCount} ${t('filesNeedManualReview')}`,
+    )
+  }
+
   async function copyDeploymentText() {
     await navigator.clipboard.writeText(artifacts.deploymentText)
     setMessage(t('deploymentTextCopied'))
@@ -148,11 +146,17 @@ export function SqlDeploymentTool() {
     <div className="mt-10 space-y-6">
       <section className="grid gap-6 xl:grid-cols-[360px_minmax(0,1fr)]">
         <div className="space-y-5">
-          <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
+          <form
+            autoComplete="on"
+            onSubmit={(event) => event.preventDefault()}
+            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/80"
+          >
             <h2 className="font-semibold text-slate-900 dark:text-white">{t('deploymentMetadata')}</h2>
             <div className="mt-4 space-y-4">
               <Field label={t('environment')}>
                 <select
+                  name="deployment_environment"
+                  autoComplete="off"
                   value={metadata.environment}
                   onChange={(event) => updateMetadata('environment', event.target.value)}
                   className="input-style"
@@ -163,6 +167,8 @@ export function SqlDeploymentTool() {
               </Field>
               <Field label={t('feature')}>
                 <input
+                  name="deployment_feature"
+                  autoComplete="on"
                   value={metadata.feature}
                   onChange={(event) => updateMetadata('feature', event.target.value)}
                   placeholder="7438_tasklist_spv_headops"
@@ -171,6 +177,8 @@ export function SqlDeploymentTool() {
               </Field>
               <Field label={t('databaseProject')}>
                 <input
+                  name="deployment_database"
+                  autoComplete="on"
                   value={metadata.database}
                   onChange={(event) => updateMetadata('database', event.target.value)}
                   placeholder="idc-collection-v2"
@@ -178,18 +186,38 @@ export function SqlDeploymentTool() {
                 />
               </Field>
             </div>
-          </section>
+          </form>
 
           <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/80">
             <label
               htmlFor="sql-files"
-              className="block cursor-pointer rounded-2xl border-2 border-dashed border-slate-200 bg-slate-50 px-5 py-8 text-center transition hover:border-brand-500 hover:bg-brand-50/40 dark:border-slate-700 dark:bg-slate-950/70 dark:hover:border-brand-500 dark:hover:bg-brand-500/10"
+              onDragEnter={(event) => {
+                event.preventDefault()
+                setIsDragging(true)
+              }}
+              onDragOver={(event) => {
+                event.preventDefault()
+                setIsDragging(true)
+              }}
+              onDragLeave={(event) => {
+                event.preventDefault()
+                setIsDragging(false)
+              }}
+              onDrop={handleDrop}
+              className={`block cursor-pointer rounded-2xl border-2 border-dashed px-5 py-8 text-center transition ${
+                isDragging
+                  ? 'border-brand-500 bg-brand-50 dark:bg-brand-500/10'
+                  : 'border-slate-200 bg-slate-50 hover:border-brand-500 hover:bg-brand-50/40 dark:border-slate-700 dark:bg-slate-950/70 dark:hover:border-brand-500 dark:hover:bg-brand-500/10'
+              }`}
             >
               <div className="mx-auto grid size-12 place-items-center rounded-xl bg-brand-50 text-brand-600">
                 <UploadIcon className="size-6" />
               </div>
-              <span className="mt-3 block font-semibold text-slate-900 dark:text-white">{t('uploadSqlFiles')}</span>
+              <span className="mt-3 block font-semibold text-slate-900 dark:text-white">
+                {isDragging ? t('dropSqlFilesNow') : t('uploadSqlFiles')}
+              </span>
               <span className="mt-1 block text-xs text-slate-500 dark:text-slate-400">{t('uploadSqlHint')}</span>
+              <span className="mt-2 block text-xs font-medium text-brand-600">{t('multiFileZipHint')}</span>
             </label>
             <input
               ref={inputRef}
@@ -224,7 +252,17 @@ export function SqlDeploymentTool() {
                 <h2 className="font-semibold text-slate-900 dark:text-white">{t('deploymentOrder')}</h2>
                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{t('deploymentOrderDescription')}</p>
               </div>
-              <FindingBadge findings={allFindings} />
+              <div className="flex flex-wrap items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={acceptSafeChanges}
+                  disabled={!safeReviewCount}
+                  className="button-primary"
+                >
+                  {t('acceptAllSafeChanges')} ({safeReviewCount})
+                </button>
+                <FindingBadge findings={allFindings} />
+              </div>
             </div>
           </div>
           <div className="space-y-3 p-5">
@@ -309,7 +347,6 @@ export function SqlDeploymentTool() {
     </div>
   )
 }
-
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">{label}{children}</label>
 }
@@ -387,20 +424,4 @@ function Preview({ title, subtitle, content, action }: { title: string; subtitle
       </pre>
     </section>
   )
-}
-
-function invalidFile(file: File, message: string): SqlFileResult {
-  return {
-    id: crypto.randomUUID(),
-    originalName: file.name,
-    outputName: file.name,
-    originalSql: '',
-    formattedOriginalSql: '',
-    proposedSql: '',
-    acceptedSql: '',
-    proposedFixes: [],
-    reviewState: 'no-changes',
-    analysis: { sequence: '', schema: '', objectName: '', operationCode: '', statementCount: 0 },
-    findings: [{ code: 'processing-failed', severity: 'error', message }],
-  }
 }

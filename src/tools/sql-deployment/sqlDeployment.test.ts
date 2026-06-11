@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import { generateArtifacts, isValidOutputName, validateDeployment } from './artifacts'
+import { acceptAllSafeChanges } from './bulkReview'
 import { createDeploymentZip } from './downloadArtifacts'
 import JSZip from 'jszip'
 import { sortFilesByDeploymentOrder } from './deploymentOrder'
+import { processSqlFiles } from './processSqlFiles'
 import { analyzeSql, buildOutputName, splitTopLevelStatements, validateSql } from './sqlAnalyzer'
 import { formatPostgresqlSql } from './sqlFormatter'
 import type { DeploymentMetadata, SqlFileResult } from './types'
@@ -102,7 +104,7 @@ describe('deployment artifacts', () => {
     expect(artifacts.deploymentText).toBe(
       'env=SIT\nfeature=7438_tasklist_spv_headops\n\n2_db_public_users_CRTBL.sql\n6_db_public_get_user_P1_CRFUN.sql\n',
     )
-    expect(artifacts.ticketNote).toContain('Dear Bang @idc_hardy,')
+    expect(artifacts.ticketNote).toContain('Dear Mas @idc_hardy,')
     expect(artifacts.ticketNote).toContain('Mohon bantuan deployment untuk fixing SPLC 7438 Tasklist SPV HeadOps.')
     expect(artifacts.ticketNote).toContain('Database: idc-collection-v2')
     expect(artifacts.ticketNote).toContain('Feature/Branch: 7438_tasklist_spv_headops')
@@ -156,6 +158,54 @@ describe('deployment artifacts', () => {
       '10_db_public_late_CRTBL.sql',
     ])
   })
+
+  it('bulk accepts safe proposals and skips destructive or mixed proposals', () => {
+    const safeOne = reviewFile('safe-one.sql', ['safe'])
+    const safeTwo = reviewFile('safe-two.sql', ['safe'])
+    const destructive = reviewFile('destructive.sql', ['confirmation-required'])
+    const mixed = reviewFile('mixed.sql', ['safe', 'confirmation-required'])
+
+    const result = acceptAllSafeChanges([safeOne, safeTwo, destructive, mixed])
+
+    expect(result.acceptedCount).toBe(2)
+    expect(result.skippedCount).toBe(2)
+    expect(result.files[0]).toMatchObject({
+      reviewState: 'accepted',
+      acceptedSql: safeOne.proposedSql,
+    })
+    expect(result.files[1]).toMatchObject({
+      reviewState: 'accepted',
+      acceptedSql: safeTwo.proposedSql,
+    })
+    expect(result.files[2].reviewState).toBe('needs-review')
+    expect(result.files[3].reviewState).toBe('needs-review')
+  })
+
+  it('processes multiple SQL files and reports unsupported dropped files', async () => {
+    const result = await processSqlFiles(
+      [
+        new File(['CREATE VIEW public.first_view AS SELECT 1;'], 'first.sql'),
+        new File(['CREATE VIEW public.second_view AS SELECT 1;'], 'second.sql'),
+        new File(['not sql'], 'notes.txt'),
+      ],
+      metadata,
+      {
+        onlySqlSupported: 'Only .sql files are supported.',
+        sqlAnalysisFailed: 'SQL analysis failed.',
+      },
+    )
+
+    expect(result).toHaveLength(3)
+    expect(result[0].originalName).toBe('first.sql')
+    expect(result[1].originalName).toBe('second.sql')
+    expect(result[2].findings).toEqual([
+      {
+        code: 'processing-failed',
+        severity: 'error',
+        message: 'Only .sql files are supported.',
+      },
+    ])
+  })
 })
 
 function file(outputName: string): SqlFileResult {
@@ -177,5 +227,27 @@ function file(outputName: string): SqlFileResult {
       statementCount: 1,
     },
     findings: [],
+  }
+}
+
+function reviewFile(
+  id: string,
+  confidence: Array<'safe' | 'confirmation-required'>,
+): SqlFileResult {
+  const outputName = '4_db_public_sample_CRVW.sql'
+  return {
+    ...file(outputName),
+    id,
+    originalName: id,
+    formattedOriginalSql: 'CREATE VIEW public.sample AS SELECT 1;\n',
+    proposedSql: 'DROP VIEW IF EXISTS public.sample;\nCREATE VIEW public.sample AS SELECT 1;\n',
+    acceptedSql: 'CREATE VIEW public.sample AS SELECT 1;\n',
+    reviewState: 'needs-review',
+    proposedFixes: confidence.map((item, index) => ({
+      code: `${id}-${index}`,
+      title: 'Proposed fix',
+      description: 'Review this change.',
+      confidence: item,
+    })),
   }
 }

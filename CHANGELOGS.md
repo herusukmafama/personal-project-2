@@ -3,6 +3,22 @@
 All notable changes and planned improvements for the Personal Tools Portal are
 documented here.
 
+## Released - SQL Formatter Upload and Bulk Review UX - 2026-06-11
+
+Improved the SQL Deployment Formatter workflow for repeated deployment
+preparation.
+
+### Updates
+
+- Enabled browser-native autocomplete for Feature and Database/Project
+  metadata.
+- Updated the ticket greeting to `Dear Mas @idc_hardy,`.
+- Added **Accept all safe changes** while keeping destructive changes under
+  manual review.
+- Added drag-and-drop support for one or multiple SQL files.
+- Clarified that multi-file results are downloaded as a ZIP containing the
+  accepted SQL files and `deployment.txt`.
+
 ## Released - Apple-Inspired Typography - 2026-06-09
 
 Refined the portal typography to follow the clean, readable character of

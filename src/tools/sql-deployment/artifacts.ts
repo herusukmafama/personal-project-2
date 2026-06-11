@@ -13,7 +13,7 @@ export function generateArtifacts(
   return {
     deploymentText: `env=${metadata.environment}\nfeature=${metadata.feature}\n\n${names.join('\n')}\n`,
     ticketNote: [
-      'Dear Bang @idc_hardy,',
+      'Dear Mas @idc_hardy,',
       `Mohon bantuan deployment untuk fixing SPLC ${formatFeatureTitle(metadata.feature)}.`,
       '',
       `Environment: ${metadata.environment}`,
