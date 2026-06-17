@@ -67,8 +67,8 @@ const changelogEntries: ChangelogEntry[] = [
       en: 'Built With Page',
     },
     description: {
-      id: 'Menambahkan halaman portfolio untuk menampilkan teknologi yang digunakan dalam Personal Tools Portal.',
-      en: 'Added a portfolio-friendly page that presents the technologies used in the Personal Tools Portal.',
+      id: 'Menambahkan halaman portfolio untuk menampilkan teknologi yang digunakan dalam OpenTools Portal.',
+      en: 'Added a portfolio-friendly page that presents the technologies used in the OpenTools Portal.',
     },
     items: {
       id: [

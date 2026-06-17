@@ -8,11 +8,12 @@ export const languageLabels: Record<Language, string> = {
 
 export const translations = {
   id: {
-    appName: 'Personal Tools',
+    appName: 'OpenTools',
     appTagline: 'Tools sederhana dalam satu tempat',
     workspace: 'Ruang kerja',
     dashboard: 'Dashboard',
     docxToJson: 'DOCX to JSON',
+    docxToJsonV2: 'DOCX to JSON V2',
     sqlDeployment: 'SQL Deployment',
     installmentSimulator: 'Simulasi Angsuran',
     builtWith: 'Built With',
@@ -33,10 +34,12 @@ export const translations = {
       'Kumpulan utilitas pribadi yang cepat, rapi, dan tetap privat. Semua proses berjalan langsung di browser Anda.',
     availableTools: 'Tools tersedia',
     startBelow: 'Pilih tools yang ingin digunakan.',
-    toolCount: '3 tools',
+    toolCount: '4 tools',
     browserOnly: 'Diproses di browser',
     docxDescription:
       'DOCX to JSON adalah tools sederhana untuk membantu tim Analyst mengubah dokumen Word menjadi format JSON. Tools ini dirancang untuk mempermudah proses pembuatan Help & Support, informasi fitur produk, serta dokumentasi flow process agar lebih cepat, konsisten, dan mudah digunakan kembali oleh sistem atau tim teknis.',
+    docxV2Description:
+      'DOCX to JSON V2 membantu membuat JSON Help & Support berdasarkan template 040002. Download template Word lengkap, hapus bagian yang tidak dibutuhkan, lalu upload kembali untuk mendapatkan JSON yang sesuai kebutuhan.',
     sqlDescription:
       'SQL Deployment Formatter adalah tools untuk membantu tim Developer menyusun listing object database dengan lebih rapi dan konsisten. Tools ini dibuat agar proses persiapan deployment database lebih mudah mengikuti standar tim DevOps pada proses Deploy Product Release (SLRC).',
     installmentDescription:
@@ -46,6 +49,14 @@ export const translations = {
     converterTitle: 'DOCX to JSON Converter',
     converterDescription:
       'Ubah dokumen Word menjadi JSON terstruktur langsung di browser Anda.',
+    converterV2Eyebrow: 'Template Help & Support',
+    converterV2Title: 'DOCX to JSON V2',
+    converterV2Description:
+      'Buat JSON Help & Support dengan struktur 040002 dari template Word yang mudah diisi.',
+    templateFirst: 'Mulai dari template',
+    docxV2TemplateDescription:
+      'Download template Word khusus 040002 sebagai titik awal. Anda boleh menghapus row yang tidak diperlukan. Row yang dihapus tidak masuk JSON, sedangkan Value yang dikosongkan akan menjadi teks kosong.',
+    downloadWordTemplate: 'Download template Word',
     inputDocument: 'Dokumen input',
     waitingForUpload: 'Menunggu upload',
     previewAfterConversion: 'Preview akan muncul setelah dokumen diproses.',
@@ -61,6 +72,7 @@ export const translations = {
     validationFailed: 'Validasi gagal',
     converting: 'Memproses',
     readingDocx: 'Membaca DOCX dan menerapkan aturan mapping...',
+    readingDocxV2: 'Membaca template Word dan mengisi struktur JSON 040002...',
     converted: 'Berhasil diproses',
     convertedDocument: 'Dokumen berhasil diproses',
     parserMessages: 'pesan parser',
@@ -81,7 +93,7 @@ export const translations = {
     builtWithEyebrow: 'Teknologi proyek',
     builtWithTitle: 'Built With',
     builtWithDescription:
-      'Personal Tools dibuat dengan teknologi web modern yang fokus pada performa, kemudahan perawatan, dan kesederhanaan.',
+      'OpenTools dibuat dengan teknologi web modern yang fokus pada performa, kemudahan perawatan, dan kesederhanaan.',
     deploymentMetadata: 'Metadata deployment',
     environment: 'Environment',
     feature: 'Feature',
@@ -140,11 +152,12 @@ export const translations = {
     returnToDashboard: 'Kembali ke dashboard',
   },
   en: {
-    appName: 'Personal Tools',
+    appName: 'OpenTools',
     appTagline: 'Simple tools, one place',
     workspace: 'Workspace',
     dashboard: 'Dashboard',
     docxToJson: 'DOCX to JSON',
+    docxToJsonV2: 'DOCX to JSON V2',
     sqlDeployment: 'SQL Deployment',
     installmentSimulator: 'Installment Simulator',
     builtWith: 'Built With',
@@ -165,10 +178,12 @@ export const translations = {
       'A clean set of quick, private utilities for recurring file tasks. Everything runs right in your browser.',
     availableTools: 'Available tools',
     startBelow: 'Choose a tool to get started.',
-    toolCount: '3 tools',
+    toolCount: '4 tools',
     browserOnly: 'Browser-only processing',
     docxDescription:
       'DOCX to JSON is a simple tool designed to help Analyst teams convert Word documents into structured JSON format. This tool supports the creation of Help & Support content, product feature information, and flow process documentation in a faster, more consistent, and reusable way.',
+    docxV2Description:
+      'DOCX to JSON V2 helps create Help & Support JSON based on the 040002 template. Download the full Word template, remove anything you do not need, then upload it back to generate a focused JSON file.',
     sqlDescription:
       'SQL Deployment Formatter is a tool that helps Developer teams prepare database object listings in a cleaner and more consistent format. It is designed to support database deployment preparation based on the DevOps standard for Product Release deployment process (SLRC).',
     installmentDescription:
@@ -178,6 +193,14 @@ export const translations = {
     converterTitle: 'DOCX to JSON Converter',
     converterDescription:
       'Convert Word documents into clean, structured JSON directly in your browser.',
+    converterV2Eyebrow: 'Help & Support template',
+    converterV2Title: 'DOCX to JSON V2',
+    converterV2Description:
+      'Create Help & Support JSON with the 040002 structure from an easy-to-fill Word template.',
+    templateFirst: 'Start from the template',
+    docxV2TemplateDescription:
+      'Download the 040002 Word template as a starting point. You may remove rows you do not need. Deleted rows are omitted from JSON, while empty Value cells become blank text.',
+    downloadWordTemplate: 'Download Word template',
     inputDocument: 'Input document',
     waitingForUpload: 'Waiting for upload',
     previewAfterConversion: 'Preview will appear after conversion.',
@@ -193,6 +216,7 @@ export const translations = {
     validationFailed: 'Validation failed',
     converting: 'Converting',
     readingDocx: 'Reading DOCX and applying mapping rules...',
+    readingDocxV2: 'Reading the Word template and filling the 040002 JSON structure...',
     converted: 'Converted',
     convertedDocument: 'Converted document',
     parserMessages: 'parser message(s)',
@@ -213,7 +237,7 @@ export const translations = {
     builtWithEyebrow: 'Project technology',
     builtWithTitle: 'Built With',
     builtWithDescription:
-      'Personal Tools is built using modern web technologies focused on performance, maintainability, and simplicity.',
+      'OpenTools is built using modern web technologies focused on performance, maintainability, and simplicity.',
     deploymentMetadata: 'Deployment metadata',
     environment: 'Environment',
     feature: 'Feature',

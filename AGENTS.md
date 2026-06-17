@@ -1,17 +1,19 @@
 # AGENTS.md
 
-Guidance for future agents and contributors working on the Personal Tools
+Guidance for future agents and contributors working on the OpenTools
 Portal.
 
 ## Project Context
 
-This repository contains a browser-only personal tools dashboard designed for
+This repository contains a browser-only OpenTools dashboard designed for
 simple, friendly workflows that can be used by technical and non-technical
 users.
 
 Current tools:
 
 - DOCX to JSON Converter for Help & Support document templates.
+- DOCX to JSON V2 for generating the Help & Support `040002.json` structure
+  from a downloadable Word template.
 - SQL Deployment Formatter for preparing SLRC-ready PostgreSQL deployment
   artifacts.
 - ARJUNA Installment Simulator for Effective Rate and Flat Rate installment
@@ -57,6 +59,9 @@ documented.
 - `src/i18n/` contains language translations and theme/language preferences.
 - `src/tools/docx-to-json/` owns DOCX parsing, JSON mapping, downloads, UI, and
   parity tests.
+- `src/tools/docx-to-json-v2/` owns the template-driven DOCX to JSON V2 flow
+  for the `040002.json` Help & Support structure, including partial Word
+  templates.
 - `src/tools/sql-deployment/` owns SQL formatting, analysis, guideline review,
   artifact generation, downloads, UI, and tests.
 - `src/tools/installment-simulator/` owns ARJUNA calculation logic, UI, shared
@@ -122,6 +127,15 @@ testable without rendering components.
 - Keep mapping logic in `jsonMapper.ts`.
 - Keep download logic in `downloadJson.ts`.
 - Update mapping documentation and parity tests when mapping rules change.
+
+### DOCX To JSON V2
+
+- Keep DOCX to JSON V2 separate from the existing DOCX to JSON mapper.
+- Use the base `040002.json` as a reference, but allow uploaded Word templates
+  to omit unused rows or sections.
+- Treat missing Word template rows as omitted output.
+- Treat present rows with empty `Value` cells as blank string output.
+- Keep the downloadable Word template aligned with the V2 mapper and tests.
 
 ### SQL Deployment Formatter
 

@@ -1,0 +1,768 @@
+{
+    "page_title": "Menggunakan Help & Support",
+    "breadcrumb": [
+        {
+            "label": "Help and support",
+            "url": "helpAndSupport"
+        },
+        {
+            "label": "Use Case",
+            "url": "main/040000"
+        },
+        {
+            "label": "Menggunakan Help & Support",
+            "url": "main/040002"
+        }
+    ],
+    "page_content": {
+        "type": "content",
+        "navigations": [
+            {
+                "label": "Overview",
+                "id": "overview"
+            },
+            {
+                "label": "Daftar JSON",
+                "id": "listjson"
+            },
+            {
+                "label": "Landing Page",
+                "id": "landingpage02"
+            },
+            {
+                "label": "Side Bar",
+                "id": "sidebar02"
+            },
+            {
+                "label": "Getting Started",
+                "id": "gettingstarted02"
+            },
+            {
+                "label": "Features",
+                "id": "features02"
+            },
+            {
+                "label": "Use Case",
+                "id": "usecase02"
+            },
+            {
+                "label": "Tech Docs",
+                "id": "techdocs02"
+            },
+            {
+                "label": "FAQ",
+                "id": "faq02"
+            },
+            {
+                "label": "Release Notes",
+                "id": "releasenotes02"
+            },
+            {
+                "label": "Content",
+                "id": "content02"
+            },
+            {
+                "label": "Implementasi Help & Support",
+                "id": "implementation"
+            }
+        ],
+        "section": [
+            {
+                "title": "Menggunakan Help & Support",
+                "id": "overview",
+                "description": "<p>Halaman Help &amp; Support didesain untuk dapat dikustomisasi secara bebas oleh tim iDecision untuk memberikan pengalaman terbaik bagi pengguna dan kemudahan dalam delivery konten ke klien. Setiap bagian di Help &amp; Support dapat diubah dan disesuaikan sesuai kebutuhan dengan mengubah file JSON yang tersedia. Setiap file JSON ini kemudian disimpan ke dalam folder terpisah sesuai bagian kategori modul dari konten yang digunakan. Contohnya, konten Decision Flow dan report Scorecard yang tergabung dalam Decision Engine akan disimpan ke dalam folder \"de\", sementara konten laman Help &amp; Support, Side Bar, Release Notes, dan konten Daftar Istilah di iDecision tidak tergabung dalam modul manapun disimpan ke dalam folder \"main\".</p><p>Per Mei 2025, berikut pembagian folder penyimpanan konten Help &amp; Support:</p><ul><li>\"<strong>main</strong>\", berisi informasi umum iDecision dan tidak tergabung ke dalam modul manapun</li><li>\"<strong>core</strong>\", berisi user guide, use case, technical document, dan FAQ yang berhubungan dengan modul Core</li><li>\"<strong>de</strong>\", berisi user guide, use case, technical document, dan FAQ yang berhubungan dengan modul Decision Engine</li><li>\"<strong>param</strong>\", berisi user guide, use case, technical document, dan FAQ yang berhubungan dengan modul Parameter</li></ul>.<p>Untuk informasi general mengenai Help & Support, lihat <a href=\"#/main/020007\">Mengenal Help & Support</a>.",
+                "data": [
+                    {
+                        "title": "Daftar JSON Help & Support",
+                        "id": "listjson",
+                        "description": "<p>Berikut template JSON yang dapat digunakan untuk membuat menu dan konten Help &amp; Support:</p>",
+                        "data": [
+                            {
+                                "title": "Information Card",
+                                "id": "",
+                                "description": "JSON ini digunakan untuk membuat halaman Landing Page dan Getting Started yang menampilkan judul konten dalam bentuk information card.",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "content": "<p>{<br />&nbsp;&nbsp;&nbsp; \"page_title\": \"[judul halaman]\",<br />&nbsp;&nbsp;&nbsp; \"breadcrumb\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label\": \"[breadcrumb1]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"[nama_folder]/[nama_file_json]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label\": \"[breadcrumb2]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"[nama_folder]/[nama_file_json]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp; ],<br />&nbsp;&nbsp;&nbsp; \"page_content\": {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"type\": \"information_card_main\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"sections\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"[H1 judul kategori]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"description\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry...\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"data\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"[judul konten]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"logo\": \"[nama_folder]/[nama_file].png\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"[nama_folder]/[nama_file] ATAU url\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"description\": \"[deksripsi mengenai judul konten]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"[judul konten]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"logo\": \"[nama_folder]/[nama_file].png\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"[nama_folder]/[nama_file] ATAU url\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"description\": \"[deksripsi mengenai judul konten]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"[judul konten]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"logo\": \"[nama_folder]/[nama_file].png\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"[nama_folder]/[nama_file] ATAU url\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"description\": \"[deksripsi mengenai judul konten]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]<br />&nbsp;&nbsp;&nbsp; }<br />}</p>",
+                                "type": "pre_code"
+                            },
+                            {
+                                "title": "Main",
+                                "id": "",
+                                "description": "JSON ini digunakan untuk membuat Side Bar.",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "content": "<p>{<br />&nbsp;&nbsp;&nbsp; \"sidebar\": {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"search\": true,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"menu\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"menu_name\": \"[nama_menu]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"[nama_folder]/[nama_file_json]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"support\": {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"image\":\"[nama_folder]/[nama_file.png/.svg]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"[judul_section_support]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"phone\": \"[nomor_telepon]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"email\": \"[alamat_email]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp; }<br />}</p>",
+                                "type": "pre_code"
+                            },
+                            {
+                                "title": "Release Notes",
+                                "id": "",
+                                "description": "JSON ini digunakan untuk membuat halaman menu Release Notes.",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "content": "<p>{<br />&nbsp;&nbsp;&nbsp; \"page_title\": \"Release Notes\",<br />&nbsp;&nbsp;&nbsp; \"breadcrumb\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label\": \"Help and Support\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"helpAndSupport\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label\": \"Release Notes\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"main/[nama_file_json]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp; ],<br />&nbsp;&nbsp;&nbsp; \"page_content\": {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"type\": \"release_notes\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"navigations\": [],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"section\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"[nomor_versi]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"data\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"[tanggal_rilis]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"Minor Changes &amp;#128736;\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"description\": \"[daftar_rilis_minor_changes_jika_ada]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"New Release &amp;#128640;\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"description\": \"[daftar_rilis_new_release_jika_ada]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]<br />&nbsp;&nbsp;&nbsp; }<br />}</p>",
+                                "type": "pre_code"
+                            },
+                            {
+                                "title": "Category",
+                                "id": "",
+                                "description": "JSON ini digunakan untuk membuat halaman kategori untuk menu Features, Use Case, Tech Docs, dan FAQ.",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "content": "<p>{<br />&nbsp;&nbsp;&nbsp; \"page_title\": \"[nama_menu]\",<br />&nbsp;&nbsp;&nbsp; \"breadcrumb\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label\": \"[breadcrumb1]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"[nama_folder]/[nama_file_json]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label\": \"[breadcrumb2]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"[nama_folder]/[nama_file_json]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp; ],<br />&nbsp;&nbsp;&nbsp; \"page_content\": {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"type\": \"searchby\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"section\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"[judul_untuk_halaman_kategori]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"description\": \"[deskripsi_mengenai_kategori\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"data\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label\": \"[nama_kategori]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"icon\": \"[nama_folder]/[nama_file].png/.svg\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"sub_menu\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"icon\": \"[nama_folder]/[nama_file].png/.svg\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"[nama_judul]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"description\": \"[deskripsi_konten]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"[nama_folder]/[nama_file_json]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]<br />&nbsp;&nbsp;&nbsp; }<br />}</p>",
+                                "type": "pre_code"
+                            },
+                            {
+                                "title": "Content",
+                                "id": "",
+                                "description": "JSON ini digunakan untuk membuat halaman konten untuk user guide, use case, dan tech docs. Melalui JSON ini, Anda dapat memasukkan table (top header dan side header), gambar, box untuk json, query, ataupun API, dan link untuk mengunduh dokumen dalam bentuk pdf.",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "content": "<p>{<br />&nbsp;&nbsp;&nbsp; \"page_title\": \"[judul_konten]\",<br />&nbsp;&nbsp;&nbsp; \"breadcrumb\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label\": \"[breadcrumb1\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"[nama_folder]/{nama_file_json\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label\": \"[breadcrumb1\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"[nama_folder]/{nama_file_json\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label\": \"[breadcrumb1\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"[nama_folder]/{nama_file_json\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp; ],<br />&nbsp;&nbsp;&nbsp; \"page_content\": {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"type\": \"content\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"navigations\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label\": \"{navigation1}\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"id\": \"[content_id]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label\": \"[navigation2]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"id\": \"[content_id]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"section\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"[H1_judul_konten]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"id\": \"[content_id]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"description\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"data\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"[H2_sub_judul]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"id\": \"[content_id]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"description\": \"[deksripsi_konten]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"data\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"[H3_sub_sub_judul]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"id\": \"[content_id]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"description\": \"[deskripsi_konten]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"links\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"[nama_folder]/[nama_file].pdf atau url\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label\": \"[label_untuk_link]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"type\": \"document\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"description\": \"\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"image\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"[nama_folder]/[nama_file].png\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"notes\": \"\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"type\": \"image\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"description\": \"\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"header_information\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label_field1\": \"[header_1]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label_field2\": \"[header_2]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label_field3\": \"[header_3]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label_field4\": \"[header_4]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"detail_information\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"value_field1\": \"[value1_header1]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"value_field2\": \"[value1_header2]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"value_field3\": \"[value1_header3]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"value_field4\": \"[value1_header4]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"value_field1\": \"[value2_header1]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"value_field2\": \"[value2_header2]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"value_field3\": \"[value3_header3]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"value_field4\": \"[value4_header4]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"type\": \"top_header\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"description\": \"\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"detail_information\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"fiel1\": \"header1\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"fiel2\": \"value_header1\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"fiel1\": \"header2\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"fiel2\": \"value_header2\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"type\": \"side_header\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"description\": \"\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"content\":\"[api/query/json]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"type\": \"pre_code\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]<br />&nbsp;&nbsp;&nbsp; }<br />}</p>",
+                                "type": "pre_code"
+                            },
+                            {
+                                "title": "FAQ Content",
+                                "id": "",
+                                "description": "JSON ini digunakan untuk membuat pertanyaan dan jawaban untuk FAQ. Melalui JSON ini, Anda dapat memasukkan deskripsi dan link untuk mengunduh dokumen dalam bentuk pdf.",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "content": "<p>{<br />&nbsp;&nbsp;&nbsp; \"page_title\": \"\",<br />&nbsp;&nbsp;&nbsp; \"breadcrumb\": [],<br />&nbsp;&nbsp;&nbsp; \"page_content\": {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"type\": \"faq\", <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"navigations\": [],<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"section\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"question\": \"[pertanyaan]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"id\": \"\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"answer\": \"[jawaban]\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"data\": []<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; },<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"title\": \"\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"id\": \"\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"description\": \"\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"data\": [<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"url\": \"[nama_folder]/[nama_file].pdf\",<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \"label\": \"[label]\"<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]<br />&nbsp;&nbsp;&nbsp; }<br />}</p>",
+                                "type": "pre_code"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Landing Page",
+                        "id": "landingpage02",
+                        "description": "<p>Halaman Landing Page menggunakan JSON Information Card, dengan keterangan seperti berikut:</p><ul><li><strong>Page Title</strong> - judul halaman</li><li><strong>Breadcrumb</strong> - untuk membuat breadcrumb<ul><li><strong>Label</strong> - judul breadcrumb</li><li><strong>URL</strong> - nama folder dan nama file JSON atau URL yang mengarah ke judul breadcrumb tersebut</li></ul></li></ul>",
+                        "data": [
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-15_Custom_Landing_Page1.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "",
+                                "id": "",
+                                "description": "<ul><li><strong>Page Content</strong> - konten halaman, berisi title, deskripsi konten, dan lainnya sesuai kebutuhan konten</li><li><strong>Type</strong> - tipe halaman--Landing Page dan Getting Started menggunakan \"information_card\" untuk menampilkan judul dalam bentuk kartu</li><li><strong>Sections</strong> - Section konten</li><li><strong>Title</strong> - judul kategori untuk judul konten yang ditampilkan, untuk Landing Page</li><li><strong>Description</strong> - deskripsi mengenai kategori</li><li><strong>Data</strong> - konten yang akan disajikan di halaman</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-16_Custom_Landing_Page2.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "",
+                                "id": "",
+                                "description": "<ul><li><strong>Title</strong> - judul konten</li><li><strong>Logo</strong> - nama folder dan nama file .png atau .svg untuk logo konten sesuai kategori atau sumber menunya</li><li><strong>URL</strong> - nama folder dan nama file JSON konten sesuai judul</li><li><strong>Description</strong> - deskripsi mengenai judul konten</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-17_Custom_Landing_Page3.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Side Bar",
+                        "id": "sidebar02",
+                        "description": "<p>Side Bar Help &amp; Support menggunakan JSON Main, dengan keterangan seperti berikut:</p><ul><li><strong>Sidebar</strong> - informasi mengenai Side Bar dikonfigurasi di dalamnya</li><li><strong>Search</strong> - flagging menggunakan fitur Search (true atau false)</li><li><strong>Menu</strong> - daftar menu dikonfigurasi di dalamnya</li><li><strong>Menu Name</strong> - nama atau label menu</li><li><strong>URL</strong> - nama folder dan nama file JSON yang menjadi halaman utama masing-masing menu</li><li><strong>Support</strong> - informasi kontak Help &amp; Support dikonfigurasi di dalamnya</li><li><strong>Image</strong> - nama folder dan nama file (wajib menginput extention, .png atau .svg) untuk icon informasi Help &amp; Support</li><li><strong>Title</strong> - tagline kontak Help &amp; Support</li><li><strong>Phone</strong> - nomor telepon</li><li><strong>Email</strong> - alamat email</li></ul>",
+                        "data": [
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-18_Custom_Side_Bar.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Getting Started",
+                        "id": "gettingstarted02",
+                        "description": "<p>Halaman Getting Started menggunakan JSON Information Card, sama seperti Landing Page, dengan keterangan seperti berikut:</p><ul><li><strong>Page Title</strong> - judul halaman</li><li><strong>Breadcrumb</strong> - untuk membuat breadcrumb<ul><li><strong>Label</strong> - judul breadcrumb</li><li><strong>URL</strong> - nama folder dan nama file JSON atau URL yang mengarah ke judul breadcrumb tersebut</li></ul></li></ul>",
+                        "data": [
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-19_Custom_Getting_Started1.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "",
+                                "id": "",
+                                "description": "<ul><li><strong>Page Content</strong> - konten halaman, berisi title, deskripsi konten, dan lainnya sesuai kebutuhan konten</li><li><strong>Type</strong> - tipe halaman--Landing Page dan Getting Started menggunakan \"information_card\" untuk menampilkan judul dalam bentuk kartu</li><li><strong>Sections</strong> - section konten</li><li><strong>Title</strong> - judul halaman, untuk Getting Started</li><li><strong>Description</strong> - deskripsi mengenai judul</li><li><strong>Data</strong> - konten yang akan disajikan di halaman</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-20_Custom_Getting_Started2.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "",
+                                "id": "",
+                                "description": "<ul><li><strong>Title</strong> - judul konten</li><li><strong>Logo</strong> - nama folder dan nama file .png atau .svg untuk logo konten sesuai kategori</li><li><strong>URL</strong> - nama folder dan nama file JSON konten sesuai judul</li><li><strong>Description</strong> - deskripsi mengenai judul konten</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-21_Custom_Getting_Started3.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Features",
+                        "id": "features02",
+                        "description": "<p>Halaman kategori Features menggunakan JSON Category yang sama seperti Use Case, Tech Docs, dan FAQ untuk menampilkan judul konten, deskripsi konten, kategori konten, dan judul konten, dengan keterangan seperti berikut:</p><ul><li><strong>Page Title</strong> - judul halaman</li><li><strong>Breadcrumb</strong> - untuk membuat breadcrumb<ul><li><strong>Label</strong> - judul breadcrumb</li><li><strong>URL</strong> - nama folder dan nama file JSON atau URL yang mengarah ke judul breadcrumb tersebut</li></ul></li></ul>",
+                        "data": [
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-22_Custom_Features1.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "",
+                                "id": "",
+                                "description": "<ul><li><strong>Page Content</strong> - konten halaman, berisi title, deskripsi konten, dan lainnya sesuai kebutuhan konten</li><li><strong>Type</strong> - tipe halaman--halaman yang menggunakan kategori, yaitu Features, Use Case, Tech Docs, dan FAQ menggunakan \"searchby\" untuk menampilkan halaman kategori</li><li><strong>Sections</strong> - section konten</li><li><strong>Title</strong> - judul halaman untuk Features</li><li><strong>Description</strong> - deskripsi mengenai judul</li><li><strong>Data</strong> - konten yang akan disajikan di halaman</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-23_Custom_Features2.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "",
+                                "id": "",
+                                "description": "<ul><li><strong>Data</strong> - konten yang akan disajikan di halaman kategori</li><li><strong>Label</strong> - nama kategori</li><li><strong>Icon</strong> - diisi dengan nama folder dan nama file .png atau .svg untuk icon masing-masing kategori</li><li><strong>Order</strong> - urutan kategori, boleh kosong (saat urutan berdasarkan urutan objek JSON)</li><li><strong>Sub Menu</strong> - daftar judul konten yang termasuk dalam kategori</li><li><strong>Icon</strong> - diisi dengan nama folder dan nama file .png atau .svg untuk icon masing-masing kategori</li><li><strong>Title</strong> - judul konten</li><li><strong>Description</strong> - deskripsi mengenai konten pada judul tersebut</li><li><strong>URL</strong> - diisi dengan nama folder dan nama file JSON konten sesuai judul</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-24_Custom_Features3.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Use Case",
+                        "id": "usecase02",
+                        "description": "<p>Halaman kategori Use Case menggunakan JSON Category yang sama seperti Features, Tech Docs, dan FAQ untuk menampilkan judul konten, deskripsi konten, kategori konten, dan judul konten, dengan keterangan seperti berikut:</p><ul><li><strong>Page Title</strong> - judul halaman</li><li><strong>Breadcrumb</strong> - untuk membuat breadcrumb<ul><li><strong>Label</strong> - judul breadcrumb</li><li><strong>URL</strong> - nama folder dan nama file JSON atau URL yang mengarah ke judul breadcrumb tersebut</li></ul></li></ul>",
+                        "data": [
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-25_Custom_Use_Case1.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "",
+                                "id": "",
+                                "description": "<ul><li><strong>Page Content</strong> - konten halaman, berisi title, deskripsi konten, dan lainnya sesuai kebutuhan konten</li><li><strong>Type</strong> - tipe halaman--halaman yang menggunakan kategori, yaitu Features, Use Case, Tech Docs, dan FAQ menggunakan \"searchby\" untuk menampilkan halaman kategori</li><li><strong>Sections</strong> - section konten</li><li><strong>Title</strong> - judul halaman untuk Features</li><li><strong>Description</strong> - deskripsi mengenai judul</li><li><strong>Data</strong> - konten yang akan disajikan di halaman</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-26_Custom_Use_Case2.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "",
+                                "id": "",
+                                "description": "<ul><li><strong>Data</strong> - konten yang akan disajikan di halaman kategori</li><li><strong>Label</strong> - nama kategori</li><li><strong>Icon</strong> - diisi dengan nama folder dan nama file .png atau .svg untuk icon masing-masing kategori</li><li><strong>Order</strong> - urutan kategori, boleh kosong (saat urutan berdasarkan urutan objek JSON)</li><li><strong>Sub Menu</strong> - daftar judul konten yang termasuk dalam kategori</li><li><strong>Icon</strong> - diisi dengan nama folder dan nama file .png atau .svg untuk icon masing-masing kategori</li><li><strong>Title</strong> - judul konten</li><li><strong>Description</strong> - deskripsi mengenai konten pada judul tersebut</li><li><strong>URL</strong> - diisi dengan nama folder dan nama file JSON konten sesuai judul</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-27_Custom_Use_Case3.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Tech Docs",
+                        "id": "techdocs02",
+                        "description": "<p>Halaman kategori Tech Docs menggunakan JSON Category yang sama seperti Features, Use Case, dan FAQ untuk menampilkan judul konten, deskripsi konten, kategori konten, dan judul konten, dengan keterangan seperti berikut:</p><ul><li><strong>Page Title</strong> - judul halaman</li><li><strong>Breadcrumb</strong> - untuk membuat breadcrumb<ul><li><strong>Label</strong> - judul breadcrumb</li><li><strong>URL</strong> - nama folder dan nama file JSON atau URL yang mengarah ke judul breadcrumb tersebut</li></ul></li></ul>",
+                        "data": [
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-28_Custom_Tech_Docs1.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "",
+                                "id": "",
+                                "description": "<ul><li><strong>Page Content</strong> - konten halaman, berisi title, deskripsi konten, dan lainnya sesuai kebutuhan konten</li><li><strong>Type</strong> - tipe halaman--halaman yang menggunakan kategori, yaitu Features, Use Case, Tech Docs, dan FAQ menggunakan \"searchby\" untuk menampilkan halaman kategori</li><li><strong>Sections</strong> - section konten</li><li><strong>Title</strong> - judul halaman untuk Features</li><li><strong>Description</strong> - deskripsi mengenai judul</li><li><strong>Data</strong> - konten yang akan disajikan di halaman</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-29_Custom_Tech_Docs2.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "",
+                                "id": "",
+                                "description": "<ul><li><strong>Data</strong> - konten yang akan disajikan di halaman kategori</li><li><strong>Label</strong> - nama kategori</li><li><strong>Icon</strong> - diisi dengan nama folder dan nama file .png atau .svg untuk icon masing-masing kategori</li><li><strong>Order</strong> - urutan kategori, boleh kosong (saat urutan berdasarkan urutan objek JSON)</li><li><strong>Sub Menu</strong> - daftar judul konten yang termasuk dalam kategori</li><li><strong>Icon</strong> - diisi dengan nama folder dan nama file .png atau .svg untuk icon masing-masing kategori</li><li><strong>Title</strong> - judul konten</li><li><strong>Description</strong> - deskripsi mengenai konten pada judul tersebut</li><li><strong>URL</strong> - diisi dengan nama folder dan nama file JSON konten sesuai judul</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-30_Custom_Tech_Docs4.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "FAQ",
+                        "id": "faq02",
+                        "description": "<p>Halaman kategori FAQ menggunakan JSON Category yang sama seperti Features, Use Case, dan Tech Docs untuk menampilkan judul konten, deskripsi konten, kategori konten, dan judul konten, dengan keterangan seperti berikut:</p><ul><li><strong>Page Title</strong> - judul halaman</li><li><strong>Breadcrumb</strong> - untuk membuat breadcrumb<ul><li><strong>Label</strong> - judul breadcrumb</li><li><strong>URL</strong> - nama folder dan nama file JSON atau URL yang mengarah ke judul breadcrumb tersebut</li></ul></li></ul>",
+                        "data": [
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-31_Custom_Faq1.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "",
+                                "id": "",
+                                "description": "<ul><li><strong>Page Content</strong> - konten halaman, berisi title, deskripsi konten, dan lainnya sesuai kebutuhan konten</li><li><strong>Type</strong> - tipe halaman--halaman yang menggunakan kategori, yaitu Features, Use Case, Tech Docs, dan FAQ menggunakan \"searchby\" untuk menampilkan halaman kategori</li><li><strong>Sections</strong> - section konten</li><li><strong>Title</strong> - judul halaman untuk Features</li><li><strong>Description</strong> - deskripsi mengenai judul</li><li><strong>Data</strong> - konten yang akan disajikan di halaman</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-32_Custom_Faq2.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "",
+                                "id": "",
+                                "description": "<ul><li><strong>Data</strong> - konten yang akan disajikan di halaman kategori</li><li><strong>Label</strong> - nama kategori</li><li><strong>Icon</strong> - diisi dengan nama folder dan nama file .png atau .svg untuk icon masing-masing kategori</li><li><strong>Order</strong> - urutan kategori, boleh kosong (saat urutan berdasarkan urutan objek JSON)</li><li><strong>Sub Menu</strong> - daftar judul konten yang termasuk dalam kategori</li><li><strong>Icon</strong> - diisi dengan nama folder dan nama file .png atau .svg untuk icon masing-masing kategori</li><li><strong>Title</strong> - judul konten</li><li><strong>Description</strong> - deskripsi mengenai konten pada judul tersebut</li><li><strong>URL</strong> - diisi dengan nama folder dan nama file JSON konten sesuai judul</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-33_Custom_Faq3.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "",
+                                "id": "",
+                                "description": "<p>Untuk konten FAQ yang berisi jawaban dan pertanyaan menggunakan JSON FAQ Content yang mirip dengan JSON Content, dengan keterangan seperti berikut:</p><ul><li><strong>Page Title</strong> - judul halaman (boleh dikosongkan)</li><li><strong>Breadcrumb</strong> - untuk membuat breadcrumb (boleh dikosongkan)<br /><ul><li><strong>Label</strong> - judul breadcrumb (boleh dikosongkan)</li><li><strong>URL</strong> - nama folder dan nama file JSON atau URL yang mengarah ke judul breadcrumb tersebut (boleh dikosongkan)</li></ul></li><li><strong>Page Content</strong> - konten halaman, berisi title, deskripsi konten, dan lainnya sesuai kebutuhan konten</li><li><strong>Type</strong> - tipe halaman untuk konten FAQ menggunakan \"faq\"</li><li><strong>Navigation</strong> - navigasi ke judul dalam konten (boleh dikosongkan)</li><li><strong>Sections</strong> - section konten</li><li><strong>Question</strong> - pertanyaan FAQ</li><li><strong>ID</strong> - ID ke masing-masing judul dalam konten (boleh dikosongkan)</li><li><strong>Answer</strong> - jawaban FAQ</li><li><strong>Data</strong> - informasi lanjutan untuk memasukkan link untuk men-download pdf atau ke halaman lain</li><li><strong>URL</strong> - diisi dengan nama folder dan nama file .pdf untuk men-download pdf atau nama folder dan nama file JSON untuk ke halaman lain</li><li><strong>Label</strong> - label untuk URL yang dimasukkan</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-34_Custom_Faq4.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Release Notes",
+                        "id": "releasenotes02",
+                        "description": "<p>Halaman Release Notes menggunakan JSON Release Notes dengan keterangan seperti berikut:</p><ul><li><strong>Page Title</strong> - judul halaman</li><li><strong>Breadcrumb</strong> - untuk membuat breadcrumb<ul><li><strong>Label</strong> - judul breadcrumb</li><li><strong>URL</strong> - nama folder dan nama file JSON atau URL yang mengarah ke judul breadcrumb tersebut</li></ul></li></ul>",
+                        "data": [
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-35_Custom_Release_Notes1.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "",
+                                "id": "",
+                                "description": "<ul><li><strong>Page Content</strong> - konten halaman, berisi title, deskripsi konten, dan lainnya sesuai kebutuhan konten</li><li><strong>Type</strong> - tipe halaman untuk Release Notes menggunakan \"release_notes\"</li><li><strong>Navigation</strong> - navigasi ke judul dalam konten (dikosongkan)</li><li><strong>Sections</strong> - section konten</li><li><strong>Title </strong>- nomor versi rilis</li><li><strong>ID</strong> - ID untuk ditambahkan ke navigasi (dikosongkan)</li><li><strong>Description </strong>- deskripsi mengenai versi (dikosongkan)</li><li><strong>Data</strong> - informasi lanjutan untuk masing-masing versi</li><li><strong>Title </strong>- diisi dengan tanggal rilis atau tipe rilis</li><li><strong>ID</strong> - ID untuk ditambahkan ke navigasi (dikosongkan)</li><li><strong>Description</strong> - informasi atau daftar rilis per tipe rilis. Dikosongkan jika TITLE diisi dengan tanggal rilis</li><li><strong>Data</strong> - informasi lanjutan (dikosongkan)</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-36_Custom_Release_Notes2.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Content",
+                        "id": "content02",
+                        "description": "<p>Setiap konten di Help &amp; Support, kecuali konten FAQ dan Release Notes, menggunakan JSON Content dan dapat dikustomisasi sesuai kebutuhan.</p><ul><li><strong>Page Title</strong> - judul halaman</li><li><strong>Breadcrumb</strong> - untuk membuat breadcrumb <br /><ul><li><strong>Label</strong> - judul breadcrumb </li><li><strong>URL</strong> - nama folder dan nama file JSON atau URL yang mengarah ke judul breadcrumb tersebut </li></ul></li><li><strong>Page Content</strong> - konten halaman, berisi title, deskripsi konten, dan lainnya sesuai kebutuhan konten</li><li><strong>Type</strong> - tipe halaman untuk konten FAQ menggunakan \"content\"</li><li><strong>Navigation</strong> - navigasi ke judul dalam konten<ul><li><strong>Label</strong> - nama navigasi section di dalam konten, biasanya sesuai dengan title (H1, H2, ataupun H3)</li><li><strong>ID</strong> - ID title atau section di dalam konten</li></ul></li></ul>",
+                        "data": [
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-37_Custom_Content1.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "Contoh Konten Dengan Deskripsi dan Gambar",
+                                "id": "",
+                                "description": "<p>Di bawah ini contoh konten yang berisi deskripsi dan gambar, dengan keterangan berikut:</p><ul><li><strong>Sections</strong> - section konten</li><li><strong>Title </strong>- judul konten</li><li><strong>ID</strong> - ID untuk navigation</li><li><strong>Description</strong> - deskripsi konten</li><li><strong>Data</strong> - informasi lanjutan untuk memasukkan deskripsi tambahan ataupun gambar<ul><li><strong>Title</strong> - judul sub-konten</li><li><strong>ID</strong> - ID untuk navigation</li><li><strong>Description</strong> - deskripsi sub-konten</li><li><strong>Data</strong> - informasi lanjutan untuk memasukkan deskripsi tambahan ataupun gambar<ul><li><strong>Title</strong> - judul sub-konten, jika tipe = \"image\", judul tidak ditampilkan</li><li><strong>Description</strong> - deksripsi konten, jika tipe = \"image\", deskripsi tidak ditampilkan</li><li><strong>Order</strong> - urutan tampilan gambar atau deskripsi (dapat dikosongkan, karena akan mengikuti urutan di JSON)</li><li><strong>Image</strong> - keterangan gambar<ul><li><strong>URL</strong> - nama folder dan nama file .png</li><li><strong>Notes</strong> - keterangan mengenai gambar (dapat dikosongkan)</li></ul></li><li><strong>Links</strong> - untuk menambahkan link download PDF</li><li><strong>Type</strong> - tipe object--untuk menampilkan gambar, gunakan \"image\", untuk deskripsi gunakan \"document\"</li></ul></li></ul></li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-38_Custom_Content2.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "Contoh Konten Dengan Tabel",
+                                "id": "",
+                                "description": "<p>Di bawah ini contoh konten yang berisi tabel.</p><p>Berikut keterangan untuk table dengan header samping:</p><ul><li><strong>Data</strong> - informasi lanjutan untuk memasukkan informasi tabel</li><li><strong>Title</strong> - judul sub-konten</li><li><strong>Description</strong> - deksripsi konten</li><li><strong>Order</strong> - urutan tampilan tabel (dapat dikosongkan, karena akan mengikuti urutan di JSON)</li><li><strong>Detail Information </strong>- informasi tabel<ul><li><strong>Field1 </strong>- header</li><li><strong>Field2 </strong>- value dari header</li></ul></li><li><strong>Type</strong> - tipe object--untuk menampilkan table dengan header samping, gunakan \"side_header\"</li></ul><p>Berikut keterangan untuk table dengan header atas:</p><ul><li><strong>Data</strong> - informasi lanjutan untuk memasukkan informasi tabel</li><li><strong>Title</strong> - judul sub-konten</li><li><strong>Description</strong> - deksripsi konten</li><li><strong>Order</strong> - urutan tampilan tabel (dapat dikosongkan, karena akan mengikuti urutan di JSON)</li><li><strong>Header Information </strong>- informasi header tabel<ul><li><strong>Label Field1 </strong>- header 1</li><li><strong>Label Field2 </strong>- header 2</li><li><strong>Label Field3</strong> - header 3</li><li><strong>Label Field4</strong> - header 4</li></ul></li><li><strong>Detail Information</strong> - informasi value dari header yang dibuat<ul><li><strong>Value Field1</strong> - value dari header 1</li><li><strong>Value Field2</strong> - value dari header 2</li><li><strong>Value Field3</strong> - value dari header 3</li><li><strong>Value Field4</strong> - value dari header 4</li></ul></li><li><strong>Type</strong> - tipe object--untuk menampilkan table dengan header atas, gunakan \"top_header\"</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-39_Custom_Content3.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "Contoh Konten Dengan Kolom Query",
+                                "id": "",
+                                "description": "<p>Di bawah ini contoh konten yang berisi kolom untuk menampung query atau JSON, dengan keterangan berikut:</p><ul><li><strong>Data</strong> - informasi lanjutan untuk memasukkan informasi kolom</li><li><strong>Title</strong> - judul sub-konten</li><li><strong>Description</strong> - deksripsi konten</li><li><strong>Order</strong> - urutan tampilan tabel (dapat dikosongkan, karena akan mengikuti urutan di JSON)</li><li><strong>Content </strong>- query atau JSON yang akan ditampilkan</li><li><strong>Type</strong> - tipe object--untuk menampilkan kolom untuk query atau JSON, gunakan \"pre_code\"</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-40_Custom_Content4.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            },
+                            {
+                                "title": "Contoh Konten Dengan Link Download",
+                                "id": "",
+                                "description": "<p>Di bawah ini contoh konten yang berisi link untuk men-download file dalam bentuk PDF atau lainnya sesuai kebutuhan, dengan keterangan berikut:</p><ul><li><strong>Data</strong> - informasi lanjutan untuk memasukkan informasi kolom</li><li><strong>Title</strong> - judul sub-konten</li><li><strong>Description</strong> - deksripsi konten</li><li><strong>Order</strong> - urutan tampilan tabel (dapat dikosongkan, karena akan mengikuti urutan di JSON)</li><li><strong>Links</strong> - informasi link download<ul><li><strong>URL</strong> - nama folder dan nama file atau URL file yang dapat di-download</li><li><strong>Label</strong> - label untuk link download</li></ul></li><li><strong>Type</strong> - tipe object--untuk menampilkan link download, gunakan \"document\"</li></ul>",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/040002-41_Custom_Content5.png",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Implementasi Help & Support",
+                "id": "implementation",
+                "description": "<p>Help &amp; Support akan mengumpulkan semua user guide, use case, technical document, dan konten lainnya yang berhubungan dengan iDecision. Seluruh konten ini akan disimpan di masing-masing folder sesuai dengan modulnya. Contohnya, konten yang berhubungan User Management yang termasuk dalam modul Core disimpan di folder \"core\" atau konten yang berhubungan dengan Decision Flow yang termasuk dalam modul Decision Engine disimpan di folder \"de\". Hal ini bertujuan untuk memudahkan implementasi Help &amp; Support di klien, karena beberapa klien iDecision tidak menggunakan seluruh modul yang dimiliki iDecision; hanya menggunakan modul Core dan Decision Engine atau hanya menggunakan modul Core dan LOS. </p><p>Sementara itu, informasi mengenai iDecision akan disimpan ke dalam folder \"main\", yang berisi konten informasi iDecision, halaman kategori dan FAQ, serta halaman Release Notes.</p>",
+                "data": [
+                    {
+                        "title": "Menyiapkan Folder",
+                        "id": "",
+                        "description": "<p>Dengan pemisahan folder konten berdasarkan modul, implementasi Help &amp; Support di klien hanya akan diberikan folder yang berhubungan dengan modul yang digunakannya: klien yang menggunakan modul Core dan Decision Engine akan mendapatkan folder \"core\" dan \"de\". Oleh karenanya, pemisahan folder ini memudahkan proses implementasi karena konten yang diberikan untuk Help &amp; Support sesuai dengan kebutuhan klien.</p><p>Untuk itu, sebelum implementasi perlu memperhatikan hal berikut:</p><ul><li>daftar modul yang digunakan oleh klien</li><li>daftar menu/fitur yang digunakan oleh klien</li></ul><p>Setelah mendapatkan informasi di atas, saat implementasi perlu melakukan hal berikut:</p><ul><li>menyiapkan folder \"main\"</li><li>menyiapkan folder-folder sesuai modul yang digunakan</li><li>memastikan konten di dalam folder sesuai dengan menu/fitur yang digunakan oleh klien</li></ul>",
+                        "data": [
+                            {
+                                "title": "",
+                                "id": "folder",
+                                "description": "",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Menyiapkan File",
+                        "id": "",
+                        "description": "<p>Selain menyiapkan folder, perlu diperhatikan pula bahwa pada beberapa file JSON di folder \"main\" telah mendata seluruh menu dan fitur yang dimiliki iDecision dari semua modulnya. Untuk itu, user perlu mengubah file JSON tersebut dan menghapus informasi menu/fitur yang tidak berkaitan dengan modul yang digunakan oleh klien, yaitu:</p><ul><li><strong>010001.json</strong> - file untuk halaman utama Help &amp; Support, terdiri dari berbagai konten dari berbagai modul. Hapus judul konten dari modul yang tidak digunakan klien dan menggantinya dengan judul konten dari modul yang digunakan klien</li><li><strong>020000.json</strong> - file untuk halaman kategori Getting Started. Hapus judul konten dari modul yang tidak digunakan klien dan menggantinya dengan judul konten dari modul yang digunakan klien</li><li><strong>030000.json</strong> - file untuk halaman kategori Features. Hapus menu dan judul konten dari modul yang tidak digunakan oleh klien</li><li><strong>040000.json</strong> - file untuk halaman kategori Use Case. Hapus judul konten dari modul yang tidak digunakan oleh klien</li><li><strong>050000.json</strong> - file untuk halaman kategori Tech Docs. Hapus judul konten dari modul yang tidak digunakan oleh klien</li><li><strong>060000.json</strong> - file untuk halaman FAQ. Hapus judul konten dari modul yang tidak digunakan oleh klien</li></ul><p>Untuk melihat folder yang digunakan pada file di atas, lihat object \"url\" pada tiap judul konten, yang menggunakan format \"nama_folder/nama_file\" untuk file JSON atau \"nama_folder/nama_file.png\" untuk gambar atau \"nama_folder/nama_file.svg\" untuk icon.</p>",
+                        "data": [
+                            {
+                                "title": "",
+                                "id": "folder",
+                                "description": "",
+                                "order": 1,
+                                "links": [],
+                                "type": "document"
+                            },
+                            {
+                                "title": "",
+                                "description": "",
+                                "order": 1,
+                                "image": [
+                                    {
+                                        "url": "main/",
+                                        "notes": ""
+                                    }
+                                ],
+                                "type": "image"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

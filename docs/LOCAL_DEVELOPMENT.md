@@ -1,7 +1,7 @@
-# Running Personal Tools Portal Locally
+# Running OpenTools Portal Locally
 
-This guide explains how to install, run, test, and build the Personal Tools
-Portal on a local computer.
+This guide explains how to install, run, test, and build the OpenTools Portal
+on a local computer.
 
 ## Prerequisites
 

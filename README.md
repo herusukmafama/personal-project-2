@@ -1,6 +1,6 @@
-# Personal Tools Portal
+# OpenTools Portal
 
-A browser-only personal tools dashboard built with React, TypeScript, Vite, and Tailwind CSS.
+A browser-only OpenTools dashboard built with React, TypeScript, Vite, and Tailwind CSS.
 
 ## Included
 
@@ -8,6 +8,8 @@ A browser-only personal tools dashboard built with React, TypeScript, Vite, and 
 - React Router navigation
 - Browser-only DOCX to JSON converter migrated from the legacy application
 - Preserved Help & Support JSON mapping behavior using Mammoth.js
+- DOCX to JSON V2 for generating the `040002.json` Help & Support structure
+  from a downloadable Word template
 - Browser-only PostgreSQL deployment formatter for SLRC-ready SQL files,
   deployment.txt, ZIP bundles, ticket notes, guideline auto-fixes, and diff review
 - Browser-only ARJUNA installment simulator for effective-rate and flat-rate
@@ -35,3 +37,6 @@ npm run build
 
 The previous browser application is preserved under `legacy/`. Migration details
 and behavior-parity notes are documented in `docs/MIGRATION.md`.
+
+DOCX to JSON V2 usage notes are documented in
+[`docs/DOCX_TO_JSON_V2.md`](docs/DOCX_TO_JSON_V2.md).

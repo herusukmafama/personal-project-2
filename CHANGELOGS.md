@@ -1,7 +1,36 @@
 # Changelogs
 
-All notable changes and planned improvements for the Personal Tools Portal are
+All notable changes and planned improvements for the OpenTools Portal are
 documented here.
+
+## Released - OpenTools Rename and Flexible DOCX V2 - 2026-06-17
+
+Renamed the portal and improved DOCX to JSON V2 for partial Word templates.
+
+### Updates
+
+- Renamed user-facing branding from **Personal Tools** to **OpenTools**.
+- Updated DOCX to JSON V2 so deleted Word template rows are omitted from the
+  generated JSON.
+- Changed empty DOCX V2 `Value` cells to output blank text instead of falling
+  back to the default template value.
+- Kept the full `040002` Word template available as a starting point.
+
+## Released - DOCX to JSON V2 for 040002 Template - 2026-06-17
+
+Added a new DOCX conversion flow that keeps the existing DOCX to JSON
+converter unchanged.
+
+### Updates
+
+- Added **DOCX to JSON V2** as a separate dashboard and sidebar tool.
+- Added a downloadable Word template for the Help & Support `040002.json`
+  structure.
+- Added template-driven mapping so filled Word values overlay the base JSON
+  while empty fields keep the original defaults.
+- Added automatic JSON preview and download for the V2 flow.
+- Added focused tests for template recognition, value overlay, default
+  fallback, and the downloadable Word template.
 
 ## Released - SQL Formatter Upload and Bulk Review UX - 2026-06-11
 
@@ -47,7 +76,7 @@ Added a portfolio-friendly **Built With** page for issue #3.
 
 ## Released - ARJUNA Installment Simulator - 2026-06-08
 
-Migrated `docs/SimulasiAngsuranARJUNAv2.html` into the Personal Tools Portal
+Migrated `docs/SimulasiAngsuranARJUNAv2.html` into the OpenTools Portal
 as feature 3.
 
 ### Updates
