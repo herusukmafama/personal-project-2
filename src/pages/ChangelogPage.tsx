@@ -11,6 +11,33 @@ type ChangelogEntry = {
 
 const changelogEntries: ChangelogEntry[] = [
   {
+    date: '2026-06-17',
+    title: {
+      id: 'OpenTools dan DOCX to JSON V2 fleksibel',
+      en: 'OpenTools and flexible DOCX to JSON V2',
+    },
+    description: {
+      id: 'Portal kini menggunakan nama OpenTools dan DOCX to JSON V2 mendukung template Word yang tidak harus lengkap.',
+      en: 'The portal now uses the OpenTools name, and DOCX to JSON V2 supports Word templates that do not need to be complete.',
+    },
+    items: {
+      id: [
+        'Mengubah branding dari Personal Tools menjadi OpenTools.',
+        'Menambahkan DOCX to JSON V2 sebagai tools terpisah dari converter existing.',
+        'Menyediakan download template Word lengkap berbasis 040002.json.',
+        'Mendukung upload template Word partial: row yang dihapus tidak masuk JSON.',
+        'Value kosong pada row yang tetap ada akan menjadi teks kosong di hasil JSON.',
+      ],
+      en: [
+        'Renamed the product from Personal Tools to OpenTools.',
+        'Added DOCX to JSON V2 as a separate tool from the existing converter.',
+        'Added a downloadable full Word template based on 040002.json.',
+        'Supports partial Word template uploads: deleted rows are omitted from JSON.',
+        'Empty Value cells in retained rows become blank text in the generated JSON.',
+      ],
+    },
+  },
+  {
     date: '2026-06-11',
     title: {
       id: 'Upload dan bulk review SQL lebih praktis',
