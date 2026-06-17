@@ -6,6 +6,7 @@ import { languageLabels } from '../i18n/translations'
 import {
   BookIcon,
   CalculatorIcon,
+  CompareIcon,
   CloseIcon,
   DatabaseIcon,
   FileCodeIcon,
@@ -24,6 +25,7 @@ const navItems: Array<{
   { labelKey: 'dashboard', to: '/', icon: GridIcon },
   { labelKey: 'docxToJson', to: '/tools/docx-to-json', icon: FileCodeIcon },
   { labelKey: 'docxToJsonV2', to: '/tools/docx-to-json-v2', icon: FileCodeIcon },
+  { labelKey: 'compareText', to: '/tools/compare-text', icon: CompareIcon },
   { labelKey: 'sqlDeployment', to: '/tools/sql-deployment-formatter', icon: DatabaseIcon },
   { labelKey: 'installmentSimulator', to: '/tools/installment-simulator', icon: CalculatorIcon },
   { labelKey: 'builtWith', to: '/built-with', icon: LayersIcon },

@@ -3,6 +3,21 @@
 All notable changes and planned improvements for the OpenTools Portal are
 documented here.
 
+## Released - Compare Text Tool - 2026-06-17
+
+Added a browser-only text comparison tool inspired by lightweight Beyond
+Compare workflows.
+
+### Updates
+
+- Added **Compare Text** as a new dashboard and sidebar tool.
+- Added paste and local text-file input for left and right comparison.
+- Added automatic text-type detection for SQL, JSON, XML/HTML, Markdown,
+  CSV/TSV, and plain text.
+- Added opt-in normalization for SQL and JSON before comparing.
+- Added side-by-side and unified diff views with summary counters and compare
+  options.
+
 ## Released - OpenTools Rename and Flexible DOCX V2 - 2026-06-17
 
 Renamed the portal and improved DOCX to JSON V2 for partial Word templates.

@@ -14,6 +14,7 @@ Current tools:
 - DOCX to JSON Converter for Help & Support document templates.
 - DOCX to JSON V2 for generating the Help & Support `040002.json` structure
   from a downloadable Word template.
+- Compare Text for browser-only side-by-side and unified text diffs.
 - SQL Deployment Formatter for preparing SLRC-ready PostgreSQL deployment
   artifacts.
 - ARJUNA Installment Simulator for Effective Rate and Flat Rate installment
@@ -62,6 +63,8 @@ documented.
 - `src/tools/docx-to-json-v2/` owns the template-driven DOCX to JSON V2 flow
   for the `040002.json` Help & Support structure, including partial Word
   templates.
+- `src/tools/compare-text/` owns text detection, normalization, diff summary,
+  and the Compare Text UI.
 - `src/tools/sql-deployment/` owns SQL formatting, analysis, guideline review,
   artifact generation, downloads, UI, and tests.
 - `src/tools/installment-simulator/` owns ARJUNA calculation logic, UI, shared
@@ -136,6 +139,15 @@ testable without rendering components.
 - Treat missing Word template rows as omitted output.
 - Treat present rows with empty `Value` cells as blank string output.
 - Keep the downloadable Word template aligned with the V2 mapper and tests.
+
+### Compare Text
+
+- Keep comparison, detection, normalization, and summary logic in pure
+  TypeScript helpers.
+- Keep normalization opt-in; do not silently rewrite user text before compare.
+- Use browser-memory file reading only and do not store compared text.
+- Preserve side-by-side and unified diff behavior unless the user explicitly
+  requests merge-editor behavior.
 
 ### SQL Deployment Formatter
 

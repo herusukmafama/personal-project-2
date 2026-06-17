@@ -10,6 +10,8 @@ A browser-only OpenTools dashboard built with React, TypeScript, Vite, and Tailw
 - Preserved Help & Support JSON mapping behavior using Mammoth.js
 - DOCX to JSON V2 for generating the `040002.json` Help & Support structure
   from a downloadable Word template
+- Browser-only Compare Text tool for side-by-side and unified text diffs with
+  optional SQL and JSON normalization
 - Browser-only PostgreSQL deployment formatter for SLRC-ready SQL files,
   deployment.txt, ZIP bundles, ticket notes, guideline auto-fixes, and diff review
 - Browser-only ARJUNA installment simulator for effective-rate and flat-rate

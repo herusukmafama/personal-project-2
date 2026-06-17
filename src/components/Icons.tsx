@@ -132,3 +132,13 @@ export function LayersIcon(props: IconProps) {
     </IconBase>
   )
 }
+
+export function CompareIcon(props: IconProps) {
+  return (
+    <IconBase {...props}>
+      <path d="M4 6h7M4 12h10M4 18h7" />
+      <path d="M20 6h-7M20 12H10M20 18h-7" />
+      <path d="m12 4-2 2 2 2M12 16l2 2-2 2" />
+    </IconBase>
+  )
+}

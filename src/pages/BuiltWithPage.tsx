@@ -96,8 +96,8 @@ const technologies: Technology[] = [
     name: 'diff',
     category: 'Developer Productivity',
     description: {
-      id: 'Menampilkan review SQL side-by-side dan unified sebelum perubahan diterima.',
-      en: 'Powers side-by-side and unified SQL review before users accept proposed changes.',
+      id: 'Menampilkan review SQL serta Compare Text dalam tampilan side-by-side dan unified.',
+      en: 'Powers SQL review and Compare Text through side-by-side and unified diff views.',
     },
     icon: <DiffLogo />,
     accent: 'bg-indigo-50 text-indigo-700 ring-indigo-100 dark:bg-indigo-500/10 dark:text-indigo-200 dark:ring-indigo-500/20',
