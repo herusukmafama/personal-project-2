@@ -32,6 +32,8 @@ const navItems: Array<{
   { labelKey: 'changelog', to: '/changelog', icon: BookIcon },
 ]
 
+const openToolsMarkUrl = `${import.meta.env.BASE_URL}brand/opentools-mark.png`
+
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   const { language, setLanguage, theme, toggleTheme, t } = usePreferences()
   const nextThemeLabel = theme === 'dark' ? t('switchToLight') : t('switchToDark')
@@ -39,9 +41,13 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <>
       <div className="flex h-20 items-center gap-3 border-b border-slate-200 px-6 dark:border-slate-800">
-        <div className="grid size-10 place-items-center rounded-xl bg-brand-600 text-lg font-bold text-white shadow-sm">
-          P
-        </div>
+        <img
+          src={openToolsMarkUrl}
+          alt="OpenTools logo"
+          className="size-10 rounded-xl object-contain shadow-sm"
+          width="40"
+          height="40"
+        />
         <div>
           <p className="font-semibold text-slate-900 dark:text-white">{t('appName')}</p>
           <p className="text-xs text-slate-500 dark:text-slate-400">{t('appTagline')}</p>
@@ -179,7 +185,14 @@ export function AppLayout() {
           >
             <MenuIcon className="size-6" />
           </button>
-          <span className="ml-3 font-semibold text-slate-900 dark:text-white">{t('appName')}</span>
+          <img
+            src={openToolsMarkUrl}
+            alt="OpenTools logo"
+            className="ml-3 size-8 rounded-lg object-contain"
+            width="32"
+            height="32"
+          />
+          <span className="ml-2 font-semibold text-slate-900 dark:text-white">{t('appName')}</span>
           <MobileActions />
         </header>
         <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 md:py-10 lg:px-10">

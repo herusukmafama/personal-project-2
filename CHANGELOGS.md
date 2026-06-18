@@ -3,6 +3,17 @@
 All notable changes and planned improvements for the OpenTools Portal are
 documented here.
 
+## Released - OpenTools Logo and Favicon - 2026-06-18
+
+Added the provided OpenTools logo and refreshed favicon assets for the web app shell.
+
+### Updates
+
+- Added optimized PNG brand assets from `docs/Open Tools Logo.png`.
+- Added a cropped icon-only logo for the sidebar and mobile header.
+- Refreshed PNG favicon assets for browser tabs and app shortcuts.
+- Updated the app shell metadata so GitHub Pages serves the new favicon.
+
 ## Released - Compare Text Tool - 2026-06-17
 
 Added a browser-only text comparison tool inspired by lightweight Beyond

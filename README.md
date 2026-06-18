@@ -5,6 +5,7 @@ A browser-only OpenTools dashboard built with React, TypeScript, Vite, and Tailw
 ## Included
 
 - Responsive SaaS-style dashboard layout
+- OpenTools logo and favicon assets for the web app shell
 - React Router navigation
 - Browser-only DOCX to JSON converter migrated from the legacy application
 - Preserved Help & Support JSON mapping behavior using Mammoth.js
