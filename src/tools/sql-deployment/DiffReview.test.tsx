@@ -27,7 +27,7 @@ describe('DiffReview', () => {
         />
       </PreferencesProvider>,
     )
-    expect(markup).toContain('Review perubahan')
+    expect(markup).toContain('Review changes')
     expect(markup).toContain('Replace CREATE OR REPLACE VIEW')
     expect(markup).toContain('DROP VIEW IF EXISTS public.v')
     expect(markup).toContain('Status: needs review')

@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { usePreferences } from '../i18n/preferencesContext'
 import type { Language, TranslationKey } from '../i18n/translations'
-import { languageLabels } from '../i18n/translations'
 import {
   BookIcon,
   CalculatorIcon,
@@ -36,8 +35,56 @@ const navItems: Array<{
 
 const openToolsMarkUrl = `${import.meta.env.BASE_URL}brand/opentools-mark.png`
 
+const languageOptions: Array<{
+  value: Language
+  flag: string
+  label: string
+  ariaLabel: string
+}> = [
+  { value: 'en', flag: '🇬🇧', label: 'EN', ariaLabel: 'Switch language to English' },
+  { value: 'id', flag: '🇮🇩', label: 'ID', ariaLabel: 'Ganti bahasa ke Indonesia' },
+]
+
+function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
+  const { language, setLanguage, t } = usePreferences()
+
+  return (
+    <div
+      className={`inline-flex rounded-xl border border-slate-200 bg-white p-1 dark:border-slate-700 dark:bg-slate-950 ${
+        compact ? 'gap-0.5' : 'gap-1'
+      }`}
+      aria-label={t('language')}
+      role="group"
+    >
+      {languageOptions.map((option) => {
+        const isActive = language === option.value
+
+        return (
+          <button
+            key={option.value}
+            type="button"
+            aria-label={option.ariaLabel}
+            aria-pressed={isActive}
+            onClick={() => setLanguage(option.value)}
+            className={`inline-flex items-center justify-center gap-1 rounded-lg text-xs font-semibold transition focus:outline-none focus:ring-2 focus:ring-brand-200 dark:focus:ring-brand-500/40 ${
+              compact ? 'px-2 py-1.5' : 'px-3 py-2'
+            } ${
+              isActive
+                ? 'bg-brand-600 text-white shadow-sm'
+                : 'text-slate-600 hover:bg-slate-100 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white'
+            }`}
+          >
+            <span aria-hidden="true">{option.flag}</span>
+            <span>{option.label}</span>
+          </button>
+        )
+      })}
+    </div>
+  )
+}
+
 function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
-  const { language, setLanguage, theme, toggleTheme, t } = usePreferences()
+  const { theme, toggleTheme, t } = usePreferences()
   const nextThemeLabel = theme === 'dark' ? t('switchToLight') : t('switchToDark')
 
   return (
@@ -91,18 +138,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
             {theme === 'dark' ? <MoonIcon className="size-4" /> : <SunIcon className="size-4" />}
             {theme === 'dark' ? t('themeDark') : t('themeLight')}
           </button>
-          <select
-            aria-label={t('language')}
-            value={language}
-            onChange={(event) => setLanguage(event.target.value as Language)}
-            className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-100 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:focus:ring-brand-500/30"
-          >
-            {Object.entries(languageLabels).map(([value, label]) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
-          </select>
+          <LanguageSwitcher />
         </div>
         <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900/80">
           <p className="text-xs font-semibold text-slate-700 dark:text-slate-200">{t('privateByDesign')}</p>
@@ -116,7 +152,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 }
 
 function MobileActions() {
-  const { language, setLanguage, theme, toggleTheme, t } = usePreferences()
+  const { theme, toggleTheme, t } = usePreferences()
   const nextThemeLabel = theme === 'dark' ? t('switchToLight') : t('switchToDark')
 
   return (
@@ -129,18 +165,7 @@ function MobileActions() {
       >
         {theme === 'dark' ? <MoonIcon className="size-5" /> : <SunIcon className="size-5" />}
       </button>
-      <select
-        aria-label={t('language')}
-        value={language}
-        onChange={(event) => setLanguage(event.target.value as Language)}
-        className="rounded-lg border border-slate-200 bg-white px-2 py-2 text-xs font-semibold text-slate-700 outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200"
-      >
-        {Object.entries(languageLabels).map(([value, label]) => (
-          <option key={value} value={value}>
-            {label}
-          </option>
-        ))}
-      </select>
+      <LanguageSwitcher compact />
     </div>
   )
 }

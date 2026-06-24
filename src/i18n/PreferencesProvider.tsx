@@ -17,9 +17,9 @@ import {
 } from './preferencesContext'
 
 function getStoredLanguage(): Language {
-  if (typeof window === 'undefined') return 'id'
+  if (typeof window === 'undefined') return 'en'
   const stored = window.localStorage.getItem(LANGUAGE_KEY)
-  return stored === 'en' || stored === 'id' ? stored : 'id'
+  return stored === 'en' || stored === 'id' ? stored : 'en'
 }
 
 function getSystemTheme(): Theme {

@@ -3,6 +3,18 @@
 All notable changes and planned improvements for the OpenTools Portal are
 documented here.
 
+## Released - English Default and Flag Language Switcher - 2026-06-24
+
+Improved the language preference experience for first-time visitors and daily
+use.
+
+### Updates
+
+- Changed the first-visit default language from Indonesian to English.
+- Kept existing stored language preferences unchanged.
+- Replaced the language dropdown with accessible `🇬🇧 EN` and `🇮🇩 ID`
+  segmented buttons in desktop and mobile navigation.
+
 ## Released - Markdown Deployment Notes Generator - 2026-06-24
 
 Added a browser-only Markdown generator for deployment and daily work notes.
