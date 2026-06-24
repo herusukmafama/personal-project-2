@@ -7,6 +7,7 @@ import { ConverterPage } from './pages/ConverterPage'
 import { ConverterV2Page } from './pages/ConverterV2Page'
 import { DashboardPage } from './pages/DashboardPage'
 import { InstallmentSimulatorPage } from './pages/InstallmentSimulatorPage'
+import { MarkdownNotesPage } from './pages/MarkdownNotesPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { SqlDeploymentPage } from './pages/SqlDeploymentPage'
 
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="tools/docx-to-json" element={<ConverterPage />} />
         <Route path="tools/docx-to-json-v2" element={<ConverterV2Page />} />
         <Route path="tools/compare-text" element={<CompareTextPage />} />
+        <Route path="tools/markdown-notes" element={<MarkdownNotesPage />} />
         <Route path="tools/sql-deployment-formatter" element={<SqlDeploymentPage />} />
         <Route path="tools/installment-simulator" element={<InstallmentSimulatorPage />} />
         <Route path="built-with" element={<BuiltWithPage />} />

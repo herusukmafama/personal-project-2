@@ -3,6 +3,18 @@
 All notable changes and planned improvements for the OpenTools Portal are
 documented here.
 
+## Released - Markdown Deployment Notes Generator - 2026-06-24
+
+Added a browser-only Markdown generator for deployment and daily work notes.
+
+### Updates
+
+- Added **Markdown Notes** as a dashboard and sidebar tool.
+- Added a live rendered/raw Markdown preview from deployment note fields.
+- Added copy, `.md` download, clear form, and local draft restore.
+- Added focused tests for Markdown generation, filenames, preview parsing, and
+  draft storage.
+
 ## Released - OpenTools Logo and Favicon - 2026-06-18
 
 Added the provided OpenTools logo and refreshed favicon assets for the web app shell.

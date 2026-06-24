@@ -15,6 +15,8 @@ Current tools:
 - DOCX to JSON V2 for generating the Help & Support `040002.json` structure
   from a downloadable Word template.
 - Compare Text for browser-only side-by-side and unified text diffs.
+- Markdown Notes for generating deployment notes, GitHub Issue content, release
+  checklists, and daily work documentation as Markdown files.
 - SQL Deployment Formatter for preparing SLRC-ready PostgreSQL deployment
   artifacts.
 - ARJUNA Installment Simulator for Effective Rate and Flat Rate installment
@@ -28,7 +30,8 @@ Core constraints:
 - No authentication.
 - No uploaded-file storage.
 - All user-file processing and calculations must run in the browser.
-- `localStorage` is allowed only for theme and language preferences.
+- `localStorage` is allowed only for theme, language, and the Markdown Notes
+  draft preference listed in Architecture Rules.
 - The public application is deployed to GitHub Pages from the `main` branch.
 
 ## Technology Stack
@@ -65,6 +68,8 @@ documented.
   templates.
 - `src/tools/compare-text/` owns text detection, normalization, diff summary,
   and the Compare Text UI.
+- `src/tools/markdown-notes/` owns Markdown note generation, safe preview
+  parsing, downloads, draft storage, UI, and tests.
 - `src/tools/sql-deployment/` owns SQL formatting, analysis, guideline review,
   artifact generation, downloads, UI, and tests.
 - `src/tools/installment-simulator/` owns ARJUNA calculation logic, UI, shared
@@ -89,8 +94,10 @@ testable without rendering components.
 - Keep uploaded files and generated artifacts in browser memory only.
 - Do not send user content over the network.
 - Use the existing preferences context for theme and language support.
-- Use `personal_tools_theme` and `personal_tools_language` as the only
-  preference-storage keys.
+- Use only these localStorage keys:
+  - `personal_tools_theme`
+  - `personal_tools_language`
+  - `opentools_markdown_notes_draft`
 - Preserve legacy reference files when migrating behavior until parity is
   verified.
 
@@ -106,6 +113,47 @@ testable without rendering components.
 - Provide friendly, actionable error and validation messages.
 - Keep content understandable for non-technical users.
 - Avoid broad rewrites when a focused change is enough.
+
+## SOLID Principles
+
+Apply SOLID principles pragmatically. Do not over-engineer small utilities, but
+keep the code easy to extend, test, and review.
+
+- **Single Responsibility Principle:** each component, hook, parser, mapper,
+  validator, and download helper should have one clear reason to change.
+- **Open/Closed Principle:** prefer extending behavior through new helpers,
+  configuration, or focused modules instead of rewriting stable business logic.
+- **Liskov Substitution Principle:** shared types and helper contracts should be
+  safe to reuse across tools without surprising behavior changes.
+- **Interface Segregation Principle:** keep public types and props focused; do
+  not force components or helpers to depend on fields they do not use.
+- **Dependency Inversion Principle:** keep business logic independent from React
+  UI and browser APIs when practical; pass dependencies into pure helpers when
+  doing so improves testability.
+
+## SonarQube-Style Quality Standards
+
+The project may not always run SonarQube locally, but code should be written as
+if it must pass a SonarQube quality gate.
+
+- Avoid code smells such as duplicated branches, unused exports, dead code,
+  unclear names, overly broad functions, and hidden side effects.
+- Keep cognitive complexity low by using early returns, small helpers, and
+  shallow control flow.
+- Avoid copy-paste duplication; extract shared helpers only when the abstraction
+  is clear and useful.
+- Treat TypeScript and ESLint warnings as quality issues to resolve before
+  finishing.
+- Do not ignore errors silently; return friendly, actionable messages for
+  expected user-facing failures.
+- Avoid unsafe DOM APIs, `eval`, dynamic script injection, and unnecessary
+  network access.
+- Validate and sanitize file names, generated downloads, and user-provided text
+  where they affect rendered output or downloadable artifacts.
+- Keep tests focused on changed business rules, edge cases, and regression-prone
+  behavior.
+- Remove temporary logs, debugging code, commented-out code, and unused assets
+  before finishing.
 
 ## UI And Accessibility Standards
 
@@ -148,6 +196,18 @@ testable without rendering components.
 - Use browser-memory file reading only and do not store compared text.
 - Preserve side-by-side and unified diff behavior unless the user explicitly
   requests merge-editor behavior.
+
+### Markdown Notes
+
+- Keep Markdown generation, filename generation, downloads, storage, and preview
+  parsing in typed helpers.
+- Use `opentools_markdown_notes_draft` as the only draft storage key.
+- Do not send Markdown notes, appsetting values, SQL scripts, or MR links over
+  the network.
+- Escape user-provided content through React rendering; do not use
+  `dangerouslySetInnerHTML` for the preview.
+- Preserve the Markdown output template unless the user explicitly requests a
+  template change.
 
 ### SQL Deployment Formatter
 
@@ -223,6 +283,9 @@ Before finishing:
 - The application remains browser-only.
 - No backend, API, database, authentication, or uploaded-file storage was
   introduced.
+- SOLID principles are followed pragmatically without unnecessary abstraction.
+- SonarQube-style quality risks are checked: complexity, duplication, dead code,
+  unsafe APIs, unhandled errors, and missing focused tests.
 - Theme, language, responsive layout, and accessibility still work.
 - Tests, lint, build, and whitespace checks pass.
 - README, changelog, and relevant docs are current.

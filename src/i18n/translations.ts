@@ -15,6 +15,7 @@ export const translations = {
     docxToJson: 'DOCX to JSON',
     docxToJsonV2: 'DOCX to JSON V2',
     compareText: 'Compare Text',
+    markdownNotes: 'Markdown Notes',
     sqlDeployment: 'SQL Deployment',
     installmentSimulator: 'Simulasi Angsuran',
     builtWith: 'Built With',
@@ -35,7 +36,7 @@ export const translations = {
       'Kumpulan utilitas pribadi yang cepat, rapi, dan tetap privat. Semua proses berjalan langsung di browser Anda.',
     availableTools: 'Tools tersedia',
     startBelow: 'Pilih tools yang ingin digunakan.',
-    toolCount: '5 tools',
+    toolCount: '6 tools',
     browserOnly: 'Diproses di browser',
     docxDescription:
       'DOCX to JSON adalah tools sederhana untuk membantu tim Analyst mengubah dokumen Word menjadi format JSON. Tools ini dirancang untuk mempermudah proses pembuatan Help & Support, informasi fitur produk, serta dokumentasi flow process agar lebih cepat, konsisten, dan mudah digunakan kembali oleh sistem atau tim teknis.',
@@ -43,6 +44,8 @@ export const translations = {
       'DOCX to JSON V2 membantu membuat JSON Help & Support berdasarkan template 040002. Download template Word lengkap, hapus bagian yang tidak dibutuhkan, lalu upload kembali untuk mendapatkan JSON yang sesuai kebutuhan.',
     compareTextDescription:
       'Bandingkan dua teks atau file lokal dengan tampilan side-by-side dan unified. Tools ini otomatis mengenali SQL, JSON, dan format teks umum lainnya.',
+    markdownNotesDescription:
+      'Buat catatan deployment, GitHub Issue, checklist rilis, dan dokumentasi harian dalam format Markdown yang siap disalin atau diunduh.',
     sqlDescription:
       'SQL Deployment Formatter adalah tools untuk membantu tim Developer menyusun listing object database dengan lebih rapi dan konsisten. Tools ini dibuat agar proses persiapan deployment database lebih mudah mengikuti standar tim DevOps pada proses Deploy Product Release (SLRC).',
     installmentDescription:
@@ -64,6 +67,38 @@ export const translations = {
     compareTitle: 'Compare Text',
     compareDescription:
       'Bandingkan dua teks seperti SQL, JSON, konfigurasi, atau catatan biasa langsung di browser Anda.',
+    markdownEyebrow: 'Dokumentasi deployment',
+    markdownTitle: 'Markdown Notes',
+    markdownDescription:
+      'Buat file Markdown dari form sederhana untuk GitHub Issue, catatan deployment, script database, checklist rilis, dan dokumentasi kerja harian.',
+    markdownFormTitle: 'Isi catatan',
+    markdownFormDescription:
+      'Isi field yang dibutuhkan saja. Preview Markdown akan diperbarui otomatis saat Anda mengetik.',
+    markdownPreviewTitle: 'Preview Markdown',
+    markdownPreviewDescription:
+      'Cek hasilnya dalam tampilan rendered atau raw Markdown sebelum copy atau download.',
+    markdownTitleField: 'Title',
+    markdownSummaryField: 'Summary',
+    markdownMrLinkField: 'MR Link',
+    markdownAppsettingField: 'Appsetting',
+    markdownDbNameField: 'DB Name',
+    markdownBackupScriptField: 'Backup Script',
+    markdownDeploymentScriptField: 'Deployment Script',
+    markdownVerificationQueryField: 'Verification Query',
+    markdownRollbackQueryField: 'Rollback Query',
+    markdownNotesField: 'Notes',
+    markdownRendered: 'Rendered',
+    markdownRaw: 'Raw Markdown',
+    markdownCopy: 'Copy Markdown',
+    markdownDownload: 'Download .md',
+    markdownClear: 'Clear Form',
+    markdownDraftSaved: 'Draft tersimpan otomatis di browser ini.',
+    markdownDraftReady: 'Draft siap digunakan.',
+    markdownDraftCleared: 'Form dikosongkan dan draft dihapus.',
+    markdownDraftSaveFailed: 'Draft tidak bisa disimpan di browser ini.',
+    markdownCopied: 'Markdown berhasil disalin.',
+    markdownDownloaded: 'File Markdown berhasil diunduh.',
+    markdownDownloadFailed: 'File Markdown gagal diunduh.',
     compareLeftText: 'Teks kiri',
     compareRightText: 'Teks kanan',
     comparePasteOrUpload: 'Paste teks atau upload file lokal',
@@ -196,6 +231,7 @@ export const translations = {
     docxToJson: 'DOCX to JSON',
     docxToJsonV2: 'DOCX to JSON V2',
     compareText: 'Compare Text',
+    markdownNotes: 'Markdown Notes',
     sqlDeployment: 'SQL Deployment',
     installmentSimulator: 'Installment Simulator',
     builtWith: 'Built With',
@@ -216,7 +252,7 @@ export const translations = {
       'A clean set of quick, private utilities for recurring file tasks. Everything runs right in your browser.',
     availableTools: 'Available tools',
     startBelow: 'Choose a tool to get started.',
-    toolCount: '5 tools',
+    toolCount: '6 tools',
     browserOnly: 'Browser-only processing',
     docxDescription:
       'DOCX to JSON is a simple tool designed to help Analyst teams convert Word documents into structured JSON format. This tool supports the creation of Help & Support content, product feature information, and flow process documentation in a faster, more consistent, and reusable way.',
@@ -224,6 +260,8 @@ export const translations = {
       'DOCX to JSON V2 helps create Help & Support JSON based on the 040002 template. Download the full Word template, remove anything you do not need, then upload it back to generate a focused JSON file.',
     compareTextDescription:
       'Compare two text inputs or local files with side-by-side and unified views. The tool automatically recognizes SQL, JSON, and other common text formats.',
+    markdownNotesDescription:
+      'Create deployment notes, GitHub Issues, release checklists, and daily work documentation as ready-to-copy Markdown.',
     sqlDescription:
       'SQL Deployment Formatter is a tool that helps Developer teams prepare database object listings in a cleaner and more consistent format. It is designed to support database deployment preparation based on the DevOps standard for Product Release deployment process (SLRC).',
     installmentDescription:
@@ -245,6 +283,38 @@ export const translations = {
     compareTitle: 'Compare Text',
     compareDescription:
       'Compare two pieces of text such as SQL, JSON, configuration, or plain notes directly in your browser.',
+    markdownEyebrow: 'Deployment documentation',
+    markdownTitle: 'Markdown Notes',
+    markdownDescription:
+      'Generate Markdown files from a simple form for GitHub Issues, deployment notes, database scripts, release checklists, and daily work documentation.',
+    markdownFormTitle: 'Fill in the notes',
+    markdownFormDescription:
+      'Fill only the fields you need. The Markdown preview updates automatically while you type.',
+    markdownPreviewTitle: 'Markdown preview',
+    markdownPreviewDescription:
+      'Review the rendered result or raw Markdown before copying or downloading it.',
+    markdownTitleField: 'Title',
+    markdownSummaryField: 'Summary',
+    markdownMrLinkField: 'MR Link',
+    markdownAppsettingField: 'Appsetting',
+    markdownDbNameField: 'DB Name',
+    markdownBackupScriptField: 'Backup Script',
+    markdownDeploymentScriptField: 'Deployment Script',
+    markdownVerificationQueryField: 'Verification Query',
+    markdownRollbackQueryField: 'Rollback Query',
+    markdownNotesField: 'Notes',
+    markdownRendered: 'Rendered',
+    markdownRaw: 'Raw Markdown',
+    markdownCopy: 'Copy Markdown',
+    markdownDownload: 'Download .md',
+    markdownClear: 'Clear Form',
+    markdownDraftSaved: 'Draft saved automatically in this browser.',
+    markdownDraftReady: 'Draft is ready.',
+    markdownDraftCleared: 'Form cleared and draft removed.',
+    markdownDraftSaveFailed: 'Draft could not be saved in this browser.',
+    markdownCopied: 'Markdown copied.',
+    markdownDownloaded: 'Markdown file downloaded.',
+    markdownDownloadFailed: 'Markdown file download failed.',
     compareLeftText: 'Left text',
     compareRightText: 'Right text',
     comparePasteOrUpload: 'Paste text or upload a local file',

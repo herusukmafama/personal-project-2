@@ -13,6 +13,8 @@ A browser-only OpenTools dashboard built with React, TypeScript, Vite, and Tailw
   from a downloadable Word template
 - Browser-only Compare Text tool for side-by-side and unified text diffs with
   optional SQL and JSON normalization
+- Browser-only Markdown Notes generator for deployment notes, GitHub Issues,
+  DB script notes, release checklists, and daily work documentation
 - Browser-only PostgreSQL deployment formatter for SLRC-ready SQL files,
   deployment.txt, ZIP bundles, ticket notes, guideline auto-fixes, and diff review
 - Browser-only ARJUNA installment simulator for effective-rate and flat-rate
